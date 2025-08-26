@@ -1,0 +1,244 @@
+.mainBody {
+    height: 500px;
+    width: 100%;
+    background: rgb(75, 74, 74);
+}
+
+.subMenu {
+    margin: auto;
+    background: rgb(43, 41, 41);
+    color: gray;
+    width: 60%;
+    padding: 0.5%;
+    border-radius: 10px;
+}
+.tableHead{
+    text-align: center;
+    background-color:rgb(43, 41, 41);
+    color:gray;
+}
+.tbrow{
+    background-color: rgb(75, 74, 74);
+    color:yellow;
+}
+.tbrow td{
+  text-align: center;
+}
+.tbrow:hover{
+    color:#000;
+}
+
+.timeHover:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.iconHover:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.mainBody .slds-grid .slds-col h1 {
+    font-size: 1.4rem;
+    color: #fff;
+    display: inline-block;
+    font-weight: 700;
+    margin: 5px 5px;
+}
+
+.randomParaGraph {
+    width: 80%;
+    margin: auto;
+}
+
+.randomParaGraph p {
+    top: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: gray;
+}
+
+.correct {
+    color: #fff;
+}
+
+.notCorrect {
+    color: red;
+}
+
+.randomParaGraph .para {
+    position: absolute;
+    width: 80%;
+    height: 50%;
+
+}
+
+.randomParaGraph .intp {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.randomParaGraph .intp .textA {
+    background: transparent;
+    outline: none;
+    font-size: 1.5rem;
+    color: gray;
+    caret-color: yellow;
+    resize: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    transition: 0.5s;
+    font-weight: 400;
+    border: none;
+    text-decoration: none;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.iconRefresh:hover {
+    cursor: pointer;
+    --sds-c-icon-color-foreground-default: #fff;
+}
+
+.iconRefresh:hover .tooltiptext {
+
+    visibility: visible;
+}
+
+.chartResult {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.confettiCanvas {
+    position: fixed;
+}
+
+
+
+.chartResult {
+    margin-top: 3%;
+}
+
+.chartResult .subChartBody {
+    width: 80%;
+    margin: auto;
+}
+
+.chartResult .subChartBody .acc h1 {
+    color: gray;
+
+}
+
+.chartResult .subChartBody .acc h2 {
+    color: yellow;
+    font-size: 3rem;
+}
+
+.secBody .slds-grid .slds-col h1 {
+    color: gray;
+    font-size: 1rem;
+}
+
+.secBody .slds-grid .slds-col h2 {
+    color: yellow;
+    font-size: 2rem;
+}
+
+.chartDonout {
+    margin: auto;
+    width: 500px;
+    height: 270px;
+}
+
+/* ----modal---- */
+.loginCard {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top:15%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.loginCard .modal-content{
+    background: rgb(0, 0, 0);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 35%;
+}
+
+.loginCard .modal-content .input{
+--slds-c-input-color-background: transparent;
+display: inline;
+border: none;
+outline: none;
+text-decoration: none;
+font-size: 1.2rem;
+color:#fff;
+}
+
+.loginCard .modal-content .inputNew{
+    --slds-c-input-color-background: transparent;
+    display: inline;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color:#fff;
+}
+
+.loginCard .modal-content .btn{
+--slds-c-button-brand-color-background: rgb(43, 41, 41);
+color: gray;
+}
+
+.chartResult .subChartBody .acc .btnRes{
+    --slds-c-button-brand-color-background:rgb(75, 74, 74);
+    color: gray;
+}
+
+.close {
+    color: gray;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }

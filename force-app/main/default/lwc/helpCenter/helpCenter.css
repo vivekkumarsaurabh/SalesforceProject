@@ -1,0 +1,15 @@
+input{
+    padding:5px 15px;
+    margin:5px;
+    text-decoration: none;
+    border-color: none;
+    border-radius: 10px;
+}
+select{
+    padding:5px 50px;
+    margin:5px;
+    border-radius: 10px;
+}
+option{
+    padding: 5px;
+}

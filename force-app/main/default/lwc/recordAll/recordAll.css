@@ -1,0 +1,8 @@
+.sec{
+    text-decoration: none;
+    font-size: 0.8rem;    
+    --slds-c-accordion-summary-color-background:rgb(224, 221, 221);     	
+    /* --slds-c-accordion-heading-height:5px;    */
+    /* --slds-c-accordion-summary-heading-height:0px; */
+    
+}

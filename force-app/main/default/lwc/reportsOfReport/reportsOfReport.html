@@ -1,0 +1,232 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="loader">
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large"> </lightning-spinner>
+        </div>
+    </template>
+    <div class="mainBody">
+        <div style="align-items: center;  display: flex; justify-content: center;">
+            <h1 class="heading">    <lightning-icon icon-name="utility:note" class="iconStyle" alternative-text="ReportsOnReport" size="medium"></lightning-icon>
+                Report on "Reports"</h1>
+        </div>
+        <div class="slds-grid">
+            
+            <div class="slds-col slds-size_3-of-12">
+                <lightning-input type="search" value={searchValue} style="width:90%; float:right;"
+                onchange={searchHandler} label="Search Reports" placeholder="Reports Name" disabled={isBtnDisabled}>
+               </lightning-input> 
+            </div>
+
+            <div class="slds-col slds-size_8-of-12">                
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+               <button class="slds-button slds-button_brand" style="margin-top: 18%;" onclick={handleClear} title="Clear Filter">Clear Filter</button>
+            </div>
+        
+        </div>
+
+        <div class="tableDesign">
+            <table style="padding: 5px;">
+                <thead class="tableHead">
+                    <tr class="tableMainRow">
+                        <th>
+                            Report Name
+                        </th>
+                        <th class="filterCol" onclick={folderNameHanlder} style="overflow: hidden;">
+                         
+                            <div class="slds-grid">
+                                Folder Name
+                                <lightning-icon icon-name="utility:switch" class="iconStyle" alternative-text="filter" size='xx-small'></lightning-icon>
+                             </div>
+                        </th>
+                        <th class="filterCol" onclick={formatNameHandler} style="overflow: hidden;">
+                            <div class="slds-grid">
+                                Format
+                                <lightning-icon icon-name="utility:switch" class="iconStyle" alternative-text="filter" size='xx-small'></lightning-icon>
+                            </div>
+                        </th>
+                        <th class="filterCol" onclick={ownerNameHandler} style="overflow: hidden;">
+                            <div class="slds-grid">
+                                Owner Name 
+                                <lightning-icon icon-name="utility:switch" class="iconStyle" alternative-text="filter" size='xx-small'></lightning-icon>
+                            </div>
+                        </th>
+                        <th>
+                            Field Column
+                        </th>
+                        <th>
+                            Filter List
+                        </th>
+                        <th>
+                            Standard Filter
+                        </th>
+                        <th>
+                            Cross Filter
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <template for:each={reports} for:item="iterateItem">
+                        <tr key={iterateItem} class="data">
+                            <td data-id={iterateItem.id} style="color:blue;" onclick={handleClick}>
+                                {iterateItem.name}
+                            </td>
+                            <td>
+                                {iterateItem.folderName}
+                            </td>
+                            <td>
+                                {iterateItem.format}
+                            </td>
+                            <td>
+                                {iterateItem.ownerName}
+                            </td>
+                            <td>
+                                {iterateItem.fieldscolumns}
+                            </td>
+                            <td class={iterateItem}>
+                                <table>
+                                    <thead>
+                                        <tr class={iterateItem.filterList}>
+                                            <th>
+                                                Column
+                                            </th>
+                                            <th>
+                                                Filter type
+                                            </th>
+                                            <th>
+                                                Operator
+                                            </th>
+                                            <th>
+                                                Value
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={iterateItem.filterList} for:item="iterateFilter">                                       
+                                            <tr key={iterateFilter}>
+                                                <td>
+                                                    {iterateFilter.column}
+                                                </td>
+                                                <td>
+                                                    {iterateFilter.filterType}
+                                                </td>
+                                                <td>
+                                                    {iterateFilter.operator}
+                                                </td>
+                                                <td>
+                                                    {iterateFilter.value}
+                                                </td>
+                                            </tr>                                       
+                                        </template>
+                                    </tbody>
+                                </table>
+
+                            </td>
+                            <td class={iterateItem}>
+                                <table>
+                                    <thead>
+                                        <tr class={iterateItem.standardFilters}>
+                                            <th>
+                                                Name
+                                            </th>                                           
+                                            <th>
+                                                Value
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={iterateItem.standardFilters} for:item="iterateStandardFilter">                                       
+                                            <tr key={iterateStandardFilter}>
+                                                <td>
+                                                    {iterateStandardFilter.name}
+                                                </td>
+                                                <td>
+                                                    {iterateStandardFilter.value}
+                                                </td>                                                
+                                            </tr>                                       
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class={iterateItem}>
+                                <table>
+                                    <thead>
+                                        <tr class={iterateItem.crossFilters}>
+                                            <th>
+                                                IncludesObject
+                                            </th>                                           
+                                            <th>
+                                                PrimaryEntityField
+                                            </th>
+                                            <th>
+                                                RelatedEntity
+                                            </th>
+                                            <th>
+                                                RelatedEntityJoinField
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={iterateItem.crossFilters} for:item="iterateCrossFilter">                                       
+                                            <tr key={iterateCrossFilter}>
+                                                <td>
+                                                    {iterateCrossFilter.includesObject}
+                                                </td>
+                                                <td>
+                                                    {iterateCrossFilter.primaryEntityField}
+                                                </td>    
+                                                <td>
+                                                    {iterateCrossFilter.relatedEntity}
+                                                </td>  
+                                                <td>
+                                                    {iterateCrossFilter.relatedEntityJoinField}
+                                                </td>                                              
+                                            </tr>                                       
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <template if:true={isPopovers}>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_12-of-12">
+                    <section aria-describedby="dialog-body-id-109" aria-labelledby="dialog-body-id-109" class="slds-popover slds-nubbin_top-left slds-popover_large"
+                        role="dialog" style="position: absolute; top:27%; left:10%;">
+                        <div class="slds-popover__body" id="dialog-body-id-109">
+                            <div class="slds-media">                              
+                                <div class="slds-media__body" style="height: 30vh;"> 
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_12-of-12">
+                                            <lightning-input type="text" label="Selected Filter" value={selectedValueHeading} disabled="true" style="margin-left: 10px;"></lightning-input>
+                                           <lightning-combobox value={operator} placeholder="Select Operator" options={filterOperation} style="margin-left: 10px;" onchange={handlerOperation} ></lightning-combobox>
+                                           <lightning-combobox value={filterValue} placeholder="Select Value" options={filterValues} style="margin-left: 10px;" onchange={handleFilterVlaue} ></lightning-combobox>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_6-of-12">
+                                            <button class="slds-button slds-button_neutral"
+                                                style="float:left; margin:10px;" 
+                                                onclick={filterCloseHandler} title="Done">Close</button>
+                                        </div>
+                                        <div class="slds-col slds-size_6-of-12">
+                                            <button class="slds-button slds-button_neutral"
+                                                style="float:right; margin:10px;" 
+                                                onclick={saveFilterModal} title="Done">Done</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

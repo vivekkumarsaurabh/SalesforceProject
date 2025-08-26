@@ -1,0 +1,16 @@
+.mainDiv {
+    border: 1px solid #c7c6c6;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.header {
+    height: 75px;
+    background-color: rgb(245, 244, 244);
+    border: 1px solid #c7c6c6;
+}
+
+.headerName {
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1%;
+}

@@ -1,0 +1,264 @@
+@font-face {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+    src: url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+}
+
+*{
+    scroll-behavior: smooth;
+}
+
+.mainBody h1 {
+    font-size: 1.7rem;
+    font-family: "Dancing Script", cursive;
+}
+
+.signUpLink:hover {
+    cursor: pointer;
+    color: blue;
+}
+
+.loginLink:hover {
+    cursor: pointer;
+    color: blue;
+}
+
+.menu {
+    padding: 5%;
+    font-size: 1rem;
+    margin-right: 10px;
+    color: #000000;
+}
+
+
+.menu:hover{
+    border-radius: 5px;
+    background-color: gainsboro;
+    cursor: pointer;
+}
+
+.content-container {
+    display: none;
+}
+
+/* .slds-carousel__content{
+   max-height: 100%;
+   max-width: 100%;
+} */
+.postMainBodyContainer .story {
+    height: 100px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 200px;
+    margin: auto;
+}
+
+.postOpen{
+
+}
+
+.story::-webkit-scrollbar {
+    display: none;
+}
+
+.postMainBodyContainer .story .stories {
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    background-color: blueviolet;
+    border: 3px solid #15e464;
+}
+
+.postMainBodyContainer {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+}
+
+.colorBlack {
+    --sds-c-icon-color-foreground-default: #000000;
+}
+
+
+.cmt {
+    height: 330px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cmt::-webkit-scrollbar {
+    display: none;
+}
+
+.msgBox{
+    height:400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.otpSend:hover{
+    cursor: pointer;
+    color:rgb(18, 155, 209);
+}
+
+.forgot:hover{
+    cursor: pointer;
+}
+
+
+.msgBox::-webkit-scrollbar{
+    display: none;
+}
+
+.reelScroll{
+    height:400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.reelScroll::-webkit-scrollbar{
+    display: none;
+}
+
+
+.postMainBodyContainer div .post {
+    width: 400px;
+    height: 550px;
+}
+
+.displayProfile {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+.displayMsg{
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+.seacrhBox{
+    width: 90%;    
+    margin:auto;
+    --slds-c-input-color-background: gainsboro; 
+    --slds-c-input-color-border:#fff;
+    --slds-c-input-radius-border:0.7rem; 
+}
+
+.seacrhUserBox{
+    width: 100%;
+    border:none; 
+    outline:none;
+    --slds-c-input-color-border:none;
+    text-decoration: none;
+}
+
+.displayProfile::-webkit-scrollbar {
+    display: none;
+}
+
+.postMainBodyContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.btn {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.parent {
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 30px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.parent::-webkit-scrollbar {
+    display: none;
+}
+
+.child {
+    width: 70px;
+    height: 70px;
+    margin-right: 30px;
+    box-sizing: border-box;
+    border: 3px solid #15e464;
+    background: blueviolet;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+
+.dynamicLike {
+    --sds-c-icon-color-foreground-default: red;
+}
+
+.dynamicLikeFalse {
+    --sds-c-icon-color-foreground-default: gray;
+}
+
+.likeHover:hover {
+    cursor: pointer;
+}
+
+.menuItem {
+    padding: 5%;
+}
+
+.menuItem li{
+    padding: 5%
+}
+.menuItem li:hover {
+    background-color: rgb(233, 230, 230);
+    color: black;
+    cursor: pointer;
+}
+
+.notification {  
+    background-color: #fff;
+    height: 510px;
+    position: absolute;
+    margin-top: -8px;
+    left: 50px;
+    width: 330px;    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation-name: notificationAnimation;
+    animation-duration: 0.5s;
+}
+.message {  
+    background-color: #fff;
+    height: 500px;
+    margin-top: -8px;
+    position: absolute;
+    left: 50px;
+    width: 330px; 
+    border:1px solid rgb(220, 219, 219);   
+   
+    /* animation-name: notificationAnimation;
+    animation-duration: 0.5s; */
+}
+
+.userPro:hover{
+    background-color: rgb(233, 230, 230);
+    color: black;
+    cursor: pointer;
+}
+
+
+.msgArea {
+    --lwc-shadowButtonFocus: 0;
+    --lwc-borderWidthThin: 0;
+    --slds-c-input-shadow-focus: 0;
+    --sds-c-input-shadow-focus: 0;
+}
+
+@keyframes notificationAnimation {
+    from {width: 0px;}
+    to {width: 300px; }
+  }

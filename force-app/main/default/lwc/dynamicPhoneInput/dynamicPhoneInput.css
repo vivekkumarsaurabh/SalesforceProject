@@ -1,0 +1,13 @@
+.countryCodeBox li:hover{
+    cursor: pointer;
+    background-color: skyblue;
+    color: #fff;
+}
+
+.countryCodeBox::-webkit-scrollbar {
+    display: none;
+}
+
+.pencil:hover{
+    cursor: pointer;
+}

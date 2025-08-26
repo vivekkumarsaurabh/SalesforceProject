@@ -1,0 +1,176 @@
+.calender{
+    cursor:pointer;
+}
+.attendence{
+    cursor:pointer;
+}
+.outbox{
+    height:500px;
+    width:700px;
+    background-color:rgb(231, 74, 105);
+    margin:auto;
+}
+.innerBox{
+    height:450px;
+    width:650px;
+    background-color:#fff;
+    box-shadow: 0 3px 10px 5px rgb(0 0 0 / 0.2); margin:auto;
+}
+.calender-Body{
+    padding: 20px;
+}
+.tdclass{
+    font-weight: 500;
+    font-size: 1.2rem;
+    color:blue;
+}
+tbody tr td span{
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+@font-face {
+    font-family: 'Fjalla One', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+}
+
+.box{
+    width:90%;
+    margin:auto;
+}
+.todayDate{
+    margin:auto;
+}
+.todayDate h3{
+    margin-left: 5%;
+    font-size: 1.8rem;
+    line-height: 10px;
+    font-weight: 550;
+    font-family: 'Fjalla One', sans-serif;
+    padding: 0;
+}
+.todayDate p{
+    padding: 0;
+    margin-left:5%;
+    line-height: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.events{
+    margin-top: 10%;
+    margin: auto;
+    padding: 10%;
+}
+.events h2{
+    line-height: 1rem;
+    font-weight: 400px;
+    font-size:1.3rem;
+    display: inline-block;
+    border-bottom: 1px solid gray;
+    
+    
+}
+.monthBox{
+    height: 100px;
+    margin: 0;    
+}
+.monthBox .btn{
+    margin-top: 20px;
+    float: right;
+}
+.datePicker{
+    width:200px;
+    padding: 10px;
+    margin-top: 5px;
+}
+.selectBox{
+    float:left;
+}
+.btn1{
+    float: right;
+    margin:30px 10px;
+}
+.btn2{
+    float: right;
+    margin:30px 10px;
+}
+.btnBox{
+    display: inline-block;
+    float: right;
+}
+.events .holiday{
+    margin-top: 10%;
+    font-size: 1rem;
+}
+a {
+    text-decoration: none;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 0 3px 3px 0;
+}
+
+.prev{
+    margin-right: 2px;
+}
+
+.next {
+    right: 380px;     
+}
+
+.prev:hover,
+.next:hover {    
+    border-radius:50%;
+    background-color: antiquewhite;
+    color:rgb(231, 74, 105);
+}
+
+.attendenceTable tr th{
+    padding: 10px 10px;
+    background-color: rgb(58, 58, 147);
+    border: 1px solid #eee;
+    color:#fff;
+    text-align: center;
+    
+}
+.studentAtt td{
+    padding: 10px 0px;
+    text-align: center;
+}
+.student td{
+    padding: 10px 0px;
+    text-align: center;
+    
+}
+.presentColor{
+    color: #008000;
+}
+.sickLeaveColor{
+    background-color: #99D0CE;
+}
+.absentColor{
+    background-color: #F8D594;
+}
+.halfDayColor{
+    background-color: #E6A4E6;
+}
+.floaterLeaveColor{
+    background-color: #F8C194;
+}
+.student:nth-child(even) {
+    background-color: #dddddd;
+}
+.chartStyle:hover{
+    cursor: pointer;
+}
+
+.radioCss .slds-form-element__control .slds-radio {
+    display: inline-block !important;
+}

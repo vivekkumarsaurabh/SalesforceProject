@@ -1,0 +1,31 @@
+.mainDiv {
+    border: 1px solid #c7c6c6;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.header {
+    height: 55px;
+    background-color: rgb(245, 244, 244);
+    border: 1px solid #c7c6c6;
+}
+
+.headerName {
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1%;
+}
+
+.btn {
+    width: 100%;
+    text-align: center;
+    height: 2.3rem;
+    background-color: #fff;
+    padding: 5px 0%;
+    border: none;
+}
+
+.dataTableBody {
+    height: 95%;
+    overflow-y: auto;
+    overflow-x: auto;
+}

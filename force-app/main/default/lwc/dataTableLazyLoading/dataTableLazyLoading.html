@@ -1,0 +1,9 @@
+<template>
+    <div style="height:400px">
+        
+        <c-salesforce-codex-data-table 
+        data={records} columns={columns} key-field="Id"  enable-infinite-loading  onloadmore={loadMoreData} hide-checkbox-column="true"  show-row-number-column="true">                
+    </c-salesforce-codex-data-table>
+</div>
+
+</template>

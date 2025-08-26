@@ -1,0 +1,89 @@
+<template>
+    <div style="width: 600px; margin-left:20px;">
+
+        <div class="slds-grid">
+            <div class="slds-col slds-size-3-of-12" style=" margin-left:2%; border-bottom: 1px solid rgb(132 130 130); margin-bottom:2px;">
+                Phone Number
+            </div>
+            <div class="slds-col slds-size_2-of-12" onclick={handleDisplay}>
+                <div class="slds-grid"
+                    style="padding:5px; border-bottom:1px solid rgb(132 130 130); border-right-style:none;">
+                    <div class="slds-col slds-size_4-of-12">
+                        <img src={flagImg} alt={phoneCode} width="30" height="30">
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <h1>{phoneCode}</h1>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <lightning-icon icon-name="utility:down" class="pencil" alternative-text="country" title="select Country"
+                            size="x-small"></lightning-icon>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <div class="slds-col slds-size_3-of-12">
+                  onfocusin={handleFocus} onfocusout={handleFocusOut}
+                 <div class="slds-grid">
+                    <div class="slds-col slds-size_4-of-12">
+                        <img src={flagImg} alt={phoneCode} width="30" height="30">
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        {phoneCode}
+                    </div>
+                 </div>
+            </div> -->
+            <div class="slds-col slds-size_4-of-12">
+                <lightning-input type="text" value={phoneNumber}
+                    style=" font-size: 1rem;  border-top-left-radius: unset;  border-bottom-left-radius: unset;  border-left-style: none;"
+                    onchange={enterInputDataHandler} disabled={isShowField}></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <lightning-icon class="pencil" icon-name="utility:edit" title="edit phone Number" size="xx-small"
+                    onclick={saveRecordIndatabase}></lightning-icon>
+
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <template if:false={isShowField}>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_5-of-12">
+                            <button class="slds-button slds-button_brand" onclick={saveRecordHandler}
+                                title="Create">Save</button>
+                        </div>
+                        <div class="slds-col slds-size_2-of-12">
+
+                        </div>
+                        <div class="slds-col slds-size_5-of-12">
+                            <button class="slds-button slds-button_neutral" onclick={cancelUpdatePhoneHandler}
+                                title="Cancel">Cancel</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+        </div>
+
+    </div>
+    <div style="margin-left: 20%;">
+        <template if:true={isError}>
+            <p style="color: red; font-weight:500; font-size:0.8rem;">{inputFieldError}</p>
+        </template>
+    </div>
+    <div class="countryCodeBox"
+        style="height:250px; overflow:auto; text-decoration: none; width:300px; margin-left:12%;">
+        <ul>
+            <template if:true={isDisplay}>
+                <template if:true={allCountryInfo}>
+                    <template for:each={allCountryInfo} for:item="iterateItem">
+                        <li key={iterateItem} style="list-style:none; padding: 2%;" data-img={iterateItem.flag}
+                            data-cntycode={iterateItem.countryNameCode} data-code={iterateItem.code}
+                            onclick={getdataHadler}><img src={iterateItem.flag} alt={iterateItem.name} width="30"
+                                height="30" style="margin-right:10px;">
+                            {iterateItem.name} {iterateItem.code}
+                        </li>
+                    </template>
+                </template>
+            </template>
+        </ul>
+    </div>
+</template>

@@ -1,0 +1,110 @@
+@font-face {
+    font-family: "New Amsterdam", sans-serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-style: normal;
+    src:url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=New+Amsterdam&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+}
+.comboChildObject {
+    /* margin-left:15px; */
+    width: 100%;
+    float: left;
+    font-size: 0.8rem;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.recordTable{
+    width: 100%;
+    height: 185px;
+    margin-top: 5px;
+    overflow-y: auto;
+}
+
+.childRecordTable{
+    width: 100%;
+    height: 150px;
+    overflow-y: auto;
+}
+
+.childHeader{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerRelatedName {
+    font-weight: 600;
+    font-size: 1.2rem;    
+    padding-left: 1.5%;
+    padding-top: 1.5%;
+
+}
+.headerName {
+    font-weight: 700;
+    font-size: 1rem;
+    padding-left: 2.5%;
+    padding-top: 1.5%;
+
+}
+.relatedObjectName{
+    font-weight: 400;
+    font-size: 1rem;  
+    margin-left: 5%; 
+}
+
+td:not(:first-child):hover, td:not(:first-child):hover ~ td {
+    background: #f3c1c1;
+}
+
+.dropDownDiv{
+    height: 135px;
+    position: absolute;
+    width: 145px;
+    background: #fff;
+    right: 20px;
+    top: 100px;
+    z-index: 100;
+}
+.dropDownDiv:hover{
+    cursor: pointer;
+   
+}
+.dropDownDiv .slds-grid h1{
+    font-family: "New Amsterdam", sans-serif;
+}
+.dropDownDiv .slds-grid:hover{
+    background-color: #f3f3f3;
+}
+.hideCheckBox{
+    display: none;
+}
+
+.header{
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
+}
+.header h1{
+    font-family: "New Amsterdam", sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.filterHead{
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-bottom:8px;
+}
+.childObjectCombo{
+    /* height:50vh; */
+    /* margin: 20px; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.mainBody{
+    width: 100%;
+}
+.filterBody{
+    width:100%;
+    height: 100%;
+    background: #f3f3f3;
+}

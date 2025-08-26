@@ -1,0 +1,78 @@
+<template>
+    
+    <template if:true={isModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-04" aria-modal="true"
+            aria-describedby="modal-content-id-4" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate"> Edit Field <span style="font-weight: 700;">  {keyValue}</span></h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-4">
+                    <lightning-input type="text" name="switchemail" 
+                    required onchange={textFillHandler}></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_destructive" onclick={discardCancelModal}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_neutral" onclick={saveInputHandler}
+                        title="Discard">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <div style="display:flex; justify-content:center;"> 
+        <input type="file" class="fileInput" style="display: none;" onchange={uploadFileHandler}></input>
+        <lightning-button variant="brand" label="Upload File" title="Looks like a link" onclick={fileInsertHandler} class="slds-m-left_x-large" disabled={isUploadBtn}></lightning-button>
+        <lightning-button variant="brand" label="Download File" title="Looks like a link" onclick={downLoadhandler} class="slds-m-left_x-large" disabled={isDownloadBtn}></lightning-button>
+        <lightning-button variant="brand" label="Clear Data" title="Looks like a link" onclick={clearDatahandler} class="slds-m-left_x-large" disabled={isClearBtn}></lightning-button>
+
+    </div>
+    <br>
+    <div>   
+    <h2 style="font-size: 1rem; font-weight:700;">Blank Data</h2>
+    <div style="width: 100%; overflow-x: scroll; overflow-y:hidden; width:100%;">       
+        <table>
+            <tbody>
+                <tr>
+                   <template for:each={blankData} for:item="iterate">
+                        <!-- <td key={iterate} style="padding: 5px;" data-keyval={iterate} onclick={editHandlerOpen}><a href={iterate} class="slds-context-bar__label-action" title="Menu Item">{iterate}</a> </td> -->
+                        <td key={iterate} style="padding: 5px;" data-keyval={iterate} onclick={editHandlerOpen}>{iterate}</td>
+
+                   </template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div> 
+    <br>
+  
+    <div style="display:flex; justify-content:center;">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" style="width: 80%;">
+            <thead>
+            <tr>
+                <template for:each={tableAlpha} for:item="iterareAlphabet">
+                    <th key={iterareAlphabet} scope="col">{iterareAlphabet}</th>
+                </template>
+            </tr>
+            <tr class="slds-line-height_reset">
+            <template for:each={tableHeader} for:item="iterareHead">
+                <th key={iterareHead} scope="col">{iterareHead}</th>
+            </template>
+            </tr>            
+        </thead>
+        <tbody>
+            <template for:each={tableData} for:item="iterateData" for:index="tableIndex">
+                <tr key={iterateData} data-table={tableIndex} onclick={dataVerticallyHandler}>
+                    <td>{tableIndex}</td>
+                    <template if:true={filled} for:each={iterateData} for:item="fileData">                                            
+                        <td if:true={fileData.value} key={fileData.key} data-key={fileData.key} class="inputdata">{fileData.value}</td>
+                        <td if:false={fileData.value} key={fileData} data-key={fileData.key} onclick={editHandler} class="inputdata" style="border: 1px solid red;"></td>
+                    </template>
+                </tr>
+           </template>
+        </tbody>
+        </table>
+    </div>
+</template>

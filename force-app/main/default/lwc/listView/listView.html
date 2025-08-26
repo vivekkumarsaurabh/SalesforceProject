@@ -1,0 +1,676 @@
+<template>
+
+    <template if:true={isLoading}>
+        <div class="loader">
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large"
+                style="background: none; top:70%;">
+            </lightning-spinner>
+        </div>
+    </template>
+
+    <template if:true={isCreateModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+            aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={handleCancelCreate}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Create {sObjectAPIName}
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-record-form object-api-name={sObjectAPIName} fields={fields}
+                        onsubmit={handleCreateSubmit} oncancel={handleCancelCreate}></lightning-record-form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isDeleteModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={deleteCancelModal}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Delete {sObjectAPIName}
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <h1>Are you sure you want to delete this {sObjectAPIName}?</h1>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={deleteCancelModal}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={deleteHandler}
+                        title="delete file">Delete</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isFieldDisplay}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-05" aria-modal="true"
+            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelFilterModal}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate">Select Fields to Display
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+                    <lightning-dual-listbox name="languages" label="Select Languages" source-label="Available Fields"
+                        selected-label="Visible Fields" options={filedFilter} value={defaultOptions}
+                        required-options={requiredOptions} onchange={handleDisplayField}></lightning-dual-listbox>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelFilterModal}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={saveFilterModal}
+                        title="delete file">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isCreateListView}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-06" aria-modal="true"
+            aria-describedby="modal-content-id-6" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelCreateListView}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-06" class="slds-text-heading_medium slds-hyphenate">{newClone} List View
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-6">
+                    <lightning-input type="text" name="useremail" label="List Name" class="input" value={listViewName}
+                        required onchange={listNameChange}></lightning-input>
+                    <lightning-input type="text" name="useremail" label="List API Name" class="input"
+                        value={listViewAPiName} required onchange={listApiNameChange}></lightning-input>
+                    <lightning-radio-group name="radioGroup" label="Who sees this list view?"
+                        options={listChangeOptions} value={selectedListViewSharing} type="radio"
+                        onchange={listNameChangeHandler}></lightning-radio-group>
+                        <template if:true={isSharingForAnyOne}>
+                            <lightning-card class="slds-card__body_inner">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">Search</label>
+                                    <div class="slds-form-element__control slds-combobox-group">
+                                        <!-- <lightning-combobox  data-id="targetSelector" label="Select a target sObject" variant="label-hidden"  options={targetObjects} value={selectedTarget} onchange={handleTargetSelection}  class="slds-combobox_object-switcher slds-combobox-addon_start" >
+                                            </lightning-combobox> -->
+                                        <lightning-button-menu alternative-text="Show menu"
+                                            onselect={handleTargetSelection}>
+                                            <template for:each={targetObjects} for:item="iterateSharing">
+                                                <lightning-menu-item value={iterateSharing.value}
+                                                    label={iterateSharing.label} prefix-icon-name={iterateSharing.icon}
+                                                    key={iterateSharing}></lightning-menu-item>
+                                            </template>
+                                        </lightning-button-menu>
+                                        <lightning-input type="search" value={searchValue}
+                                            style="width:90%; margin-top:-18px;" onchange={searchGroupHandler}
+                                            placeholder="Search this list..." disabled={isBtnDisabled}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+    
+                                <template if:true={isGroup}>
+                                    <div class="optionGroup">
+                                        <template for:each={groups} for:item="iterateGroups">
+                                            <li key={iterateGroups} style="list-style-type: none; padding:5px;"
+                                                data-group={iterateGroups.DeveloperName} data-icon={icon}
+                                                data-grouptype={iterateGroups.Type} onclick={selectGroupHandler}>
+                                                <lightning-icon icon-name={icon} alternative-text={sObjectAPIName}
+                                                    size='small'></lightning-icon> {iterateGroups.DeveloperName} </li>
+                                        </template>
+    
+                                    </div>
+                                </template>
+                                <template if:true={groupList}>
+                                    <template for:each={groupList} for:item="iteratePill">
+                                        <lightning-pill label={iteratePill.name} key={iteratePill}
+                                            data-pill={iteratePill.name} onremove={handleRemove}><lightning-icon
+                                                icon-name={iteratePill.icon} alternative-text="Group">
+                                            </lightning-icon></lightning-pill>
+                                    </template>
+                                </template>
+                            </lightning-card>
+                        </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelCreateListView}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={saveListViewHandler}
+                        title="delete file">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isDeleteListView}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-06" aria-modal="true"
+            aria-describedby="modal-content-id-7" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelDeleteListView}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate">Delete
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-7">
+                    <p>If you delete this list view it will be permanently removed for all users with access. Are you
+                        sure you want to delete?</p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelDeleteListView}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={deleteListViewHanlder}
+                        title="delete file">Delete</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+    </template>
+
+    <template if:true={isRenameListView}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-10" aria-modal="true"
+        aria-describedby="modal-content-id-10" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <lightning-icon
+                class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelRenameListView}
+                style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-10" class="slds-text-heading_medium slds-hyphenate">{newClone} List View
+                </h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-10">
+                <lightning-input type="text"  label="List Name" class="input" value={listViewName}
+                    required onchange={listRenameChnage}></lightning-input>
+                <lightning-input type="text" label="List API Name" class="input"
+                    value={listViewAPiName} required disabled="true"></lightning-input>
+                
+                 <lightning-input type="text" label=" Who sees this list view?" class="input"
+                 value="Certain groups can see this list view" disabled="true"></lightning-input>
+               
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={cancelRenameListView}
+                    title="Cancel">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={saveRenameListView}
+                    title="delete file">Save</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isSharingSetting}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-08" aria-modal="true"
+            aria-describedby="modal-content-id-8" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelSharingSetting}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-08" class="slds-text-heading_medium slds-hyphenate">Sharing Settings
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-8">
+                    <lightning-radio-group name="radioGroup" label="Who sees this list view?"
+                        options={listChangeOptions} value={selectedListViewSharing} type="radio"
+                        onchange={listNameChangeHandler}></lightning-radio-group>
+
+                    <template if:true={isSharingForAnyOne}>
+                        <lightning-card class="slds-card__body_inner">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Search</label>
+                                <div class="slds-form-element__control slds-combobox-group">
+                                    <!-- <lightning-combobox  data-id="targetSelector" label="Select a target sObject" variant="label-hidden"  options={targetObjects} value={selectedTarget} onchange={handleTargetSelection}  class="slds-combobox_object-switcher slds-combobox-addon_start" >
+                                        </lightning-combobox> -->
+                                    <lightning-button-menu alternative-text="Show menu" onselect={handleTargetSelection}>
+                                        <template for:each={targetObjects} for:item="iterateSharing">
+                                            <lightning-menu-item value={iterateSharing.value}
+                                                label={iterateSharing.label} prefix-icon-name={iterateSharing.icon}
+                                                key={iterateSharing}></lightning-menu-item>
+                                        </template>
+                                    </lightning-button-menu>
+                                    <lightning-input type="search" value={searchValue}
+                                        style="width:90%; margin-top:-18px;" onchange={searchGroupHandler}
+                                        placeholder="Search this list..." disabled={isBtnDisabled}>
+                                    </lightning-input>
+                                </div>
+                            </div>
+
+                            <template if:true={isGroup}>
+                                <div class="optionGroup">
+                                    <template for:each={groups} for:item="iterateGroups">
+                                        <li key={iterateGroups} style="list-style-type: none; padding:5px;"
+                                            data-group={iterateGroups.DeveloperName} data-icon={icon}
+                                            data-grouptype={iterateGroups.Type} onclick={selectGroupHandler}>
+                                            <lightning-icon icon-name={icon} alternative-text={sObjectAPIName}
+                                                size='small'></lightning-icon> {iterateGroups.DeveloperName} </li>
+                                    </template>
+
+                                </div>
+                            </template>
+                            <template if:true={groupList}>
+                                <template for:each={groupList} for:item="iteratePill">
+                                    <lightning-pill label={iteratePill.name} key={iteratePill}
+                                        data-pill={iteratePill.name} onremove={handleRemove}><lightning-icon
+                                            icon-name={iteratePill.icon} alternative-text="Group">
+                                        </lightning-icon></lightning-pill>
+                                </template>
+                            </template>
+                        </lightning-card>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelSharingSetting}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={saveSharingSettingHandle}
+                        title="save sharing">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isRichText}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-09" aria-modal="true"
+            aria-describedby="modal-content-id-9" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelRichTextHandler}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-09" class="slds-text-heading_medium slds-hyphenate">Edit Rich Text Area
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-9">
+                    <lightning-input-rich-text value={richTextAreaVal} onchange={handleRichTextChange} style="">
+                    </lightning-input-rich-text>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelRichTextHandler}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={saveRichTextHandler}
+                        title="delete file">ok</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isAutoRefresh}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-06" aria-modal="true"
+        aria-describedby="modal-content-id-77" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <lightning-icon
+                class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelAutoRefresh}></lightning-icon>
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-77" class="slds-text-heading_medium slds-hyphenate">Auto Refresh
+                </h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-77">
+                <lightning-combobox   label="Time Interval" value={timeIntervalValue} options={timeLabel}  onchange={handleTimeInterval} ></lightning-combobox>
+                <br>
+                <lightning-radio-group  options={automationConfigration}  value={automationValue}  type="radio" onchange={changeAutomationHandler}></lightning-radio-group>
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={cancelAutoRefresh}
+                    title="Cancel">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={saveAutoTimeHandler}
+                    title="Save">Save</button>
+            </footer>
+        </div>
+    </section>
+        
+    </template>
+
+    <div class="childObjectCombo">
+        <div class="slds-grid objectConfigration">
+            <div class="slds-col slds-size_4-of-12">
+                <template if:false={isIcon}>
+                    <lightning-combobox value={selectedSObject} placeholder="Select Configration" options={sObjectList}
+                        onchange={handleSelectSObject} class="comboChildObject"></lightning-combobox>
+                </template>
+                <template if:true={isIcon}>
+                    <h1 class="headerName">
+                        <lightning-icon icon-name={icon} alternative-text={sObjectAPIName}
+                            size='medium'></lightning-icon> {sObjectLabelName}
+                    </h1>
+                </template>
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-12"></div>
+                    <div class="slds-col slds-size_4-of-12">
+                        <h1 style="font-size: 1rem; font-weight:700; margin-top:-10px">
+                            {listViewLabel}
+                        </h1>
+                    </div>
+                    <template if:true={isListView}>
+                        <div class="slds-col slds-size_1-of-12">
+                            <lightning-button-menu alternative-text="Show listView" class="listViewDiv"
+                                onselect={handleListView}>
+                                <h2 style="padding:5px; letter-spacing: 0.1rem; font-size: 0.8rem;">LIST VIEWS</h2>
+                                <template if:true={listViewData}>
+                                <template for:each={listViewData} for:item="iterateListView">
+                                    <lightning-menu-item label={iterateListView.label} value={iterateListView.value}
+                                        key={iterateListView.value}>
+                                    </lightning-menu-item>
+                                </template>
+                            </template>
+                            </lightning-button-menu>
+                        </div>
+                    </template>
+                    <div class="slds-col slds-size_7-of-12"></div>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_4-of-12"></div>
+            <div class="slds-col slds-size_4-of-12">
+                <template if:false={isFile}>
+                    <div style="margin-top: 2%; margin-left:50%;">
+                            <button class="slds-button slds-button_neutral" onclick={openCreateRecModal}
+                            style="margin-left: 10px;" title="create new record" disabled={isBtnDisabled}>New</button>   
+                        <button class="slds-button slds-button_neutral" onclick={autoRefreshHandler} disabled={isBtnDisabled}
+                            title="clear related record">Auto Refresh</button>
+                        <button class="slds-button slds-button_neutral" onclick={clearHandlder} disabled={isBtnDisabled}
+                            title="clear related record">Clear</button>
+                    </div>
+                </template>
+                <template if:true={isFile}>
+                    <div class="slds-grid" style="margin-left:10%;">
+                        <!-- <div style="margin-top: 2%; margin-left:10%;">
+                            <lightning-file-upload name="fileUploader" class="fileInput" record-id={recordId} onuploadfinished={handleUploadFinished} title="" multiple style="display: none;"></lightning-file-upload>                        
+                            <button class="slds-button slds-button_neutral" onclick={uploadFileHandler} disabled={isBtnDisabled}
+                            title="clear related record">Upload File</button>  
+                        <button class="slds-button slds-button_neutral" onclick={autoRefreshHandler} disabled={isBtnDisabled}
+                            title="clear related record">Auto Refresh</button>
+                        <button class="slds-button slds-button_neutral" onclick={clearHandlder} disabled={isBtnDisabled}
+                            title="clear related record">Clear</button>
+                    </div> -->
+                        <div class="slds-col slds-size_2-of-12">
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <lightning-file-upload name="fileUploader" class="fileInput" onuploadfinished={handleUploadFinished} title="" multiple style="position:absolute; top:-2%; float:right;"></lightning-file-upload>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12" style="margin-top:2%;">
+                            <button class="slds-button slds-button_neutral" onclick={autoRefreshHandler} disabled={isBtnDisabled}
+                            title="clear related record">Auto Refresh</button>          
+                        </div>
+                        <div class="slds-col slds-size_3-of-12" style="margin-top:2%;">
+                            <button class="slds-button slds-button_neutral" onclick={clearHandlder} disabled={isBtnDisabled}
+                            title="clear related record">Clear</button>
+                        </div>
+                        <!-- <div style="margin-left:25%;"> -->
+    
+                        <!-- <button class="slds-button slds-button_neutral" onclick={autoRefreshHandler} disabled={isBtnDisabled}
+                            title="clear related record">Auto Refresh</button> -->
+                        
+                    <!-- </div> -->
+                    </div>      
+
+                </template>
+               
+            </div>
+        </div>
+
+        <div class="slds-grid" style="background: #f3f3f3;">
+            <div class="slds-col slds-size_4-of-12">
+                <template if:true={isIcon}>
+                    <div style="display: ruby-text; margin-left: 12px; position:relative; top:65%;">
+                        {recordSize} items <li style="margin-left: 5px;">Shorted by {sortingName}</li>
+                        <li style="margin-left: 5px;">Filtered by All {sObjectLabelName} </li>
+                        <li style="margin-left: 5px;">Updated <span class="time">few seconds</span> ago</li>
+                    </div>
+                    <!-- <h1 style="padding: 20px;"> 
+                    </h1>-->
+                </template>
+            </div>
+            <div class="slds-col slds-size_4-of-12"></div>
+            <div class="slds-col slds-size_4-of-12">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12">
+                    </div>
+                    <template if:false={isBtnDisabled}>
+                        <div class="slds-col slds-size_6-of-12">
+                            <lightning-input type="search" value={searchValue} style="width:95%;"
+                                onchange={searchHandler} placeholder="Search this list..." disabled={isBtnDisabled}>
+                            </lightning-input>
+                        </div>
+                        <template if:false={isFile}>
+                        <div class="slds-col slds-size_1-of-12">
+                            <lightning-icon icon-name="utility:settings" alternative-text="setting" size="xx-small"
+                                class="iconSetting" title="List View Controls"
+                                onclick={listViewControlsHandler}></lightning-icon>
+                        </div>
+                       </template>
+
+                        <div class="slds-col slds-size_1-of-12">
+                            <lightning-icon icon-name="utility:refresh" alternative-text="refresh" size="xx-small"
+                                title="Refresh" class="iconStyle" onclick={refreshHandler}></lightning-icon>
+                        </div>
+                       <template if:false={isFile}>
+                        <div class="slds-col slds-size_1-of-12">
+                            <lightning-icon icon-name="utility:filterList" alternative-text="filter" size="xx-small"
+                                title="show Filters" class="iconStyle" onclick={handleFilterAscDec}></lightning-icon>
+                        </div>
+                       </template>
+                      
+                        
+                    </template>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slds-grid">
+            <div class="slds-col mainBody">
+                <template if:true={isRecord}>
+                    <template if:false={isSearchData}>
+                        <div class="recordTable">
+                            <lightning-datatable class="datatableUnique" data={records} columns={columns} key-field="Id"
+                                sorted-by={sortBy} sorted-direction={sortDirection} onsort={doSorting}
+                                draft-values={draftValues} onsave={handleSave} onrowaction={handleRowAction}
+                                hide-checkbox-column="true" oncellchange={dataTableHandler} onclick={handlerClick}>
+                            </lightning-datatable>
+                        </div>
+                        <!-- <template if:true={isRichText}> -->
+                        <!-- <lightning-formatted-rich-text value={myVal}></lightning-formatted-rich-text> -->
+                        <!-- </template> -->
+                    </template>
+                    <template if:true={isSearchData}>
+                        <div class="recordTable">
+                            <lightning-datatable data={searchData} columns={columns} key-field="Id" sorted-by={sortBy}
+                                sorted-direction={sortDirection} onsort={doSorting} draft-values={draftValues}
+                                onsave={handleSave} onrowaction={handleRowAction} hide-checkbox-column="true">
+                            </lightning-datatable>
+                        </div>
+                    </template>
+                </template>
+                <template if:false={isRecord}>
+                    <template if:true={isFilter}>
+                        <div class="recordTable">
+                            <lightning-datatable data={filterRecord} columns={columns} key-field="Id" sorted-by={sortBy}
+                                sorted-direction={sortDirection} onsort={doSorting} draft-values={draftValues}
+                                onsave={handleSave} onrowaction={handleRowAction} hide-checkbox-column="true">
+                            </lightning-datatable>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:true={error}>
+                    {error}
+                </template>
+
+                <template if:true={isPopovers}>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_12-of-12">
+                            <section aria-describedby="dialog-body-id-109" aria-labelledby="dialog-body-id-109"
+                                data-pop={popoverClass} class="slds-popover slds-nubbin_right-top slds-popover_large"
+                                role="dialog" style="position: absolute; top:55%; right:0%;">
+                                <div class="slds-popover__body" id="dialog-body-id-109">
+                                    <div class="slds-media">
+                                        <div class="slds-media__body" style="height: 30vh;">
+                                            <div class="slds-grid">
+                                                <div class="slds-col slds-size_12-of-12">
+                                                    <lightning-combobox name="progress" label="Field"
+                                                        value={selectedField} options={filedFilter}
+                                                        onchange={handleField}></lightning-combobox>
+                                                    <lightning-combobox name="progress" label="Operator"
+                                                        value={selectedOperator} options={OperatorOption}
+                                                        onchange={handleOperator}></lightning-combobox>
+                                                    <lightning-input type="text" label="Value" value={selectedValue}
+                                                        class="userMail" onchange={handleValue}></lightning-input>
+                                                    <button class="slds-button slds-button_neutral"
+                                                        style="float:right; margin:10px;" data-btn={popoverClass}
+                                                        onclick={filterSaveHandler} title="Done">Done</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={isOwnerFilter}>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_12-of-12">
+                            <section aria-describedby="dialog-body-id-111" aria-labelledby="dialog-body-id-111"
+                                 class="slds-popover slds-nubbin_right-top slds-popover_large"
+                                role="dialog" style="position: absolute; top:10%; right:0%;">
+                                <div class="slds-popover__body" id="dialog-body-id-111">
+                                    <div class="slds-media">
+                                        <div class="slds-media__body" style="height: 20vh;">
+                                            <div class="slds-grid">
+                                                <div class="slds-col slds-size_12-of-12">
+                                                    <lightning-radio-group name="radioGroup" label="Filter by Owner" options={ownerFilterOption} value={ownerFilterValue} type="radio" onchange={changeFilterByOwnerHandler}></lightning-radio-group>
+                                                    <button class="slds-button slds-button_neutral"
+                                                        style="float:right; margin:10px;" data-btn={popoverClass}
+                                                        onclick={ownerFilterHandler} title="Done">Done</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={illustractionTrue}>
+                    <c-no-data></c-no-data>
+                </template>
+
+                <template if:true={isListViewControls}>
+                    <div class="listViewBox">
+                        <div class="slds-col slds-size_12-of-12" style="text-align: center;">
+                            <h4>LIST VIEW CONTROLS</h4>
+                        </div>
+                        <ul>
+                            <li onclick={handleNewListView}>New</li>
+                            <li onclick={handleCloneCreateListView}>Clone</li>
+                            <li onclick={handleRenameListView}>Rename</li>
+                            <li onclick={sharingSettingHandle}>Sharing Setting</li>
+                            <li onclick={editListFilter}>Edit List Filters</li>
+                            <li onclick={fieldDisplayHandler}>Select Field to Display</li>
+                            <li onclick={handleDeleteListView}>Delete</li>
+                        </ul>
+                    </div>
+                </template>
+
+            </div>
+            <div class="slds-col">
+                <template if:true:={isAscDescFilter}>
+                    <div class="filterBody">
+                        <template if:false={isSaveFilter}>
+                            <div class="slds-grid"
+                                style="border-top: 1px solid #f3f3f3; background: #fff; border-bottom:1px solid #ddd7d7;">
+                                <div class="slds-col slds-size_10-of-12">
+                                    <h1 class="filterHead">Filters</h1>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12"
+                                    style="justify-content: center; align-items: center; display: flex;">
+                                    <lightning-icon icon-name="utility:close" alternative-text="close" size="x-small"
+                                        onclick={closeFilterHandler}
+                                        style="padding:3px; background:#fff;"></lightning-icon>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:true={isSaveFilter}>
+                            <div class="slds-grid"
+                                style="border-top: 1px solid #f3f3f3; background: #fff; border-bottom:1px solid #ddd7d7;">
+                                <div class="slds-col slds-size_4-of-12">
+                                    <button class="slds-button slds-button_neutral" style="margin:5px;"
+                                        onclick={removeFilters} title="Cancel">Cancel</button>
+                                </div>
+                                <div class="slds-col slds-size_4-of-12"></div>
+                                <div class="slds-col slds-size_4-of-12">
+                                    <button class="slds-button slds-button_brand" style="margin:5px;"
+                                        onclick={handleSaveFilter} title="Save">Save</button>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="" style="background: #fff; max-height:60vh; overflow-y:auto;">
+                            <div class="filterBox" style="height: 60px; width: 90%; margin:10px; background:#fff; border:1px solid #000; border-radius:5px;"
+                            onclick={filterOwner}>
+                            <div class="slds-grid" style="padding: 5px;">
+                                <div class="slds-col slds-size_10-of-12" style="padding:2%;">
+                                    <h1>Filter By Owner</h1>
+                                    <h1 class="ownerFilterText">My {sObjectLabelName}</h1>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12">
+                                </div>
+                            </div>
+                          </div>                           
+                            <div class="slds-grid" style="height: 5vh;">
+                                <div class="slds-col slds-size_8-of-12">
+                                    <h3 class="filterBtn" onclick={addFilterHandler}>Add Filter</h3>
+                                </div>
+                                <div class="slds-col slds-size_4-of-12">
+                                    <h3 class="filterBtn" onclick={removeFilters}>Remove All</h3>
+                                </div>
+                            </div>
+                            <template for:each={customDiv} for:item="iterateDiv">
+                                <div class="filterBox" style="height: 60px; width: 90%; margin:10px; background:rgb(255 255 181 / 100%); border:1px solid rgb(212, 11, 11); border-radius:5px;" key={iterateDiv}>
+                                    <div class="slds-grid" style="padding: 5px;">
+                                        <div class="slds-col slds-size_10-of-12" data-openfilter={iterateDiv} onclick={filterOpenHandler}>
+                                            <h1 data-filterval={iterateDiv}>New Filter*</h1>
+                                        </div>
+                                        <div class="slds-col slds-size_2-of-12"><lightning-icon
+                                                icon-name="utility:close" alternative-text="close" size="xx-small"
+                                                onclick={removeSingleFilter} data-id={iterateDiv}
+                                                class="singleFilter"></lightning-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

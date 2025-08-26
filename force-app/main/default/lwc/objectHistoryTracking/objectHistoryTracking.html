@@ -1,0 +1,38 @@
+<template>
+    <div class="mainDiv" style="height:100%; overflow-y: hidden;" >
+        <div class="header">
+            <h1 class="headerName">
+                <span><lightning-icon icon-name={icon} alternative-text='Object Icon'
+                        size='small'></lightning-icon></span>
+                &nbsp;
+                {objLabelName} History <template if:true={isShow}>({totalCount})</template>
+            </h1>
+        </div>
+        <template if:true={isShowTable}>
+            <div class="dataTableBody">
+                <template if:true={isShow}>
+                    <lightning-datatable data={records} columns={columns} key-field="Id" hide-checkbox-column="false"
+                        style="max-width:100%;" show-row-number-column="true" min-column-width="120">
+                    </lightning-datatable>
+                    <button class="btn">
+                        <a onclick={handleViewAll}> View all</a>
+                    </button>
+                </template>
+                <template if:false={isShow}>                 
+                    <lightning-datatable data={records} columns={columns} key-field="Id" hide-checkbox-column="false"
+                        show-row-number-column="true" style="max-width:100%;" enable-infinite-loading onloadmore={loadMoreData}>
+                    </lightning-datatable>
+                </template>
+
+                <template if:false={isShowTable} >
+                    <template if:false={isShow}>
+                        <div class="noData">
+                            <c-no-data></c-no-data>
+                        </div>
+                    </template>                   
+                </template>
+            </div>
+        </template>
+        
+    </div>
+</template>

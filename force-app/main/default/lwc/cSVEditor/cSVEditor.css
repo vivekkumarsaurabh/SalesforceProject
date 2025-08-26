@@ -1,0 +1,11 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+
+  
+  @keyframes example {
+    from {background-color: red;}
+    to {background-color: yellow;}
+  }

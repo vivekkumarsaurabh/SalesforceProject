@@ -1,0 +1,46 @@
+.userLogIn{
+    margin-top: 10%;
+    margin-bottom: 10%;
+    height: 350px;
+    width: 350px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* margin: auto; */
+}
+.userLogIn .slds-form{
+    margin: auto;
+    width: 300px;
+}
+.imgAvtar{
+    height: 50px;
+    width: 50px;
+}
+.imgProfile{
+    height: 50px;
+    width: 50px;
+}
+.sideMenu{
+    background-color: rgb(1, 10, 53);
+}
+.sideMenu ul{
+    padding: 10px;
+}
+.sideMenu h2{
+    padding: 6%;
+    color:#fff;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.datePicker{
+    width:100%;
+    margin: 2px;
+}
+.sideMenu h2:hover{
+    cursor: pointer;
+}
+.newBtn{
+    line-height: 2rem;    
+}
+.newBtn:hover{
+    color: blueviolet;
+    cursor: pointer;
+}

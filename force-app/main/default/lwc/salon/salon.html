@@ -1,0 +1,605 @@
+<template>
+    <lightning-card>
+        <template if:true={isSalonMan}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+                aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <lightning-icon
+                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                        icon-name="utility:close" alternative-text="preview" size="small" onclick={closeSalonManModal}
+                        style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Booked Now</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                        <template if:true={isSelectSalonMen}>
+                            <h1 style="font-size: 1rem; text-align:center; font-weight:500; margin-bottom:5%;">
+                                Select Your Barber Man</h1>
+                            <div>
+                                <template for:each={SalonMans} for:item="iterateMan">
+                                    <div class="slds-card cardList" key={iterateMan.Id}>
+                                        <div class="slds-grid salonMenCard" data-id={iterateMan.Id}
+                                            onclick={handleCountinueMen}>
+                                            <div class="slds-col slds-size_12-of-12">
+                                                <h4 style="font-size:1.2rem;">{iterateMan.Name}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br key={iterateMan}>
+                                </template>
+                            </div>
+                        </template>
+                        <template if:true={isDatePicker}>
+                            <h1 style="font-size: 1rem; text-align:center; font-weight:500;">Select Appointment Date
+                            </h1>
+                            <div style="margin:auto;">
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="date" name="input1" label="Choose Date" class="datePicker"
+                                        min={todayDate} value={dateToday} style="width:60%; margin-left:20%;"
+                                        onchange={handleCountinueDate}></lightning-input>
+                                </div>
+                                <template if:true={isTimeSlot}>
+                                    <lightning-combobox name="progress" label="Select Time" value={value}
+                                        placeholder="Select Time" options={timeSlot} style="width:57%; margin-left:22%;"
+                                        onchange={handleCountinueDatePicker}></lightning-combobox>
+                                </template>
+                            </div>
+                        </template>
+                        <template if:true={isDateTimeSelect}>
+                            <h1 style="font-size: 1rem; text-align:center; font-weight:500;">Fill your Details</h1>
+                            <div class="slds-grid" style="height:300px; margin-top:10px;">
+                                <div class="slds-col slds-size_12-of-12">
+                                    <div class="slds-form" style="width: 100%; padding:5%;">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-input type="text" label="Full Name" name="userName"
+                                                    class="validate" placeholder="Enter Your Full Name" maxlength="100"
+                                                    required></lightning-input>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-input type="email" label="Email" name="userEmail"
+                                                    class="validate" placeholder="Your Email" required
+                                                    pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                                                    message-when-pattern-mismatch="Please enter a valid phone number like john@gmail.com"></lightning-input>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-input type="phone" label="Phone" name="userPhone"
+                                                    class="validate" placeholder="Enter Your Phone" required
+                                                    pattern="^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$"
+                                                    message-when-pattern-mismatch="Please enter a valid phone number"></lightning-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <footer class="slds-modal__footer slds-modal__footer_directional">
+                        <button class="slds-button slds-button_neutral" onclick={backSalonManModal}
+                            title="Back">Back</button>
+                        <template if:true={isBookedNow}>
+                            <button class="slds-button slds-button_brand" style="padding:4px 50px;"
+                                onclick={handleBokedNow} disabled={isBookedBtn}> Booked Now</button>
+                        </template>
+                        <template if:false={isBookedNow}>
+                            <button class="slds-button slds-button_neutral" onclick={closeSalonManModal}
+                                title="Cancel">Close</button>
+                        </template>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <div class="mainBody">
+            <div class="slds-context-bar slds-is-fixed">
+                <div class="slds-context-bar__primary">
+                    <div
+                        class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click slds-no-hover">
+                        <div class="slds-context-bar__icon-action">
+                            <img src={logoImg} alt="Girl in a jacket" width="50" height="50">
+                        </div>
+                        <span class="slds-context-bar__label-action slds-context-bar__app-name">
+                            <span class="slds-truncate" title="App Name">Stylish Salon</span>
+                        </span>
+                    </div>
+                </div>
+                <nav class="slds-context-bar__secondary" role="navigation">
+                    <ul class="slds-grid menu">
+                        <li class="slds-context-bar__item slds-context-bar__label-action activeness"
+                            onclick={handleHome} style="background: blueviolet;">
+
+                            Home
+                        </li>
+                        <li class="slds-context-bar__item slds-context-bar__label-action activeness"
+                            onclick={handleAppoint}>
+
+                            Appointments
+                        </li>
+                        <li class="slds-context-bar__item slds-context-bar__label-action activeness"
+                            onclick={handleAbout}>
+                            About Us
+                        </li>
+                        <li class="slds-context-bar__item slds-context-bar__label-action activeness"
+                            onclick={handleContact}>
+
+                            Contact Us
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <template if:true={isHome}>
+                <div class="salonImg"></div>
+                <div class="changeBgColor makeAppoint">
+                    <!-- <lightning-card class="makeAppoint"> -->
+                        <div style="margin-top: 50px; margin-bottom: 40px;">
+                            <h1>Best Hair Salon in Noida, India</h1>
+                            <br>
+                            <h4>STYLISH SALON REPRESENTS AN EVOLUTION OF THE SELF, COMMUNITY & INDUSTRY INTO A NEW
+                                COLLECTIVE.</h4>
+                            <br>
+                            <p>We are doing more than just hair . we are painting and sculpting the Arts District.
+                                Drawing
+                                inspiration from wonders around the world, we aim to forge hair that stands the test of
+                                time, to mirror back the natural strength and beauty that’s already inside.</p>
+                            <br>
+                            <button class="slds-button slds-button_neutral btn" onclick={handleAppoint}>Book
+                                Appointments</button>
+                        </div>
+                        <br>
+                        <div class="salonImgSec"></div>
+                        <div class="slds-grid slds-wrap cardBox">
+                            <div class="slds-col slds-size_8-of-12">
+                                <div class="slds-grid" style="margin: auto;">
+                                    <article class="slds-card" style="margin: 5px;">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">
+                                                        <a href="#" class="slds-card__header-link slds-truncate"
+                                                            title="Accounts">
+                                                            <span>Hair Cut</span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p>Experienced with all hair types including thinning, curly, wavy,
+                                                straight,
+                                                flat, and heavy hair.</p>
+                                        </div>
+                                    </article>
+                                    <article class="slds-card" style="margin: 5px;">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">
+                                                        <a href="#" class="slds-card__header-link slds-truncate"
+                                                            title="Accounts">
+                                                            <span>Hair Color</span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p>Expert hair coloring services by our professional staff</p>
+                                        </div>
+                                    </article>
+                                    <article class="slds-card" style="margin: 5px;">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">
+                                                        <a href="#" class="slds-card__header-link slds-truncate"
+                                                            title="Accounts">
+                                                            <span>Hair Straight</span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p> All services are based on length, thickness, amount of product used, and
+                                                quantity of process required to achieve desired effects</p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="slds-grid" style="margin: auto;">
+                                    <article class="slds-card" style="margin: 5px;">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">
+                                                        <a href="#" class="slds-card__header-link slds-truncate"
+                                                            title="Accounts">
+                                                            <span>Hair Highlight</span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p>Highlights can be subtle, natural-looking streaks or bold, chunky
+                                                sections
+                                            </p>
+                                        </div>
+                                    </article>
+
+                                    <article class="slds-card" style="margin: 5px;">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">
+                                                        <a href="#" class="slds-card__header-link slds-truncate"
+                                                            title="Accounts">
+                                                            <span>Hair Care</span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p>Your frizzy hair can be straight, smooth, and sexy. Our experts can fix
+                                                your
+                                                frizzy hair</p>
+                                        </div>
+                                    </article>
+
+                                    <article class="slds-card" style="margin: 5px;">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title">
+                                                        <a href="#" class="slds-card__header-link slds-truncate"
+                                                            title="Accounts">
+                                                            <span>Hair Style</span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <p>Your hairstylist will assist on finding the perfect style for you based
+                                                on
+                                                your facial shape, career, personality, and daily time availability.</p>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <img src={salonSide} alt="" class="soloIm">
+                            </div>
+                        </div>
+                    <!-- </lightning-card> -->
+                </div>
+            </template>
+            <template if:true={isAppointment}>
+                <div class="salonImgBookNow" style="position: relative;">
+                    <div style="position:absolute;">
+                        <h1>Booked Now</h1>
+                    </div>
+                </div>
+                <br>
+                <div class="bookedCat">
+                    <template for:each={category} for:item="iterateCat">
+                        <article class="slds-card catCard" key={iterateCat.Id}>
+                            <div data-id={iterateCat.Id} onclick={handleOnClickBook}>
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon class="iconHover" icon-name="utility:cut"
+                                                alternative-text="preview" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                {iterateCat.Name}
+                                            </h2>
+                                            <h3>{selectedSalonMan}</h3>
+                                        </div>
+                                    </header>
+                                </div>
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_3-of-12" style="text-align: center;">
+                                            <h4> <span style="font-size: 1rem;">₹</span>
+                                                {iterateCat.Price__c}</h4>
+                                        </div>
+                                        <div class="slds-col slds-size_6-of-12" style="text-align: center;">
+                                            <h4>{iterateCat.Booking_Hours__c}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <br key={iterateCat.Id}>
+                    </template>
+                    <br>
+                </div>
+            </template>
+            <template if:true={isAboutUs}>
+                <div class="salonImgBookNow" style="position: relative;">
+                    <div style="position:absolute;">
+                        <h1>About Us</h1>
+                    </div>
+                </div>
+                <br>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_6-of-12 innerAbout">
+                        <h1 class="headingAbout">
+                            THE HISTORY OF Stylish Salon
+                        </h1>
+                        <br>
+                        <p class="paraAbout">
+                            Stylish Salon is Located in the heart of Moida sector 62, Uttar Pradesh, India. It is
+                            proudly one of the highest-rated Noida beauty salons. Stylish Salon is the standard for
+                            exclusive salon . The highly sought-after Amad Saab is proud of his skilled and exceedingly
+                            innovative team of stylists which he expertly chose himself.
+
+                            Each stylist is on the cutting edge of creativity and versatility with a repertoire of
+                            techniques and well-rounded experience. Stylish Salon values precision in pairing the
+                            diverse personalities and hair types of its clients with a hairstyle that will radiate
+                            confidence.
+
+                            The team’s goal is to establish trust and exceed their guest’s expectations. Stylish Salon,
+                            a Noida beauty salon, invites you to come in to experience the ultimate luxury in hair care.
+                            Stylish Salon’s growing success over the years is greatly due to the feeling that each guest
+                            gets as they walk through the door.
+                        </p>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <div class="solonAbout"></div>
+
+                    </div>
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <h1
+                        style="font-size: 2rem; font-weight:500; display:inline-block; border-bottom:1px solid rgb(70, 95, 233);">
+                        Our Team</h1>
+                    <br>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_6-of-12" style="align-item:center; display:ruby;">
+                            <article class="slds-card teamCard" key={iterateMan.Id}>
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__body">
+                                            <img src={avtarUrl} alt="no Image" class="imgAvtar">
+                                            <h4 class="heading">Danial</h4>
+                                            <br>
+                                            <div class="slds-grid" style=" width: 70px; margin: auto;">
+                                                <div class="slds-col slds-size_6-of-12">
+                                                    <lightning-icon class="iconHover" icon-name="utility:call"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+
+                                                </div>
+                                                <div class="slds-col slds-size_6-of-12">
+                                                    9876543210
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
+                                </div>
+                            </article>
+
+
+                        </div>
+                        <div class="slds-col slds-size_6-of-12" style="align-item:center; display:ruby;">
+                            <article class="slds-card teamCard" key={iterateMan.Id}>
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__body">
+                                            <img src={avtarUrl} alt="no Image" class="imgAvtar">
+                                            <h4 class="heading">John</h4>
+                                            <br>
+                                            <div class="slds-grid" style=" width: 70px; margin: auto;">
+                                                <div class="slds-col slds-size_6-of-12">
+                                                    <lightning-icon class="iconHover" icon-name="utility:call"
+                                                        alternative-text="preview" size="small"
+                                                        style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+
+                                                </div>
+                                                <div class="slds-col slds-size_6-of-12">
+                                                    9987654321
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
+                                </div>
+                            </article>
+
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isContactUs}>
+                <div class="salonImgBookNow" style="position: relative;">
+                    <div style="position:absolute;">
+                        <h1>Contact Us</h1>
+                    </div>
+                </div>
+                <br>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_4-of-12">
+                        <div style="margin-left:5%;">
+                            <div>
+                                <p> <lightning-icon class="iconHover" icon-name="utility:call"
+                                        alternative-text="preview" size="small"
+                                        style="--sds-c-icon-color-foreground-default:black;"></lightning-icon> <span
+                                        style="font-size: 1rem; font-weight:500;">+91 987643210</span> </p>
+                            </div>
+                            <br>
+                            <div>
+                                <p><lightning-icon class="iconHover" icon-name="utility:email"
+                                        alternative-text="preview" size="small"
+                                        style="--sds-c-icon-color-foreground-default:black;"></lightning-icon> <span
+                                        style="font-size: 1rem; font-weight:500; margin-left:5px;">official.stylishSalon@gmail.com</span>
+                                </p>
+                            </div>
+                            <br>
+                            <div style="text-align: justify;">
+                                <h1 style="font-size: 1.3rem; font-weight: 500px; line-height:1.2rem;">Opening Hours:
+                                    <lightning-icon class="iconHover" icon-name="utility:clock"
+                                        alternative-text="preview" size="small"
+                                        style="--sds-c-icon-color-foreground-default:black;"></lightning-icon>
+                                </h1>
+                                <!-- <p class="paratime">Mon 10:00am - 7:00 pm</p>
+                                <p class="paratime">Tue 10:00am - 7:00 pm</p>
+                                <p class="paratime">Wed 10:00am - 7:00 pm</p>
+                                <p class="paratime">Thu 10:00am - 7:00 pm</p>
+                                <p class="paratime">Fri 10:00am - 7:00 pm</p>
+                                <p class="paratime">Sat 10:00am - 7:00 pm</p> -->
+                                <table>
+                                    <tr class="paratime">
+                                        <td style="width: 30px;">Mon</td>
+                                        <td>10:00am - 7:00pm</td>
+
+                                    </tr>
+                                    <tr class="paratime">
+                                        <td style="width: 30px;">Tue</td>
+                                        <td>10:00am - 7:00pm</td>
+                                    </tr>
+                                    <tr class="paratime">
+                                        <td style="width: 30px;">Wed</td>
+                                        <td>10:00am - 7:00pm</td>
+                                    </tr>
+                                    <tr class="paratime">
+                                        <td style="width: 30px;">Thu</td>
+                                        <td>10:00am - 7:00pm</td>
+                                    </tr>
+                                    <tr class="paratime">
+                                        <td style="width: 30px;">Fri</td>
+                                        <td>10:00am - 7:00pm</td>
+                                    </tr>
+                                    <tr class="paratime">
+                                        <td style="width: 30px;">Sat</td>
+                                        <td>10:00am - 7:00pm</td>
+                                    </tr>
+                                </table>
+
+                                <p class="paratime">Sunday CLosed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <h1 style="font-size: 1.3rem; font-weight: 400px; line-height:1.5rem;">SEND A QUICK MESSAGE !
+                        </h1>
+                        <p style="font-size: 1.1rem;"> you have a quick question or booking inquiry that is not urgent,
+                            feel free to get in touch with us using the quick and easy form below. We’d love to hear
+                            from you!
+
+                        </p>
+                        <div class="contact" style="margin:3%;">
+
+                            <div class="slds-form contactForm">
+                                <div class="slds-form-element slds-form-element_stacked">
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" name="conName" label="Full Name"
+                                            class="validateCon" placeholder="Enter Your Full Name" maxlength="100"
+                                            required></lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-form-element_stacked">
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="email" name="conEmail" label="Email" class="validateCon"
+                                            placeholder="Your Email" required
+                                            pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                                            message-when-pattern-mismatch="Please enter a valid phone number like john@gmail.com"></lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-form-element_stacked">
+                                    <div class="slds-form-element__control">
+                                        <lightning-textarea name="conMsg" label="Send Message" class="validateCon"
+                                            required></lightning-textarea>
+                                    </div>
+                                </div>
+                                <button class="slds-button slds-button_brand" style="padding:4px 30px;"
+                                    onclick={handleContactMsg}> Send Message</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <lightning-map map-markers={mapMarkers} markers-title={markersTitle} center={center}>
+                </lightning-map>
+            </template>
+
+            <div class="footer">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_4-of-12">
+                        <img src={logoImg} alt="Girl in a jacket" width="90" height="90">
+                        <br>
+                        <br>
+                        <h1 class="headFoter">Stylish Salon</h1>
+                    </div>
+                    <div class="slds-col slds-size_4-of-12">
+                        <ul class="menu">
+                            <li class="activeness itemList" onclick={handleHome} style="background-color: blueviolet;">Home</li>
+                            <li class="activeness itemList" onclick={handleAppoint}>Appointments</li>
+                            <li class="activeness itemList" onclick={handleAbout}>About</li>
+                            <li class="activeness itemList" onclick={handleContact}>Contact Us</li>
+                        </ul>
+                    </div>
+                    <div class="slds-col slds-size_4-of-12" style="margin: auto;">
+                        <div>
+                            <h1 style="font-size: 1.4rem; color:#fff;">
+                                Other Details
+                            </h1>
+                            <h3 style="font-size: 0.8rem;">
+                                Contact : 1234567890
+                                <br>
+                                Noida sector 62, Uttar Pradesh
+                            </h3>
+
+                        </div>
+                        <h1 class="followMe">Social Media</h1>
+                        <div class="slds-grid follImg">
+                           <a href=""><img src={instagram} alt="Girl in a jacket" width="40" height="40"></a> 
+                            <a href="" ><img src={wp} alt="Girl in a jacket" width="40" height="40"></a>
+                            <a href=""><img src={facebook} alt="Girl in a jacket" width="50" height="40"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

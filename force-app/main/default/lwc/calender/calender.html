@@ -1,0 +1,227 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+        </lightning-spinner>
+    </template>
+    <template if:true={isCreateModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">                    
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Create User</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">                    
+                    <lightning-record-form object-api-name={objectApiName} fields={fields} onsubmit={handleCreateSubmit} oncancel={handleCancelCreate}></lightning-record-form> 
+                </div>               
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isShowChart}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">      
+                    <div class="slds-grid">
+                        <!-- <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Chart Data</h2> -->
+                       <div style="float: right;">
+                            <lightning-radio-group name="radioGroup" options={options} value={chartValue} type="radio" onchange={handleChartValues} class="radioCss"></lightning-radio-group>                       
+                        </div>
+                    </div> 
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <div if:true={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                        <canvas class="piechart" lwc:dom="manual"></canvas>
+                    </div>
+                    <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                        ChartJs Not loaded yet
+                    </div>
+                </div>               
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeChartHandle} title="Cancel">Close</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate calender" onclick={calenderHandler}>
+                <div class="slds-media__figure">
+                    <lightning-icon class="iconHover" icon-name="utility:event" alternative-text="preview" size="x-large" style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">Calender</h2>
+                </div>              
+            </header>  
+            <header class="slds-media slds-media_center slds-has-flexi-truncate attendence" onclick={attendenceHandler}>
+                <div class="slds-media__figure">
+                    <lightning-icon class="iconHover" icon-name="utility:meet_focus_presenter" alternative-text="preview" size="x-large" style="--sds-c-icon-color-foreground-default:rgb(159, 222, 24);"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">Attendence</h2>
+                </div>                             
+            </header>           
+        </div>
+        
+        <template if:true={isCalender}>
+            <div class="slds-grid outbox">
+                <div class="slds-grid innerBox">
+                    <div class="slds-col slds-size_4-of-12" style="background-color: rgb(235, 230, 230);">
+                        <div class="box">                       
+                            <lightning-combobox  value={value} options={years} onchange={handleYear} placeholder="Year"></lightning-combobox>                
+                            
+                        </div>
+                        <div class="box">
+                            <lightning-combobox  value={value} options={month_names} onchange={handleMonth} placeholder="Month"></lightning-combobox>                     
+                            
+                        </div>
+                        <br>
+                        <div class="todayDate">                    
+                            <h3 onclick={printHandle}>{week}</h3> <br>
+                            <p>{date}</p>                        
+                        </div>
+                        
+                        <div class="events">
+                            <h2>Holidays</h2>
+                            <template if:true={vacations} for:each={vacations} for:item="iterateVal">
+                                <p key={iterateVal} class="holiday"> {iterateVal.dateHoliday} - {iterateVal.holidayName}</p>
+                            </template>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="slds-col slds-size_8-of-12 calender-Body">
+                        <table aria-labelledby="month" aria-multiselectable="true" class="slds-datepicker__month" role="grid">
+                            <thead>
+                                <tr id="weekdays">
+                                    <th id="Sunday" scope="col">
+                                        <abbr title="Sunday">Sun</abbr>
+                                    </th>
+                                    <th id="Monday" scope="col">
+                                        <abbr title="Monday">Mon</abbr>
+                                    </th>
+                                    <th id="Tuesday" scope="col">
+                                        <abbr title="Tuesday">Tue</abbr>
+                                    </th>
+                                    <th id="Wednesday" scope="col">
+                                        <abbr title="Wednesday">Wed</abbr>
+                                    </th>
+                                    <th id="Thursday" scope="col">
+                                        <abbr title="Thursday">Thu</abbr>
+                                    </th>
+                                    <th id="Friday" scope="col">
+                                        <abbr title="Friday">Fri</abbr>
+                                    </th>
+                                    <th id="Saturday" scope="col">
+                                        <abbr title="Saturday">Sat</abbr>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="calendar-days">
+                                
+                            </tbody>
+                        </table>
+                    </div>                
+                </div>
+                <a class="prev" onclick={prevCalHandler}>&#10094;</a>
+                <a class="next" onclick={nextCalHandler}>&#10095;</a>                  
+            </div>
+        </template>        
+        
+        <template if:true={isAttendence}>
+            <div class="slds-grid"> 
+                <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered attendenceTable">
+                    <thead>
+                        <tr>
+                            <th class="name-col" style="padding: 0px 30px;">Name</th>
+                            <template for:each={daysArr} for:item="iterateDays">                               
+                                <th key={iterateDays}>{iterateDays}</th>
+                            </template>
+                            <th class="Half-Day">Half Day</th>
+                            <th class="Present">Present</th>
+                            <th class="Absent">Absent</th>
+                            <th class="SL">Sick Leave</th>
+                            <th class="FL">Floater Leaves</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={attendence} for:item="iterateRec">
+                            <tr class="student dt" key={iterateRec} data-id={iterateRec.idofUser}>
+                                <td class="name-col" key={iterateRec} style="padding: 0px 30px;" onclick={handleOpenChart} data-id={iterateRec.idofUser}>{iterateRec.name}</td>
+                                <template for:each={iterateRec.dtWrpperList} for:item="iterateDays">                            
+                                        <template if:true={iterateDays.dateOfDay}>
+                                            <td class={iterateDays.colorClassName} key={iterateDays.dateOfDay}>{iterateDays.dayAttend}</td>
+                                        </template>
+                                </template>
+                                <td class="Half-Day" key={iterateRec} data-value={iterateRec.idofUser}>{iterateRec.halfDay}</td>
+                                <td class="Present" key={iterateRec} data-value={iterateRec.idofUser}>{iterateRec.present}</td>
+                                <td class="Absent" key={iterateRec} data-value={iterateRec.idofUser}>{iterateRec.absent}</td>
+                                <td class="SL" key={iterateRec} data-value={iterateRec.idofUser}>{iterateRec.sickLeave}</td>
+                                <td class="FL" key={iterateRec} data-value={iterateRec.idofUser}>{iterateRec.floaterLeave}</td>
+                            </tr>
+                        </template>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+            <div class="monthBox">
+                <lightning-combobox  value={value} options={month_names} onchange={handleDaysInMonth} placeholder="Month" class="selectBox" dropdown-alignment="bottom-left"></lightning-combobox>    
+                <button class="slds-button slds-button_brand btn" onclick={handleUser}>Handle Action</button> 
+            </div>
+            
+        </template>
+        
+        <template if:true={isUserAttendence}>
+            <div style="height: 100px;">
+                <button class="slds-button slds-button_brand btn1" onclick={handleCreateModal}>Create User</button> 
+                <template if:true={isBtnHide}>
+                <button class="slds-button slds-button_brand btn2" onclick={handleSaveAttendence}>Save Attendence</button>
+                </template>
+                <template if:false={isBtnHide}>
+                    <button class="slds-button slds-button_brand btn2" onclick={handleUpdateAttendence}>Update Attendence</button>
+                    </template>
+                <lightning-input type="date" name="input1" label="Choose Date" class="datePicker" value={dateToday} onchange={handleDatePicker}></lightning-input>
+            </div>
+            <div class="slds-grid">                 
+                <br>
+                <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered attendenceTable">
+                    <thead>
+                        <tr>
+                            <th class="name-col">Name</th>                                                       
+                            <th class="Present">Present</th>
+                            <th class="ansent">Absent</th>    
+                            <th class="Half-Day">Half Day</th>                      
+                            <th class="SL">Sick Leave</th>
+                            <th class="FL">Floater Leave</th>
+                        </tr>
+                    </thead>
+                    <tbody>                       
+                        <template for:each={users} for:item="itemUser">   
+                            <tr class="studentAtt"  key={itemUser} data-id={itemUser.Id}>                                              
+                                <td class="name-col chartStyle" key={itemUser.Id}>{itemUser.Name}</td> 
+                                <td class="Present" key={itemUser}><input type="checkBox" value="present" data-id={itemUser.Id} class="checkBox" onchange={handleCheckBox}></td>
+                                <td class="absent" key={itemUser}><input type="checkBox" value="abs" data-id={itemUser.Id} class="checkBox" onchange={handleCheckBox}></td>
+                                <td class="Half-Day" key={itemUser}><input type="checkBox" value="hd" data-id={itemUser.Id} class="checkBox" onchange={handleCheckBox}></td>
+                                <td class="SL" key={itemUser}><input type="checkBox" value="sl" data-id={itemUser.Id} class="checkBox" onchange={handleCheckBox}></td>
+                                <td class="FL" key={itemUser}><input type="checkBox" value="fl" data-id={itemUser.Id} class="checkBox" onchange={handleCheckBox}></td>   
+                            </tr>
+                        </template>  
+                        <template for:each={attendenceData} for:item="iterateAttendence">
+                            <tr class="student"  key={iterateAttendence}>                                              
+                                <td class="name-col" key={iterateAttendence}>{iterateAttendence.Attendence_User_Name__r.Name}</td> 
+                                <td class="Present" key={iterateAttendence}><input type="checkBox" checked={iterateAttendence.Present_Absent__c} readonly></td>
+                                <td class="Absent" key={iterateAttendence}><input type="checkBox" checked={iterateAttendence.Absent__c} readonly></td>
+                                <td class="Half-Day" key={iterateAttendence}><input type="checkBox" checked={iterateAttendence.Half_Day__c} readonly></td>
+                                <td class="SL" key={iterateAttendence}><input type="checkBox" checked={iterateAttendence.Sick_Leave__c} readonly></td>
+                                <td class="FL" key={iterateAttendence}><input type="checkBox" checked={iterateAttendence.Floater_Leave__c} readonly></td>   
+                            </tr>
+                        </template> 
+                    </tbody>                    
+                </table>
+            </div>
+            
+        </template>
+        
+    </article>
+</template>

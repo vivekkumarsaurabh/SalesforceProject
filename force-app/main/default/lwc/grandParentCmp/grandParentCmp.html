@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Grand Parent Component">
+        <div class="box slds-box slds-var-m-around_large">
+          This is <strong>Grand Parent</strong> Component
+          <div>
+            <lightning-input label="Enter Text" onchange={handleChange} value={dataTosend} class="slds-m-bottom_x-small"></lightning-input>        
+            <lightning-button label="GrandParent" onclick={handleGrandParentSubmit}></lightning-button>
+          </div>
+          <div><strong>Message Sent: </strong>{messageSend}</div>
+          <div><strong>Message Received: </strong>{messageReceived}</div>
+            <c-parent-cmp
+            onparentevent={handleParentEvent}
+            onchildevent={handleChildEvent}
+            ongrandchildevent={handlegrandChildEvent}
+            message-received={messageSend}
+          ></c-parent-cmp>
+        </div>
+        <br />
+      </lightning-card>    
+</template>

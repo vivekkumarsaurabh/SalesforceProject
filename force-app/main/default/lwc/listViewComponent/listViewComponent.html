@@ -1,0 +1,17 @@
+<template>
+    <template if:true={accountInfo.data}>
+        <template if:true={listViewRecords}>
+            <lightning-card title="List View Records">
+                <div class="slds-m-around_medium">
+                    <ul class="slds-list_vertical">
+                        <template for:each={listViewRecords} for:item="record">
+                            <li key={record.id}>
+                                <p>{record.fields.Name.value}</p>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </lightning-card>
+        </template>       
+    </template>
+</template>

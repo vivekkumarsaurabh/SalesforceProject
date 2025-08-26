@@ -1,0 +1,104 @@
+<template>
+
+    
+    <template if:true={isLoading}>
+        <div class="loader">
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large"
+                style="background: none; top:0%;">
+            </lightning-spinner>
+        </div>
+    </template>
+
+    <template if:true={isCreateGroup}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-08" aria-modal="true"
+            aria-describedby="modal-content-id-8" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small"
+                    onclick={closeCreatePublicGroupHandler}></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate">
+                       New Public Group
+                    </h2>
+                    <!-- style="--sds-c-icon-color-foreground-default:#fff;" -->
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-8" style="height:200px;">
+                    <template if:true={isErrorMsg}>
+                        <h1 style="color: red; align-items:center; text-align:center;">{errorMsg}</h1>
+                    </template>
+                  <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12">
+                        <h1> <span style="color: red; font-size:1rem;">*</span> Label</h1>
+                    </div>
+                    <div class="slds-col slds-size_9-of-12">
+                        <lightning-input type="text" style="outline:none;" maxlength="100" value={publiGroupLabel} onchange={labelNamechangeHandler}> </lightning-input>
+                    </div>
+                  </div>
+                  <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12">
+                        <h1> <span style="color: red; font-size:1rem;">*</span> Group Name</h1>
+                    </div>
+                    <div class="slds-col slds-size_9-of-12">
+                        <lightning-input type="text" style="outline:none;" maxlength="100" value={publicGroupApiName} onchange={publicGroupApichangeHandler}> </lightning-input>
+                    </div>
+                  </div>
+
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={createPublicGroupHandler}
+                    title="Save">save</button>
+                    <button class="slds-button slds-button_brand" onclick={closeCreatePublicGroupHandler}
+                        title="Cancel">Close</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+    <div style="width:600px;">
+        <div class="slds-grid">
+            <div class="slds-col slds-size_2-of-12"></div>
+            <div class="slds-col slds-size_8-of-12">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_5-of-12">
+                        <button class="slds-button slds-button_neutral" onclick={assignUserIntoPublicGroupHandler} title="User Assignment"> <lightning-icon icon-name="utility:user" title="User Assignment" size="x-small" style="    --sds-c-icon-color-foreground-default:#0061ff;;
+"></lightning-icon> User Assignment
+                        </button> 
+                    </div>
+                    <div class="slds-col slds-size_4-of-12">
+                        <button class="slds-button slds-button_neutral" onclick={createGroupHandler}  title="New Group"> <lightning-icon icon-name="utility:groups"  title="New Group" size="x-small" style="--sds-c-icon-color-foreground-default:#0061ff;;
+"></lightning-icon> New Group </button>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <button class="slds-button slds-button_neutral" onclick={clearGroupHandler}  title="clear"> <lightning-icon icon-name="utility:clear" title="Clear" size="x-small" style="    --sds-c-icon-color-foreground-default:#0061ff;;
+"></lightning-icon> clear </button>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_2-of-12"></div>
+        </div>
+       
+        <h1 style="font-size: 1rem;">
+            Public Group
+        </h1>
+        <lightning-radio-group  options={allGroup}  value={selectedGroup} type="radio" onchange={changePublicGroupHandler}></lightning-radio-group>
+        <br>
+        <template if:true={selectedGroup}>  
+            <div class="slds-grid">
+                <div class="slds-col slds-size_7-of-12">
+                    <h1 style="font-size: 1rem;"> Select Users</h1>
+                </div>
+                <div class="slds-col slds-size_5-of-12">
+                    <lightning-input type="search" value={searchValue} style="width:100%; float:right;" onchange={searchHandler} placeholder="Search User Name.."> </lightning-input> 
+                </div>
+            </div>         
+        <div class="userBox">
+            <lightning-checkbox-group name="Checkbox Group"  options={allUsers} class="checkboxClass" value={selectedUser} onchange={selectuserHandler}></lightning-checkbox-group>
+        </div>
+     </template>
+      
+    </div>
+
+</template>

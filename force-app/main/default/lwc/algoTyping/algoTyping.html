@@ -1,0 +1,265 @@
+<template>
+    <div class="mainBody">
+        <div class="slds-grid">
+            <div class="slds-col slds-size_12-of-12">
+                <lightning-icon class="iconHover" icon-name="utility:keyboard_dismiss" alternative-text="preview"
+                    size="medium"
+                    style="--sds-c-icon-color-foreground-default:yellow; margin:5px 10px;"></lightning-icon>
+                <h1 onclick={homeHandler}>AlgoTyping</h1>
+            </div>
+        </div>
+
+        <template if:true={isLogInModal}>
+            <div style="margin: auto;">
+                <div class="loginCard">
+                    <div class="modal-content">
+                        <div><span class="close" onclick={closeModalHandler}>&times;</span></div>
+                        <br>
+                        <div>
+                            <template if:true={isLogInPage}>
+                                <div style="margin: auto; align-items:center; justify-content:center; display:flex; ">
+                                    <h1 style="color:yellow; font-size:1.5rem;">Log In </h1>
+                                </div>
+                                <lightning-input type="text" name="name" placeholder="Enter your Name"
+                                    class="input inputName" maxlength="100" required></lightning-input>
+                                <br>
+                                <lightning-input type="email" name="email" placeholder="Enter your Email"
+                                    class="input inputEmail" required
+                                    pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                                    message-when-pattern-mismatch="Please enter a valid phone number like john@gmail.com"></lightning-input>
+                                <br>
+
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_6-of-12">
+                                        <lightning-button class="btn" style="float:left;" variant="brand" label="Login"
+                                            onclick={loginNow}></lightning-button>
+                                    </div>
+                                    <div class="slds-col slds-size_6-of-12">
+                                        <lightning-button class="btn" style="float:right;" variant="brand"
+                                            label="Create User" onclick={SignUpNow}></lightning-button>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:true={isSignUpPage}>
+                                <div style="margin: auto; align-items:center;  justify-content:center; display:flex;">
+                                    <h1 style="color:yellow; font-size:1.5rem;">Sign Up</h1>
+                                </div>
+                                <lightning-input type="text" name="nameNew" placeholder="Enter your Name"
+                                    class="inputNew inputNameNew" maxlength="100" required></lightning-input>
+                                <br>
+                                <lightning-input type="email" name="emailNew" placeholder="Enter your Email"
+                                    class="inputNew inputEmailNew" required
+                                    pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                                    message-when-pattern-mismatch="Please enter a valid phone number like john@gmail.com"></lightning-input>
+                                <br>
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_6-of-12">
+                                        <lightning-button class="btn" style="float:left;" variant="brand"
+                                            label="Back to LogIn" onclick={BackloginHandler}></lightning-button>
+                                    </div>
+                                    <div class="slds-col slds-size_6-of-12">
+                                        <lightning-button class="btn" style="float:right;" variant="brand"
+                                            label="Sign Up" onclick={SignUpHandler}></lightning-button>
+                                    </div>
+                                </div>
+
+                            </template>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+
+        <template if:true={isTyping}>
+            <div class="subMenu">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-12 timeHover">
+                        <template if:true={isLogin}>
+                            <div onclick={loginHandler}>
+                                <lightning-icon class="iconHover" icon-name="utility:user" alternative-text="preview"
+                                    size="x-small"
+                                    style="--sds-c-icon-color-foreground-default:grey; margin:5px 10px;"></lightning-icon>Login
+                            </div>
+                        </template>
+                        <template if:true={isLogOut}>
+                            <div onclick={logoutHandler}>
+                                <lightning-icon class="iconHover" icon-name="utility:logout" alternative-text="preview"
+                                    size="x-small"
+                                    style="--sds-c-icon-color-foreground-default:grey; margin:5px 10px;"></lightning-icon>{userName}
+                                Logout
+                            </div>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12 timeHover">
+                        <div onclick={dashboardHandler}>
+                            <lightning-icon class="iconHover" icon-name="utility:type" alternative-text="preview"
+                                size="x-small"
+                                style="--sds-c-icon-color-foreground-default:grey; margin:5px 10px;"></lightning-icon>Dashboard
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12 timeHover">
+
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 timeHover">
+                        <lightning-icon class="iconHover" icon-name="utility:clock" alternative-text="preview"
+                            size="x-small"
+                            style="--sds-c-icon-color-foreground-default:grey; margin:5px 10px;"></lightning-icon> <span
+                            style="margin-top: 5px;">time</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 timeHover" data-id="15" onclick={timeHandle}
+                        style="margin-top:5px">15</div>
+                    <div class="slds-col slds-size_1-of-12 timeHover" data-id="30" style="color:yellow; margin-top:5px"
+                        onclick={timeHandle}>30</div>
+                    <div class="slds-col slds-size_1-of-12 timeHover" data-id="60" onclick={timeHandle}
+                        style="margin-top:5px">60</div>
+                    <div class="slds-col slds-size_1-of-12 timeHover" data-id="120" onclick={timeHandle}
+                        style="margin-top:5px">120</div>
+                </div>
+            </div>
+            <div class="time" style="color: yellow; font-size:2rem; font-weight:500; margin-top:5%; margin-left:10%;">
+            </div>
+
+            <div class="randomParaGraph">
+                <div class="para">
+                    <p class="paraGraph" autocomplete="off" autocapitalize="off" autocorrect="off">
+                        {paragraphValue}
+                    </p>
+                </div>
+                <div class="intp">
+                    <textarea class="textA" name="input2" cols="103" rows="8" autocomplete="off" autocapitalize="off"
+                        autocorrect="off" spellcheck="false" onkeyup={checkHandler}></textarea>
+
+                    <!-- <input type="text" class="" style="fill: none; background: transparent; border: none;"> -->
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <lightning-icon class="iconRefresh" icon-name="utility:refresh" alternative-text="preview" size="small"
+                    style="--sds-c-icon-color-foreground-default:gray;" onclick={resetHandler}></lightning-icon>
+                <div class="tooltip">
+                    <span class="tooltiptext">Restart Now</span>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={isChartDisplay}>
+            <div class="chartResult">
+                <div class="slds-grid slda-wrap subChartBody">
+                    <div class="slds-col slds-size_2-of-12 acc">
+                        <div>
+                            <h1>WPM</h1>
+                            <br>
+                            <h2>{wpm}</h2>
+                        </div>
+                        <div>
+                            <h1>acc</h1>
+                            <h2>{accuracy}%</h2>
+                        </div>
+                        <br>
+                        <br>
+                        <div>
+                            <lightning-button variant="brand" class="btnRes" label="Save Result"
+                                onclick={saveResultHandler}></lightning-button>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_10-of-12 secBody">
+                        <div class="chartDonout">
+                            <div if:true={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                                <canvas class="lineChart" lwc:dom="manual"></canvas>
+                            </div>
+                        </div>
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_4-of-12">
+                                <h1>raw</h1>
+                                <h2>{wpm}</h2>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <h1>Characters</h1>
+                                <h2>{correctChar}/{incorrectChar}</h2>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <h1>Time</h1>
+                                <h2>{secTimer}s</h2>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={isDashBoard}>
+            <div class="slds-grid" style="float: right; margin-right:5%;">
+                <div style="margin: auto;">
+                    <span style="font-size: 1.6rem; font-weight:400; color:yellow; padding-right:5px;">{userName}</span>
+                    <lightning-icon class="iconHover" icon-name="utility:user" alternative-text="preview" size="small"
+                        style="--sds-c-icon-color-foreground-default:gray;"></lightning-icon>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div style="justify-content:center; display:flex;">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+                    aria-labelledby="element-with-table-label other-element-with-table-label"
+                    style="width:80%; text-align:center;">
+                    <thead>
+                        <tr class="slds-line-height_reset tableRow">
+                            <th class="tableHead" scope="col">
+                                <div class="slds-truncate" title="Date">Date</div>
+                            </th>
+                            <th class="tableHead" scope="col">
+                                <div class="slds-truncate" title="Time">Time</div>
+                            </th>
+                            <th class="tableHead" scope="col">
+                                <div class="slds-truncate" title="WPM">WPM</div>
+                            </th>
+                            <th class="tableHead" scope="col">
+                                <div class="slds-truncate" title="Right Char">Right Char</div>
+                            </th>
+                            <th class="tableHead" scope="col">
+                                <div class="slds-truncate" title="Wrong Char">Wrong Char</div>
+                            </th>
+                            <th class="tableHead" scope="col">
+                                <div class="slds-truncate" title="Accuracy">Accuracy</div>
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template for:each={records} for:item="iterateRec">
+                            <tr class="slds-hint-parent tbrow" key={iterateRec}>
+                                <td data-label="Date">
+                                    <div class="slds-truncate tdat">{iterateRec.Date__c}</div>
+                                </td>
+                                <td data-label="Time">
+                                    <div class="slds-truncate tdat">{iterateRec.Time__c} s</div>
+                                </td>
+                                <td data-label="WPM">
+                                    <div class="slds-truncate tdat">{iterateRec.WPM__c}</div>
+                                </td>
+                                <td data-label="rightChar">
+                                    <div class="slds-truncate tdat">{iterateRec.Right_Char__c}</div>
+                                </td>
+                                <td data-label="wrongChar">
+                                    <div class="slds-truncate tdat">{iterateRec.Wrong_Char__c}</div>
+                                </td>
+                                <td data-label="Accuracy">
+                                <div class="slds-grid tdat"> 
+                                    <div class="slds-col slds-size_9-of-12" style="margin: auto;"><lightning-progress-bar class="slds-progress-bar__value slds-progress-bar__value_success" value={iterateRec.Accuracy__c} size="medium" style=""></lightning-progress-bar></div>
+                                    <div class="slds-col slds-size_1-of-12"></div>
+                                    <div class="slds-col slds-size_2-of-12"><span style="display:block;">{iterateRec.Accuracy__c} % </span></div>  </div>
+                                </td>
+
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </div>
+
+
+</template>

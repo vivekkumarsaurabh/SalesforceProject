@@ -1,0 +1,182 @@
+<template>
+    <div style="margin: auto;">
+
+       
+
+        <div style="width:500px; align-items:center;">
+            <template if:true={isError}>
+                <h1 style="color:red; align-items:center; text-align:center; font-size:1rem;">{errorDiv}</h1>
+            </template>
+            
+            <template if:false={isSummerize}>
+                <div>
+                    <h1 class="headingCustomField">New Custom Field</h1>
+                </div>
+                <div style="background-color: #efefef;">
+
+                    <div class="slds-grid" style="padding: 5%;">
+                        <div class="slds-col slds-size_3-of-12">
+                            <h1>Select Parent Object</h1>
+
+                        </div>
+                        <div class="slds-col slds-size_9-of-12">                            
+                            <lightning-combobox value={parentsObject} placeholder="Select your parent object"
+                                options={parentsObjectList} onchange={sObjectSelectHandler}></lightning-combobox>
+                        </div>
+                    </div>
+                    <br>
+                    <template if:true={parentsObject}>
+                        <div style="padding: 5%;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_3-of-12">
+                                    <h1>
+                                        <span style="color: red; font-size:1rem;">*</span> Field Label
+                                    </h1>
+                                </div>
+                                <div class="slds-col slds-size_9-of-12">
+                                    <lightning-input type="text" style="outline:none;" pattern="^[a-zA-Z_ ]+$"
+                                        maxlength="100" message-when-pattern-mismatch="Please enter the valid Name"
+                                        value={fieldLabel} onchange={fieldLabelHandler}> </lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_3-of-12">
+                                    <h1>
+                                        <span style="color: red; font-size:1rem;">*</span> Field Name
+                                    </h1>
+                                </div>
+                                <div class="slds-col slds-size_9-of-12">
+                                    <lightning-input type="text" style="outline:none;" pattern="^[a-zA-Z_ ]+$"
+                                        maxlength="100" message-when-pattern-mismatch="Please enter the"
+                                        onchange={fieldAPINameHandler} value={fieldAPIName}>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_3-of-12">
+                                    <h1>
+                                        Description
+                                    </h1>
+                                </div>
+                                <div class="slds-col slds-size_9-of-12">
+
+                                    <lightning-textarea name="desc" value={description}
+                                        onchange={descriptionHadler}></lightning-textarea>
+
+                                </div>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_3-of-12">
+                                    <h1>
+                                        Help Text
+                                    </h1>
+                                </div>
+                                <div class="slds-col slds-size_9-of-12">
+
+                                    <lightning-textarea name="helpText" value={helpText}
+                                        onchange={helpTextHandler}></lightning-textarea>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </template>
+                </div>
+
+            </template>
+            <template if:true={isSummerize}>
+                <!-- <div>
+                    <h1 class="heading">Define the summary calculation</h1>
+                </div> -->
+                <div style="background-color: #efefef;">
+                    <div>
+                        <h1 class="headingCustomField">Select Object to Summarize</h1>
+                    </div>
+
+                    <div class="slds-grid" style="padding:2%;">
+                        <div class="slds-col slds-size_4-of-12">
+                            <h1 style="margin-left: 6%;">Master Object</h1>
+                        </div>
+                        <div class="slds-col slds-size_8-of-12">
+                            {parentsObject}
+                        </div>
+                    </div>
+                    <div class="slds-grid" style="padding:2%;">
+                        <div class="slds-col slds-size_4-of-12">
+                            <h1> <span style="color: red; font-size:1rem;">*</span> Summarized Object</h1>
+                        </div>
+                        <div class="slds-col slds-size_8-of-12">
+                            <lightning-combobox value={childsObject} placeholder="Select your child objects"
+                                options={childsObjectList} onchange={childObjectRecordHandler}></lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #efefef;">
+                    <div>
+                        <h1 class="headingCustomField">Select Roll-Up Type</h1>
+                    </div>
+                    <div class="slds-grid" style="padding:5%;">
+                        <div class="slds-col slds-size_4-of-12">
+                            <lightning-radio-group options={operationList} value={operationType} type="radio"
+                                onchange={operationHandler} disabled={isShowOperation}></lightning-radio-group>
+                        </div>
+                        <div class="slds-col slds-size_8-of-12">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_4-of-12">
+                                    <h1 style="margin-top: 20%;">Field to Aggregate</h1>
+                                </div>
+                                <div class="slds-col slds-size_8-of-12">
+                                    <lightning-combobox value={childField} placeholder="Select your child Fields"
+                                        options={childIntegratedFieldList} onchange={selectChildFieldHandler}
+                                        disabled={isVisible}></lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+
+            <div class="footer">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_8-of-12"></div>
+                    <div class="slds-col slds-size_4-of-12">
+                        <div class="slds-grid">
+                            <template if:false={isSummerize}>
+                                <div class="slds-col slds-size_7-of-12">
+
+                                </div>
+                                <div class="slds-col slds-size_5-of-12">
+                                    <button class="slds-button slds-button_brand" onclick={handlerNext}
+                                        title="Cancel">Next</button>
+                                </div>
+
+                            </template>
+
+                            <template if:true={isSummerize}>
+                                <div class="slds-col slds-size_5-of-12">
+                                    <button class="slds-button slds-button_brand" onclick={handlePreviours}
+                                        title="Create">Previous</button>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12">
+
+                                </div>
+                                <div class="slds-col slds-size_5-of-12">
+                                    <button class="slds-button slds-button_brand" onclick={saveHandler}
+                                        title="Save">Save</button>
+                                </div>
+
+                            </template>
+                          
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</template>

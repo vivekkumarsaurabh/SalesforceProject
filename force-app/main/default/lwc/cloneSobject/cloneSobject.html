@@ -1,0 +1,22 @@
+<template>       
+ <lightning-quick-action-panel header={sObjectLabelName}>
+    <template if:true={requiredFieldList} for:each={requiredFieldList} for:item="iterateField">
+        <div class="slds-grid" key={iterateField}>
+         <div class="slds-col slds-size_4-of-12">
+             <h1 style="font-size: 1rem;">
+                <span style="color: red; font-weight:bolder;">*</span>
+                {iterateField.label}
+             </h1>
+         </div>
+         <div class="slds-col slds-size_4-of-12">
+            <lightning-input type="text" class={iterateField.apiName} data-fieldname={iterateField.apiName}></lightning-input>
+         </div>
+        </div> 
+   </template>
+    <div slot="footer">
+        <lightning-button  variant="neutral" label="Cancel" onclick={closeLwcHandler}></lightning-button>
+        <lightning-button variant="brand"  label="Clone Record" class="slds-m-left_x-small" onclick={saveHandler}
+        ></lightning-button>
+    </div>
+</lightning-quick-action-panel>       
+</template>

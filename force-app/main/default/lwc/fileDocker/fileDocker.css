@@ -1,0 +1,78 @@
+.iconHoverView{
+    padding:0px 5px;
+}
+
+.iconHoverView:hover{
+    --sds-c-icon-color-foreground-default:blue;
+    cursor:pointer;
+}
+
+.iconHoverDel{
+    padding:0px 5px;
+}
+
+.iconHoverDel:hover{
+    --sds-c-icon-color-foreground-default:red;
+    cursor:pointer;
+}
+
+.iconHoverEdit{
+    padding:0px 5px;
+}
+
+.iconHoverEdit:hover{
+    --sds-c-icon-color-foreground-default:darkgreen;
+    cursor:pointer;
+}
+
+.iconHoverDownload{
+    padding:0px 5px;
+}
+
+.iconHoverDownload:hover{
+    --sds-c-icon-color-foreground-default:rgb(255, 115, 0);
+    cursor:pointer;
+}
+
+.tablediv{
+    margin-top: 20px;
+    overflow: auto;
+    overflow-y:scroll;
+    height: 300px; 
+}
+
+thead{
+    position:sticky;
+    top:0;
+    z-index: 10;
+    height: 10px;
+    text-align: center;
+}
+
+thead tr{
+    background-color: black;
+    color:#fff;
+}
+
+thead .tableRow{
+    justify-content: center;
+}
+.btn{
+    margin-left: 5px;
+    height: 35px;
+    margin-top: 22px;
+}
+
+.link{
+    text-decoration:none;
+    color:#fff;
+}
+
+.deleteAll{
+    padding:5px;
+}
+
+.dwnloadAll{
+    padding: 5px;
+    color:#fff;
+}

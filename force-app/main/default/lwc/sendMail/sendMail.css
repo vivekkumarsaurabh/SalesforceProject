@@ -1,0 +1,89 @@
+.superBody{   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.mainBody{
+    max-width:500px;
+}
+.iconPost{
+    --sds-c-icon-color-foreground-default:#000000;
+    background-color:#fff; 
+    padding:2%;
+    margin-top:2px;
+    border:1px solid gray;
+}
+
+.iconPost:hover{
+    cursor: pointer;
+}
+
+.emailFile{
+    height: 8vh;
+    background: #efefef;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.contactBox{
+    max-height: 30vh;
+    width: 280px;
+    position: absolute;
+    overflow: none;
+    z-index: 999999;
+    background: #fff;
+    left: 20%;
+    top: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+
+
+.contactBox::-webkit-scrollbar {
+    display: none; 
+}
+
+.conList{
+    border-bottom:1px solid #efefef;
+
+}
+
+.conList:hover{
+    cursor: pointer;
+    background-color: #efefef;
+}
+
+.stickymenu{
+    height: 150px;
+    border-bottom: 1px solid #efefef;
+    position: fixed;
+    width: 32%;
+}
+
+.submenu .menuItem{
+padding: 10px;
+list-style:none;
+
+}
+
+.submenu{
+    border-right: 1px solid #cbcbcb;
+}
+
+.submenu li:hover{
+ cursor: pointer;
+ background-color: rgb(204, 249, 249);
+ border-left:2px solid blue;
+}
+
+.show-menu .slds-dropdown {
+    bottom: 100%; /* Position above the button */
+    transform: translateY(-1rem); /* Adjust as necessary */
+}
+
+.slds-button-menu {
+    position: relative; /* Ensure the dropdown is positioned relative to the button */
+}

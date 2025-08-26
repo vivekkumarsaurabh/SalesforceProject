@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Child Component">
+        <div class="slds-box slds-var-m-around_large">
+          This is <strong>Child</strong> Component
+          <div><strong>Message Received: </strong>{messageReceived}</div>
+          <div>
+            <c-grand-child ongrandchildevent={handlegrandChildEvent} message-received={messageReceived}  ></c-grand-child>
+          </div>
+        </div>
+        <br />
+      </lightning-card> 
+</template>

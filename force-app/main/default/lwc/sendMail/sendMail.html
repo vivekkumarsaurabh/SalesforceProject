@@ -1,0 +1,353 @@
+<template>
+    
+
+  
+    <template if:true={isBody}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-08" aria-modal="true"
+            aria-describedby="modal-content-id-8" class="slds-modal slds-fade-in-open slds-float_left">
+            <div class="slds-modal__container slds-float_left">
+                <!-- <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small"
+                    onclick={closeBodyHandler}></lightning-icon> -->
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate">
+                        Preview email
+                    </h2>
+                    <!-- style="--sds-c-icon-color-foreground-default:#fff;" -->
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-8" style="height:200px;">
+                    <p>{plainBodyText}</p>
+                </div>
+                <!-- <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={closeBodyHandler}
+                        title="Cancel">Close</button>
+                </footer> -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <template if:true={isSendingMail}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-88" aria-modal="true"
+            aria-describedby="modal-content-id-88" class="slds-modal slds-fade-in-open slds-float_right">
+            <div class="slds-modal__container slds-float_right" style="top:10%; left:8%;">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" style="right:20%;"
+                    onclick={closeSendingMail}></lightning-icon>
+                <header class="slds-modal__header" style="width: 500px;">
+                    <h2 id="modal-heading-88" class="slds-text-heading_medium slds-hyphenate">
+                        Send email
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-88" style="width:500px;">                   
+                    <div class="superBody">
+                            <template if:true={isError}>
+                                <div style="width:500px;">
+                                    <h1 style="background-color: #dd4e4e; color: #fff;  text-align: center; font-size: 1rem;">Review  the Error on this page</h1>
+                                    <h5 style="color: red; text-align: center;">{errorMsg}</h5>
+                                </div>
+                            </template>
+                           
+                            <template if:true={isSucessModal}>
+                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-06" aria-modal="true"
+                                    aria-describedby="modal-content-id-7" class="slds-modal slds-fade-in-open">
+                                    <div class="slds-modal__container">
+                                        <lightning-icon
+                                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                                            icon-name="utility:close" alternative-text="preview" size="small"
+                                            onclick={cancelModal}></lightning-icon>                                       
+                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-7">
+                                            <p>Email is sending... <button class="slds-button slds-button_brand time"
+                                                    onclick={cancelModal}>Undo</button></p>
+                                        </div>
+                                    </div>
+                                </section>                        
+                            </template>
+                          
+                            <template if:true={isMergeField}>
+                                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-10" aria-modal="true"
+                                    aria-describedby="modal-content-id-10" class="slds-modal slds-fade-in-open">
+                                    <div class="slds-modal__container">
+                                        <lightning-icon
+                                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                                            icon-name="utility:close" alternative-text="preview" size="small"
+                                            onclick={closeMergeHandler}></lightning-icon>
+                                        <header class="slds-modal__header">
+                                            <h2 id="modal-heading-10" class="slds-text-heading_medium slds-hyphenate">
+                                                Insert Merge Field
+                                            </h2>
+                                        </header>
+                                        <div class="slds-modal__content" id="modal-content-id-10">
+                                            <div class="slds-grid">
+                                                <div class="slds-size_4-of-12 submenu">
+                                                    <div class="stickymenu">
+                                                    <li class="menuItem"
+                                                        style="background-color: rgb(168, 168, 255); border-left:2px solid blue;"
+                                                        onclick={receipientHandler}>Recipient</li>
+                                                    <li class="menuItem" onclick={senderHandler}>Sender</li>
+                                                    <li class="menuItem" onclick={senderBrandHandler}>Sender's Brand</li>
+                                                    <li class="menuItem" onclick={organnizationHandler}>Organization</li>
+                                                  </div> 
+                                                </div>
+                                                <div class="slds-size_8-of-12">
+                                                    <lightning-input type="search" label="Select Merge Field" value={searchValue}
+                                                        style="width:95%; margin:5px;" onchange={searchHandler}
+                                                        placeholder="Search Organization merge fields..."> </lightning-input>
+                        
+                                                <div style="overflow:auto; height:350px;">
+                                                    <template if:true={recipientOptionList}>
+                                                        <lightning-radio-group name="radioGroup" options={recipientOptionList}
+                                                            value={recipientValue} style="padding: 5px;" type="radio"
+                                                            onchange={recipientHandler}></lightning-radio-group>
+                                                    </template>
+                                                </div>  
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                        <footer class="slds-modal__footer">
+                                            <button class="slds-button slds-button_neutral" onclick={closeMergeHandler}
+                                                title="Cancel">Cancel</button>
+                                            <button class="slds-button slds-button_brand" onclick={InsertBodyHandler}
+                                                title="Cancel">Insert</button>
+                                        </footer>
+                                    </div>
+                                </section>
+                                <div class="slds-backdrop slds-backdrop_open"></div>
+                            </template>
+
+                            <div class="mainBody">
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <h2 style="margin-top: 25%;"><span style="color:red;"><b>*</b></span>From :</h2>
+                                    </div>
+                                    <div class="slds-col slds-size_10-of-12">
+                                        <lightning-combobox name="progress" class="inputValidate" value={selectedUser}
+                                            options={userList} onchange={handleSeletedUser}></lightning-combobox>
+                                    </div>
+                                </div>
+                
+                                <div class="slds-grid" style="position: relative;">
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <h2 style="margin-top: 25%;"><span style="color:red;"><b>*</b></span> To :</h2>
+                                    </div>
+                                    <template if:false={isCC}>
+                                        <div class="slds-col slds-size_9-of-12"><lightning-input type="text"
+                                                onchange={toHandler} value={toSend} onfocusout={focustOutHandler}></lightning-input>
+                                            <template if:true={isToSend}>
+                                                <template for:each={toSendList} for:item="iteratePill">
+                                                    <lightning-pill label={iteratePill.name} key={iteratePill.email}
+                                                        data-pill={iteratePill.email} data-identifier={iteratePill.pillIdentifier} onremove={handleRemove}><lightning-icon
+                                                            icon-name="standard:contact" alternative-text="Contact">
+                                                        </lightning-icon></lightning-pill>
+                                                </template>
+                                            </template>
+                
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-12">
+                                            <h2 onclick={addCCHandler} style="margin-top: 35%; padding:10px;">Cc</h2>
+                                        </div>
+                                    </template>
+                
+                
+                                    <template if:true={isCC}>
+                                        <div class="slds-col slds-size_10-of-12"><lightning-input class="inputValidate" type="text"
+                                                onchange={toHandler} value={toSend}  onfocusout={focustOutHandler} ></lightning-input>
+                                            <template if:true={isToSend}>
+                                                <template for:each={toSendList} for:item="iteratePill">
+                                                    <lightning-pill label={iteratePill.name} key={iteratePill.email}
+                                                        data-pill={iteratePill.email} data-identifier={iteratePill.pillIdentifier} onremove={handleRemove}><lightning-icon
+                                                            icon-name="standard:contact" alternative-text="Contact">
+                                                        </lightning-icon></lightning-pill>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </template>
+                
+                
+                                    <template if:true={toContactList}>
+                                        <div class="contactBox">
+                                            <template for:each={toContactList} for:item="iterateContact">
+                                                <div class="slds-grid conList" key={iterateContact}
+                                                    data-selectemail={iterateContact.Email} data-personname={iterateContact.Name}
+                                                    data-conid={iterateContact.Id} onclick={selectContactHandler}>
+                                                    <div class="slds-col slds-size_2-of-12" style="padding: 5%;">
+                                                        <lightning-icon icon-name="standard:contact" alternative-text="contact"
+                                                            title="Contact" size="small"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-col slds-size_10-of-12" style="padding: 2%;">
+                                                        <h2>{iterateContact.Name}</h2>
+                                                        <p>{iterateContact.Email}</p>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                
+                                <template if:true={isCC}>
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_2-of-12">
+                                            <h2 style="margin-top: 25%;">Cc :</h2>
+                                        </div>
+                                        <div class="slds-col slds-size_10-of-12"><lightning-input type="text"
+                                                onchange={ccHandler} value={toCcUsers} onfocusout={focustOutHandler}  ></lightning-input>
+                                            <template if:true={isCcSend}>
+                                                <template for:each={toCcUsersList} for:item="iteratePill">
+                                                    <lightning-pill label={iteratePill.name} key={iteratePill.email}
+                                                        data-pill={iteratePill.email} data-identifier={iteratePill.pillIdentifier} onremove={handleRemove}><lightning-icon
+                                                            icon-name="standard:contact" alternative-text="Contact">
+                                                        </lightning-icon></lightning-pill>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <h2 style="margin-top: 25%;">Bcc :</h2>
+                                    </div>
+                                    <div class="slds-col slds-size_10-of-12"><lightning-input type="text"
+                                            onchange={bccHandler} value={toBccUsers} onfocusout={focustOutHandler}  ></lightning-input>
+                                        <template if:true={isBccSend}>
+                                            <template for:each={toBccUsersList} for:item="iteratePill">
+                                                <lightning-pill label={iteratePill.name} key={iteratePill.email}
+                                                    data-pill={iteratePill.email} data-identifier={iteratePill.pillIdentifier} onremove={handleRemove}><lightning-icon
+                                                        icon-name="standard:contact" alternative-text="Contact">
+                                                    </lightning-icon></lightning-pill>
+                                            </template>
+                                        </template>
+                                    </div>
+                                </div>
+                
+                
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <h2 style="margin-top: 25%;"><span style="color:red;"><b>*</b></span>Subject :</h2>
+                                    </div>
+                                    <div class="slds-col slds-size_10-of-12"><lightning-input class="inputValidate" type="text"
+                                            value={subjectEmail} placeholder="Enter Subject..."
+                                            onchange={subjectHandler}></lightning-input>
+                                    </div>
+                                </div>
+                                <div>
+                                    <lightning-input-rich-text value={bodyEmail} onchange={handleRichTextChange} rows="15"
+                                        style="max-height:fit-content; margin-top:2%;">
+                                    </lightning-input-rich-text>
+                                </div>
+                                <br>
+                                <div>
+                                    <template if:true={fileAttachmentBlob}>
+                                        <template for:each={fileAttachmentBlob} for:item="fileItem">
+                                            <!-- <div class="slds-grid" key={fileItem.fileName}> -->
+                                            <div class="slds-col slds-size_11-of-12" key={fileItem.fileName}>
+                                                <div class="slds-grid emailFile">
+                                                    <div class="slds-col slds-size_10-of-12">
+                                                        <h5 class="slds-truncate">{fileItem.fileName}</h5>
+                                                    </div>
+                                                    <div class="slds-col slds-size_2-of-12">
+                                                        <lightning-icon class="iconPost slds-float_right" data-file={fileItem.fileName}
+                                                            title="Remove File" icon-name="utility:close" alternative-text="preview"
+                                                            size="x-small" onclick={removeAttachmentHandler}>
+                                                        </lightning-icon>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br key={fileItem.fileName}>
+                                            <!-- </div> -->
+                                        </template>
+                
+                                    </template>
+                                </div>                
+                            </div>
+                        
+                    </div>
+
+                </div>
+                <footer class="slds-modal__footer" style="height: 14vh; width:500px">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_6-of-12">
+                                <input type="file" class="fileInput" style="display: none;"
+                                    onchange={uploadFileHandler}></input>
+                                <lightning-icon class="iconPost slds-float_left" style="margin-right:5px;"
+                                    title="Attachment File" icon-name="utility:attach" alternative-text="attachments" 
+                                    size="x-small" onclick={fileAttachIconHandler}>
+                                </lightning-icon>
+                                <lightning-icon class="iconPost slds-float_left" title="Insert Merge Field"
+                                    icon-name="utility:merge_field" alternative-text="MergeField" size="x-small"
+                                    onclick={mergeFieldHandler}>
+                                </lightning-icon>
+                                <lightning-icon class="iconPost slds-float_left" title="Insert, create or Update template"
+                                    icon-name="utility:insert_template" alternative-text="MergeField" size="x-small"
+                                    onclick={inserTemplateHandler}>
+                                </lightning-icon>
+                                <lightning-icon class="iconPost slds-float_left" style="margin-left:5px;"
+                                    title="Preview Email" icon-name="utility:preview" alternative-text="preview"
+                                    size="x-small" onclick={openPreviewHandler}>
+                                </lightning-icon>
+                                <!-- <lightning-file-upload  label="Attach receipt" class="slds-float_left" name="fileUploader" accept={acceptedFormats}  onuploadfinished={handleUploadFinished} multiple style="width:20px; height:30px;"></lightning-file-upload> -->
+                            </div>
+                            <div class="slds-col slds-size_6-of-12">
+    
+                            </div>
+                        </div>                
+                      
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-12">
+                                <h1 style="margin-top: 25px; margin-right:10px;">Related To</h1>
+                            </div>
+                            <div class="slds-col slds-size_6-of-12">
+                                <div class="slds-grid">
+                                
+                                    <lightning-button-menu alternative-text="RelatedTo" icon-name="standard:account"
+                                        class="show-menu" size="small" style="float:right; margin-top:18px;" menu-alignment="auto"
+                                        onselect={handlechangeSObject}>
+                                        <template for:each={sObjectList} for:item="iterateObject">
+                                            <lightning-menu-item label={iterateObject.label} value={iterateObject.value}
+                                                icon-name={iterateObject.icon} size="medium" key={iterateObject.value}>
+                                            </lightning-menu-item>
+                                        </template>
+                                    </lightning-button-menu>
+                                    <!-- <lightning-record-edit-form object-api-name={objectApiName}>
+                            <div class="slds-text-align_center slds-m-around_x-small">                                                                       
+                                                                               <lightning-input-field  variant="label-hidden" field-name={fieldApiName}
+                                                                                   value={relatedToValue} onchange={relatedToHandler}>
+                                                                               </lightning-input-field>
+                            </div>
+                            </lightning-record-edit-form> -->
+                                    <lightning-combobox value={relatedToValue} dropdown-alignment="bottom-left"
+                                        options={sObjectRecordData} onchange={relatedToHandler}></lightning-combobox>
+                                </div>
+    
+    
+                            </div>
+    
+                            <div class="slds-col slds-size_4-of-12">
+                                <button class="slds-button slds-button_brand slds-float_right" onclick={sendEmailHandler}
+                                    style="padding: 0px 40px; margin-top:15px;" title="send email">Send</button>
+                            </div>
+                        </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+   <div class="slds-grid">
+    <lightning-button  label="Email" title="Email"  icon-name="standard:email" size="medium" variant="neutral" onclick={openSendingMail}>
+    </lightning-button>
+        <lightning-button-menu alternative-text="Show menu" icon-name="utility:down">
+          <lightning-menu-item label="Add Email to To Do List"  icon-name="utility:task" value="toDoList" onclick={handleCreateTask} style="border-bottom:1px solid #fefefe ;"></lightning-menu-item>
+    
+          <lightning-menu-item label="Send with Gmail"  icon-name="utility:download" value="sendGmail" onclick={handleSendWithGmail}></lightning-menu-item>
+          <lightning-menu-item label="Set My Email Preferences"  icon-name="utility:settings" value="emailPreferences" onclick={openEmailPreference}></lightning-menu-item>
+      </lightning-button-menu>
+   </div>
+   
+
+
+    
+</template>

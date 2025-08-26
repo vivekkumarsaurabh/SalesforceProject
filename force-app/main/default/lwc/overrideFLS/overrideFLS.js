@@ -1,0 +1,147 @@
+import { LightningElement, wire, api, track } from 'lwc';
+import getLayoutName from '@salesforce/apex/ShowFieldOnEditPageOverrideFLS.getLayoutName';
+import returnlayout from '@salesforce/apex/ShowFieldOnEditPageOverrideFLS.returnlayout';
+import getRecordType from '@salesforce/apex/ShowFieldOnEditPageOverrideFLS.getRecordType';
+import updateFieldLevelSecurity from '@salesforce/apex/ShowFieldOnEditPageOverrideFLS.updateFieldLevelSecurity';
+import fieldConfigrationList from '@salesforce/apex/ShowFieldOnEditPageOverrideFLS.fieldConfigrationList';
+import { CurrentPageReference } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
+
+
+export default class OverrideFLS extends NavigationMixin(LightningElement) {
+
+    @api objectApiName;
+    recTypeId;
+    @api recId;
+    @track layoutInformation;
+    recordName;
+    rec;
+    isModal = true;
+    action;
+    recordIdOfRec;
+    activeSections = [];
+    currentPageReference = null;
+    urlStateParameters = null;
+    fields = [];
+    
+
+    constructor() {
+        super();
+        const style = document.createElement('style');
+        style.innerText = `.slds-accordion__summary{height: 1px;}`;
+        document.querySelector('head').appendChild(style);
+    }
+
+
+    @wire(CurrentPageReference)
+    getPageReferenceParameters(currentPageReference) {
+        if (currentPageReference) {
+            this.isModal = false;
+            fieldConfigrationList().then(field => {
+                this.fields = field;
+                if (this.fields) {
+                    updateFieldLevelSecurity({ fieldList: this.fields, objectNames: this.objectApiName, profileNames: 'Admin', readPermission: true, editPermission: true }).then(res => {
+                        if (res) {
+                            console.log('res=--->' + JSON.stringify(res));
+                            getRecordType({ objectName: this.objectApiName, recordId: this.recId }).then(res => {
+                                if (res) {
+                                    res.forEach(ele => {
+                                        if (ele.RecordTypeId == undefined || ele.RecordTypeId == null) {
+                                            //  this.recTypeId = ele.RecordTypeId;
+                                            this.recTypeId = '0125j000000evZ6AAI';
+                                            this.recordName = ele.Name;
+                                        } else {
+                                            this.recTypeId = ele.RecordTypeId;
+                                            this.recordName = ele.Name;
+                                        }
+                                    })
+                
+                                    getLayoutName({ recordId: this.recTypeId }).then(result => {
+                                        let layoutName;
+                                        result.forEach(ele => {
+                                            layoutName = ele.value;
+                                        })
+                                        let layoutN = this.objectApiName + '-' + layoutName;
+                                        // let layoutN = 'Account-Account Layout'; 
+                                        returnlayout({ layoutName: layoutN }).then(result => {
+                                            result.forEach(element => {
+                                                this.activeSections.push(element.sectionName);
+                                            })
+                                            this.layoutInformation = result;
+                                            console.log('result----->' + JSON.stringify(this.layoutInformation));
+                                            this.isModal = true;
+                                        })
+                
+                                    });
+                                }
+                
+                            });
+
+                        }
+                    });
+                }
+
+            })
+
+            
+        }
+    }
+
+    handleSuccess(event) {
+        this.recordIdOfRec = event.detail.id;
+        this.action = 'edit';
+        this.navigateToRecord();
+    }
+
+    isclosdModal() {
+        this.action = 'cancel';
+        this.navigateToRecord();
+    }
+
+    navigateToRecord() {
+        switch (this.action) {
+            case 'edit':
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.recordIdOfRec,
+                        objectApiName: this.objectApiName,
+                        actionName: 'view'
+                    }
+                });
+                updateFieldLevelSecurity({ fieldList: this.fields, objectNames: this.objectApiName, profileNames: 'Admin', readPermission: false, editPermission: false }).then(res => {
+                    
+                    if(res){
+                        this.isModal = false;
+                    }
+                })
+                break;
+            case 'cancel':
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: this.recId,
+                        objectApiName: this.objectApiName,
+                        actionName: 'view'
+                    }
+                });
+                updateFieldLevelSecurity({ fieldList: this.fields, objectNames: this.objectApiName, profileNames: 'Admin', readPermission: false, editPermission: false }).then(res => {
+                   if(res){                     
+                    this.isModal = false;
+                   }
+                })
+                break;
+        }
+    }
+
+    //toast method
+    showToast(toastTitle, toastMessage, toastVariant) {
+        const toastEvent = new ShowToastEvent({
+            title: toastTitle,
+            message: toastMessage,
+            variant: toastVariant,
+        })
+        this.dispatchEvent(toastEvent);
+    }
+}

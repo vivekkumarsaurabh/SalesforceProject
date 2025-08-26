@@ -1,0 +1,55 @@
+<template>
+    <div style="text-align:center;"><h1>Feedback Form</h1></div> 
+    <div style="margin:auto; align-items: center; display:flex; justify-content:center;">
+              
+        <div style="width: 300px;">
+            <!-- <div class="slds-col slds-size_12-of-12">
+                <div class="slds-form" style="width: 100%; padding:5%;">
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="text" label="Full Name" name="userName"
+                                class="validate" placeholder="Enter Your Full Name" maxlength="100"
+                                required></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="email" label="Email" name="userEmail"
+                                class="validate" placeholder="Your Email" required
+                                pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                                message-when-pattern-mismatch="Please enter a valid phone number like john@gmail.com"></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="phone" label="Phone" name="userPhone"
+                                class="validate" placeholder="Enter Your Phone" required
+                                pattern="^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$"
+                                message-when-pattern-mismatch="Please enter a valid phone number"></lightning-input>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+           <!-- <lightning-record-edit-form
+             density="compact"
+             object-api-name={objectApiName}
+             record-id={recordId}
+           >             
+           </lightning-record-edit-form> -->
+           <!-- <lightning-record-form
+             columns={columns}
+             layout-type="Compact"
+             object-api-name="feedback__c"             
+             fields={fields}
+           ></lightning-record-form> -->
+           <lightning-record-form
+              object-api-name={objectApiName}
+              fields={fields}
+              onsuccess={handleSuccess}
+            >
+           </lightning-record-form>
+        </div>
+        
+    </div>
+    
+</template>

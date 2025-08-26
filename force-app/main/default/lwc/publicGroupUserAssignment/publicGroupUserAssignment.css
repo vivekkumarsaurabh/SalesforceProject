@@ -1,0 +1,8 @@
+.userBox{
+    height: 300px;
+     width:100%;
+     overflow-y:auto;
+}
+.userBox::-webkit-scrollbar {
+    display: none; 
+}

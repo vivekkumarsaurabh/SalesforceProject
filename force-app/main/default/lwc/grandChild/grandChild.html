@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Grand Child Component">
+        <div class="slds-box slds-var-m-around_large">
+          This is <strong>Child</strong> Component
+          <div>
+            <lightning-input label="Enter Text" onchange={handleChange} class="slds-m-bottom_x-small" data-id="reset"></lightning-input>
+          
+            <lightning-button label="Grand Child" onclick={handleGrandChildSubmit}></lightning-button>
+          </div>
+          <div><strong>Message Sent: </strong>{messageSend}</div>
+          <div><strong>Message Received: </strong>{messageReceived}</div>
+        </div>
+        <br />
+      </lightning-card>
+</template>

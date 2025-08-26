@@ -1,0 +1,28 @@
+<template>
+    <div>
+        <lightning-record-view-form record-id={recordId} object-api-name={objectApiName}>
+            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                <template for:each={layoutInformation} for:item="iterateSection">
+                    <lightning-accordion-section name={iterateSection.sectionName} key={iterateSection}
+                        style=" text-decoration: none; --slds-c-accordion-summary-color-background:rgb(224, 221, 221);  "
+                        label={iterateSection.sectionName}>
+                        <div class="slds-grid slds-gutters box" style="margin-bottom:10px">
+                            <template for:each={iterateSection.columns} for:item="iterateCol">
+                                <div class="slds-col slds-size_5-of-12" key={iterateCol}>
+                                    <template for:each={iterateCol.fields} for:item="iterateField">
+                                         <lightning-output-field
+                                            key={iterateField.apiName} field-name={iterateField.apiName}>
+                                        </lightning-output-field>
+
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </lightning-accordion-section>
+                </template>
+                <br>
+                <br>
+            </lightning-accordion>
+        </lightning-record-view-form>
+    </div>
+</template>

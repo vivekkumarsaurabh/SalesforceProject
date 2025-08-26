@@ -1,0 +1,292 @@
+.mainBody{
+    margin: auto;
+    background-color: #ebdaebc9;
+    width: 100%;
+}
+
+.salonImg{
+    filter: brightness(50%);
+    background-image: url('/resource/salonImg');
+    height: 500px;
+    width: 100%;
+}
+.solonAbout{
+    background-image: url('/resource/salonImg');
+    height: 400px;
+    width: 100%;
+}
+.headingAbout{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.paraAbout{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: justify;
+}
+.innerAbout{
+    padding: 10px;
+}
+.salonImgSec{
+    filter: brightness(50%);
+    background-image: url('/resource/hairDesign');
+    height: 100%;
+    width: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.teamCard{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border:5px solid #f7d8d8;
+    height: 250px; 
+    width:200px;
+}
+.teamCard .slds-card__header .slds-media .slds-media__body h4{
+    font-size: 1.5rem;
+    margin: 8px;
+}
+.paratime{
+    line-height: 1.5rem; 
+    font-size: 1rem;
+    text-align: justify;
+}
+.activeness:hover{
+    background-color: blueviolet;
+}
+.imgAvtar{
+    background-color: orange; 
+    border-radius:50%;
+    height:74px;
+    width:74px;
+    margin:auto; 
+}
+.slds-context-bar{
+    color:#fff;
+    position: sticky;
+    /* background-color:  rgb(70, 95, 233); */
+    background-color: rgb(1, 10, 53);
+    /* position: -webkit-sticky; */
+    position: sticky;
+    z-index: 9999999999999999;
+  top: 0;
+    height: 50px;
+}
+.slds-context-bar .slds-context-bar__secondary .slds-grid menu li:hover{
+    background-color: coral;
+    transition-delay:1s;
+}
+.makeAppoint{   
+    width: 100%;
+    margin: auto;
+    margin-top: 5%;
+  
+}
+.changeBgColor{
+    background-color: #ebdaebc9;
+}
+.makeAppoint h1{
+    text-align: center;
+  /* margin-left:35%; */
+  font-family: 'Sixtyfour', sans-serif;  
+  font-size: 1.5rem;
+  line-height: 1rem;
+
+}
+.makeAppoint h4{
+    margin-left:10%;
+    font-size: 1.2rem;    
+}
+.makeAppoint p{
+    font-size: 0.8rem;
+    line-height: 1.4rem;
+    margin: 0px 30px;
+}
+.makeAppoint .btn{
+    padding: 10px 80px;
+    margin-left: 40%;
+    
+}
+.makeAppoint .soloIm{
+    height: 505px;
+    width: 100%;    
+}
+.cardBox{
+    margin: auto;
+    margin-top: 2%;
+}
+.cardBox .slds-col .slds-grid .slds-card{
+    margin: auto;
+    height: 250px; 
+    width:100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-5%);
+   
+}
+.slds-card .slds-card__body p{
+    line-height: 1.3rem;
+    font-size: 1rem;
+}
+.slds-card .slds-card__header .slds-media{
+    padding: 10px;
+}
+.iconClose:hover{
+    --sds-c-icon-color-foreground-default:blueviolet;
+    cursor: pointer;
+}
+
+.menu .itemList{
+    width: 50%;
+}
+
+.cardList{ 
+    border:1px solid #f7d8d8;
+    height: 40px;    
+transform: translateY(-5%);
+box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 50%;
+}
+.modalBody{
+    text-align: center;
+}
+.cardList:hover{
+background-color:blueviolet;
+cursor: pointer;
+transition: 0.5s;
+color: #fff;
+}
+.slds-card:hover{    
+    cursor: pointer;    
+    transition: 0.5s;
+}
+.slds-card__body{
+font-size: 1.1rem;
+line-height: 1rem;
+} 
+.footer{
+    /* background-color: rgb(70, 95, 233); */
+    background-color: rgb(1, 10, 53);
+    color: #fff;
+    height: 100%;
+}
+.footer .slds-grid .slds-col{
+    margin: auto;
+}
+.footer .slds-grid .slds-col ul{
+    margin-top: 5%;
+}
+.footer .slds-grid .slds-col ul li{
+    line-height: 2.5rem;
+    font-size: 1rem;
+}
+
+.footer .slds-grid .slds-col .headFoter{
+    font-size: 1.5rem;
+    color:#fff;
+}
+
+.footer .slds-grid .slds-col .followMe{
+  font-size: 1.5rem;
+  margin-right:30%;
+  color:#fff;
+  margin:10px;
+}
+.footer .slds-grid .slds-col .follImg{
+    /* margin-left:30%;     */
+    
+}
+.footer .slds-grid .slds-col .follImg img{
+    margin:3px;
+}
+.footer .slds-grid .slds-col .follImg:hover{
+    cursor: pointer;
+}
+
+.contactForm{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding:5%;
+     margin-top: 5%; 
+    margin-right: 5%;
+     margin-bottom: 5%; 
+}
+
+.salonImgBookNow{
+    /* filter: brightness(80%); */
+    background-image: url('/resource/SalonheaderPic');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 200px;    
+}
+.salonImgBookNow h1{
+    font-size: 2rem;
+    margin-left: 10%;
+    width:100%;
+    margin-top: 100px;
+    color: #fff;
+    /* border-left:4px solid rgb(70, 95, 233); */
+    border-left:4px solid rgb(1, 10, 53);
+    padding-left: 3px;
+}
+.bookedCat{
+    margin: auto;
+}
+.bookHead{
+    text-align: center;
+}
+.bookHead h4{
+    font-size: 2rem;
+    /* border-bottom: 1px solid rgb(70, 95, 233);  */
+    border-bottom: 1px solid rgb(1, 10, 53);
+    display: inline-block;
+    padding-bottom: 2px;
+    
+}
+.bookedCat .slds-card{
+    width: 70%;
+    height: 20%;
+    border: 1px solid gray;
+    margin-left: 15%;  
+    background-color: #00000014;    
+}
+.bookedCat article:hover{
+    color: #fff;
+    transition: 0.5s;
+    /* background-color: rgb(70, 95, 233); */
+    background-color: blueviolet;
+    cursor: pointer;
+}
+.bookedCat article:hover .slds-card__header .slds-media .slds-media__figure .iconHover{    
+    --sds-c-icon-color-foreground-default:#fff;  
+}
+.bookedCat .slds-card .slds-card__body{
+    padding: 5px;
+}
+.bookedCat .slds-card .slds-card__body .slds-grid input{
+  width:30px;
+  height: 15px;
+}
+.bookedCat .slds-card .slds-card__header .slds-media .slds-media__figure .iconHover{
+    --sds-c-icon-color-foreground-default:rgb(70, 95, 233);
+}
+.bookedCat .slds-card .slds-card__header .slds-media .slds-media__figure .iconHover:hover{
+    --sds-c-icon-color-foreground-default:#fff;
+}
+
+
+
+.datePicker{
+    width:100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+.slds-grid .slds-col .soloImgBook{
+    height:400px;
+    width: 100%;
+}
+
+@font-face {
+    font-family: 'Sixtyfour', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+}

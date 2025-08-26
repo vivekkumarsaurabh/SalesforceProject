@@ -1,0 +1,184 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+        </lightning-spinner>
+    </template>
+    <template if:true={isDeleteModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">                    
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Delete File</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <h1>Are you sure you want to delete this File?</h1>
+                </div>               
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={deleteCancelModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={deleteHandler} title="delete file">Delete</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> 
+    
+    <template if:true={isEditModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">                    
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Edit File</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    
+                    <div class="slds-grid slds-gutters">    
+                        <div class="slds-col slds-size_3-of-12">
+                            <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px; float:left;">Title </h5>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12">
+                            <lightning-input value={titleValue} onchange={updatetitle} placeholder="Please Enter Your New Title"></lightning-input>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="slds-grid slds-gutters">    
+                        <div class="slds-col slds-size_3-of-12">
+                            <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px; float:left;">Description </h5>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12">
+                            <textarea type="text"  value={descValue} onchange={updatedesc} placeholder="Enter Your Description"  cols="72" rows="5"></textarea>
+                            
+                        </div>
+                    </div> 
+                    <br>
+                    <div class="slds-grid slds-gutters">    
+                        <div class="slds-col slds-size_3-of-12">
+                            <h5 class="slds-text-align_center" style="font-size:15px; float:left;">CreatedDate </h5>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12">
+                            <h2>{createdDate}</h2>
+                            
+                        </div>
+                    </div> 
+                    <br>
+                    <div class="slds-grid slds-gutters">    
+                        <div class="slds-col slds-size_3-of-12">
+                            <h5 class="slds-text-align_center" style="font-size:15px; float:left;">LastmodifyDate </h5>
+                        </div>
+                        <div class="slds-col slds-size_9-of-12">
+                            <h2>{lastModifyDate}</h2>
+                            
+                        </div>
+                    </div> 
+                    
+                </div>               
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={editCancelModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={editHandler} title="Edit file">Update</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+    <template if:true={isDeleteAllModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-05" aria-modal="true" aria-describedby="modal-content-id-5" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">                    
+                    <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate">Delete Files</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+                    <h1>Are you sure you want to delete these files ?</h1>
+                </div>               
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={deleteAllCancelModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={deleteAllHandler} title="deleteRecord">Delete All</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> 
+    
+    <lightning-card>
+        <div class="slds-grid slds-gutters">    
+            <div class="slds-col slds-size_6-of-12"> 
+                <div class="slds-grid slds-gutters">                     
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input label="Search Your files" type="search" onchange={searchKeys} value={searchValue} style="width:130%; margin-left:10%; height: 35px; "> </lightning-input>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_6-of-12">
+                <div class="slds-grid slds-gutters" style="margin-left: 25%;"> 
+                    <lightning-file-upload label="Upload New File" name="fileUploader" record-id={recordId} onuploadfinished={handleUploadFinished} title="" multiple></lightning-file-upload>
+                    <button class="slds-button slds-button_brand btn" onclick={downloadAll} disabled={isDisabled}><a href={downloadAllLink} class="link"><lightning-icon icon-name="utility:download" class="dwnloadAll" alternative-text="close" variant="inverse" size="x-small"></lightning-icon>Dowload All</a></button>
+                    <button class="slds-button slds-button_brand btn" onclick={openDeleteAllModal} disabled={isDisabled}><lightning-icon icon-name="utility:delete" alternative-text="close" variant="inverse" class="deleteAll" size="x-small"></lightning-icon>Delete Selected File</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tablediv">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">                
+                    <thead>
+                        <tr class="slds-line-height_reset tableRow">
+                            <th class="" scope="col">    
+                                <div class="slds-checkbox">
+                                    <lightning-input type="checkbox" class="inputHead" onchange={changeCheck} checked={ischeckAll}></lightning-input>
+                                </div>                     
+                            </th> 
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="File Name">File Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="File type">File type</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="File Size">File Size</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Created By">Created By</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Action">Action</div>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+              
+                <tbody>
+                    <template if:true={isRecordList} for:each={fileDetailsArr} for:item="iterateRec">
+                        <tr class="slds-hint-parent" key={iterateRec}>    
+                            
+                            <td data-label="checkBox" scope="row">     
+                                <div class="slds-checkbox">
+                                    <lightning-input type="checkbox" class="checkBoxCkeck" data-id={iterateRec.conDocId} checked={ischeckValue} onchange={buttonEnable}></lightning-input>
+                                </div>
+                            </td>                   
+                            <td data-label="docName" scope="row">
+                                <div class="slds-truncate">
+                                    <a href={iterateRec.fileLink} tabindex="-1">{iterateRec.title}</a>
+                                </div>
+                            </td>
+                            <td data-label="extension">
+                                <div class="slds-truncate"><lightning-icon icon-name={iterateRec.extensionIcon} alternative-text="close" variant="inverse" size="small" style=" padding:5px;"></lightning-icon>{iterateRec.fileExtension}</div>
+                            </td>
+                            <td data-label="docSize">
+                                <div class="slds-truncate">{iterateRec.conSize} Bytes</div>
+                            </td>
+                            <td data-label="CreatedBy">
+                                <div class="slds-truncate">{iterateRec.createdBy}</div>
+                            </td>
+                            <td data-label="Action">
+                                <div class="slds-truncate"><lightning-icon class="iconHoverView" icon-name="utility:preview" data-id={iterateRec.conDocId} alternative-text="preview" size="x-small" onclick={previewHandler}></lightning-icon><lightning-icon class="iconHoverEdit" icon-name="utility:edit" alternative-text="edit" data-id={iterateRec.conDocId} size="x-small" onclick={openEditModal}></lightning-icon><a href={iterateRec.downloadLink}><lightning-icon class="iconHoverDownload" icon-name="utility:download" alternative-text="download" size="x-small"></lightning-icon></a><lightning-icon class="iconHoverDel" icon-name="utility:delete" alternative-text="delete" data-id={iterateRec.conDocId} size="x-small" onclick={openDeleteModal}></lightning-icon></div>
+                            </td>
+                            
+                        </tr>                        
+                    </template>                    
+                </tbody>
+            </table> 
+            <template if:true={illustractionTrue}>
+                <c-no-data></c-no-data>
+            </template>
+        </div>       
+    </lightning-card>
+    
+</template>

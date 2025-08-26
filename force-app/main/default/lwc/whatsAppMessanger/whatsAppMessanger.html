@@ -1,0 +1,230 @@
+<template>
+
+    <template if:true={isCreateUser}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconHover"
+                    icon-name="utility:close" alternative-text="preview" size="x-small"
+                    style="--sds-c-icon-color-foreground-default:#fff;"
+                    onclick={isclosdCreateUserModalHandler}></lightning-icon>
+                <header class="slds-modal__header">
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <template if:true={isUser}>
+                        <h1 class="hoverNewContact" onclick={createUserhandler}>New Contact</h1>
+                    </template>
+                    <template if:false={isUser}>
+                        <lightning-input type="text" name="newName" required onchange={newNameHandler}
+                            label="Name"></lightning-input>
+                        <br>
+                        <lightning-input type="text" name="phone" maxlength="10" required onchange={newPhoneHandler}
+                            label="Phone"></lightning-input>
+                    </template>
+                </div>
+                <template if:false={isUser}>
+                    <footer class="slds-modal__footer slds-modal__footer_directional">
+                        <button class="slds-button slds-button_neutral" onclick={isclosdCreateUserModalHandler}
+                            style="padding:1% 4%;" title="save">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={userSavehandler} style="padding:1% 4%;"
+                            title="save">save</button>
+                    </footer>
+                </template>
+            </div>
+
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <template if:true={isDeleteModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-04" aria-modal="true"
+            aria-describedby="modal-content-id-4" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconHover"
+                    icon-name="utility:close" alternative-text="preview" size="x-small"
+                    style="--sds-c-icon-color-foreground-default:#000;" onclick={cancelDeleteHandler}></lightning-icon>
+                <header class="slds-modal__header">
+                    <h1 class="">Delete Message ?</h1>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-4">
+                    <div class="slds-modal__footer_directional">
+                        <button class="slds-button slds-button_neutral" onclick={cancelDeleteHandler}
+                            style="padding:1% 4%; float:left;" title="save">Cancel</button>
+                        <button class="slds-button slds-button_success" onclick={deleleMsgHandler}
+                            style="padding:1% 4%; float:right;" title="save">Delete for me</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <template if:true={isHome}>
+        <div class="slds-grid"
+            style="background-color: #005e54; height:60px; color:#fff; overflow-x: hidden; overflow-y: hidden;">
+            <div class="slds-col slds-size_3-of-12">
+                <h1 style="font-size: 1.3rem;padding:10%;">WhatsApp</h1>
+            </div>
+            <div class="slds-col slds-size_6-of-12">
+
+            </div>
+            <div class="slds-col slds-size_3-of-12">
+                <lightning-icon class="iconHover" icon-name="utility:adduser" alternative-text="preview" size="small"
+                    style="--sds-c-icon-color-foreground-default:#fff; padding:10%;"
+                    onclick={openCreateModalHandler}></lightning-icon>
+            </div>
+        </div>
+
+        <div class="userList">
+            <template for:each={users} for:item="iterateUser">
+                <div class="slds-grid user" key={iterateUser} data-id={iterateUser.id} data-name={iterateUser.name}
+                    data-phone={iterateUser.phone} onclick={userHandler}>
+                    <div class="slds-col slds-size_2-of-12" style="padding: 5%;">
+                        <lightning-icon class="iconHover" icon-name="utility:user" alternative-text="preview"
+                            size="small" style="--sds-c-icon-color-foreground-default:#ec9797;"></lightning-icon>
+                    </div>
+                    <div class="slds-col slds-size_10-of-12">
+                        <div class="slds-grid" style="height: 25px;">
+                            <div class="slds-col slds-size_8-of-12">
+                                <h1 style="font-size: 1rem;">{iterateUser.name}</h1>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">{iterateUser.msgDate} </div>
+                        </div>
+                        <div class="slds-grid" style="height:35px; width:85%;">
+                            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{iterateUser.msg}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <template if:true={isMsg}>
+        <div class="slds-grid" style="height: 60px; background-color:#005e54;  color:#fff; align-items:center;">
+            <div class="" style="padding: 2%;">
+                <lightning-icon class="iconHover" icon-name="utility:back" alternative-text="preview" size="x-small"
+                    style="--sds-c-icon-color-foreground-default:#fff;" onclick={backHandler}></lightning-icon>
+            </div>
+            <div class="" style="padding: 3%;">
+                <lightning-icon class="iconHover" icon-name="utility:user" alternative-text="preview" size="small"
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+            </div>
+            <div class="" style="display:flex; align-items:center; padding-left:5%;">
+                <h1 style="font-size: 1rem;">{userName}</h1>
+            </div>
+        </div>
+        <div data-scroll-section class="chatMsg">
+            <template for:each={messageWrapperList} for:item="iterateItem">
+                <div key={messageWrapperList} class="msgDate">
+                    {iterateItem.key}
+                </div>
+                <template for:each={iterateItem.msgList} for:item="item">
+                    <template if:true={item.replyMsgId}>
+                        <div key={iterateMsg} class={item.sent} onmouseenter={showDeleteBtn} onmouseleave={hideDeleteBtn} data-shoing={item.msgId}>
+                            <div style="height:40px; background: #f3ebeb; border-left: 3px solid #0ccf54; padding: 1px;">
+                                <h1 style="color: skyblue;">{item.replyLabel}</h1>
+                                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color:gray;">
+                                    {item.replyMsg}</p>
+                            </div>
+                            {item.msg} <span class="msgTime">{item.msgTime} </span>
+                            <template if:true={item.receiver}>
+                                <span data-hide={item.msgId} style="float: right;">
+                                    <template if:false={item.showTick}>
+                                        <lightning-icon class={item.status} icon-name="utility:check"
+                                            alternative-text="preview" size="xx-small"></lightning-icon>
+                                    </template>
+                                    <template if:true={item.showTick}>
+                                        <lightning-icon class={item.status} icon-name="utility:check"
+                                            alternative-text="preview" size="xx-small"
+                                            style="position:relative; float:right; bottom: 0px; top: 3px;"></lightning-icon>
+                                        <lightning-icon class={item.status} icon-name="utility:check"
+                                            alternative-text="preview" size="xx-small"></lightning-icon>
+                                    </template>
+                                </span>
+                            </template>
+                            <span style="float:right;">
+                                <lightning-button-menu alternative-text="Show menu" variant="bare" class="dropDown"
+                                    icon-name="utility:chevrondown" menu-alignment="right" style=""
+                                    data-show={item.msgId}>
+                                    <lightning-menu-item label="Delete" data-msgid={item.msgId}
+                                        onclick={deleteModalHandler}></lightning-menu-item>
+                                    <lightning-menu-item label="Reply" data-msg={item.msg} data-label={item.replyLabel}
+                                        data-messageid={item.messageId} onclick={replyHandler}></lightning-menu-item>
+                                </lightning-button-menu>
+                            </span>
+
+                        </div>
+                    </template>
+                    <template if:false={item.replyMsgId}>
+                        <div key={iterateMsg} class={item.sent} onmouseenter={showDeleteBtn}
+                            onmouseleave={hideDeleteBtn} data-shoing={item.msgId}>
+                            {item.msg} <span class="msgTime">{item.msgTime} </span>
+                            <template if:true={item.receiver}>
+                                <span data-hide={item.msgId} style="float: right;">
+                                    <template if:false={item.showTick}>
+                                        <lightning-icon class={item.status} icon-name="utility:check"
+                                            alternative-text="preview" size="xx-small"></lightning-icon>
+                                    </template>
+                                    <template if:true={item.showTick}>
+                                        <lightning-icon class={item.status} icon-name="utility:check" alternative-text="preview" size="xx-small"
+                                            style="position:relative; float:right; bottom: 0px; top: 3px;"></lightning-icon>
+                                        <lightning-icon class={item.status} icon-name="utility:check"
+                                            alternative-text="preview" size="xx-small"></lightning-icon>
+                                    </template>
+                                </span>
+                            </template>
+                            <span style="float:right;">
+                                <lightning-button-menu alternative-text="Show menu" variant="bare" class="dropDown"
+                                    icon-name="utility:chevrondown" menu-alignment="right" style=""
+                                    data-show={item.msgId}>
+                                    <lightning-menu-item label="Delete" data-msgid={item.msgId}
+                                        onclick={deleteModalHandler}></lightning-menu-item>
+                                    <lightning-menu-item label="Reply" data-msg={item.msg} data-label={item.replyLabel}
+                                        data-messageid={item.messageId} onclick={replyHandler}></lightning-menu-item>
+                                </lightning-button-menu>
+                            </span>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+        <div>
+            <template if:true={isReply}>
+                <div class="slds-grid" style="background:#e9edef; height:50px;">
+                    <div class="slds-col slds-size_11-of-12" style="height: 40px;  position: relative;">
+                        <div style="height:40px; background: #f3ebeb; border-left: 3px solid #0ccf54; padding: 1px; margin:2%;">
+                            <h1 style="color: skyblue;"><template if:true={replyLable}>{replyLable}</template><template if:false={replyLable}>{username}</template></h1>
+                            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color:gray;">
+                                {replyMsg}</p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <lightning-icon class="iconHover" icon-name="utility:close" alternative-text="preview"
+                            size="x-small" style="--sds-c-icon-color-foreground-default:#000; margin-top:50%;"
+                            onclick={closeReplyHandler}></lightning-icon>
+                    </div>
+                </div>
+            </template>
+            <div class="slds-grid send">
+                <div class="slds-col slds-size_11-of-12">
+                    <textarea name="input1"
+                        style="resize:none; border:none; height:35px; outline:none; width:100%; border-radius:15px; padding:2%; margin-top:5px;"
+                        class="msgArea" placeholder="Message" rows="1" onchange={msgSendHandler}></textarea>
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                    <lightning-icon class="iconHoverSend" icon-name="utility:send" alternative-text="preview"
+                        size="small"
+                        style="--sds-c-icon-color-foreground-default:#000; padding-top:40%; margin-left:3px;"
+                        onclick={sendMsgHandler}></lightning-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

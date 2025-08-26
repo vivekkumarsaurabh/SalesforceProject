@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Parent Component">
+        <div class="slds-box slds-var-m-around_large">
+          This is <strong>Parent</strong> Component
+          <div><strong>Message Received: </strong>{messageReceived}</div>
+          <div>
+            <c-child-cmp onchildevent={handleChildEvent} ongrandchildevent={handlegrandChildEvent} message-received={messageReceived}></c-child-cmp>
+          </div>
+        </div>
+        <br />
+      </lightning-card>
+    
+      <!-- Child -->
+</template>

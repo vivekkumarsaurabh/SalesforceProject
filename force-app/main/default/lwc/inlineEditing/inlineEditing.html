@@ -1,0 +1,337 @@
+<template>
+
+    <template if:true={isLoading}>
+        <div class="loader">
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large"
+                style="background: none; top:50%;">
+            </lightning-spinner>
+        </div>
+    </template>
+
+    <!--<template if:true={isCreateModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+            aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={handleCancelCreate}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Create {sObjectAPIName}
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-record-form object-api-name={sObjectAPIName} fields={fields}></lightning-record-form>
+                </div>
+            </div>
+        </section>
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={handleCancelCreate} title="Cancel">Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleCreateSubmit}
+                title="delete file">Submit</button>
+        </footer>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> -->
+
+    <template if:true={isDeleteModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true"
+            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={deleteCancelModal}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Delete {sObjectAPIName}
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <h1>Are you sure you want to delete this {sObjectAPIName}?</h1>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={deleteCancelModal}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={deleteHandler}
+                        title="delete file">Delete</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- <template if:true={isFilter}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-05" aria-modal="true"
+            aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelFilterModal}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate">Select Fields to Display
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+                    <lightning-dual-listbox name="languages" label="Select Languages" source-label="Available Fields"
+                        selected-label="Visible Fields" options={filedFilter} value={defaultOptions}
+                        required-options={requiredOptions} onchange={handleFilterField}></lightning-dual-listbox>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelFilterModal}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={saveFilterModal}
+                        title="delete file">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> -->
+
+    <!-- <template if:true={isConfigureChildObject}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-12" aria-modal="true"
+            aria-describedby="modal-content-id-12" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width: 35%;">
+                <lightning-icon
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconClose"
+                    icon-name="utility:close" alternative-text="preview" size="small" onclick={cancelConfigrationModal}
+                    style="--sds-c-icon-color-foreground-default:#fff;"></lightning-icon>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-12" class="slds-text-heading_medium slds-hyphenate">Selected Configration's
+                        child Object
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-12" style="height: 35vh;">
+                    <lightning-combobox name="childObject" value={childObjectSelected} placeholder="Select Child Object"
+                        options={childObjectList} onchange={handleChildsObject} class=""></lightning-combobox>
+                    <br>
+                    <br>
+                    <lightning-combobox name="childObject" value={sChildObjectId} placeholder="Select Parent Record"
+                        options={parentRecordList} onchange={handleConfigrationParent} class=""
+                        dropdown-alignment="bottom-left"></lightning-combobox>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelConfigrationModal}
+                        title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={saveFilterConfigration}
+                        title="Save filter">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> -->
+
+    <!-- <div class="header">
+        <h1>
+            Inline Editing Related Records
+        </h1>
+    </div> -->
+
+
+    <!-- <div class="slds-col slds-size_5-of-12">
+                            <button class="slds-button slds-button_neutral" onclick={openLWCComponent}
+                                style="margin-left: 25px;" title="open Lwc Component">My Custom LWC Button</button>
+    
+    </div> -->
+
+    <div class="childObjectCombo">
+        <div class="slds-grid" style="background: #f3f3f3; border: 2px solid #d7d2d2; border-radius: 3px;  padding: 1%;">
+            <div class="slds-col slds-size_4-of-12">
+                <template if:false={isIcon}>
+                <template if:true={sObjectList}>                                          
+                            <lightning-combobox value={selectedSObject} placeholder="Select Configration"
+                                options={sObjectList} onchange={handleSelectSObject}
+                                class="comboChildObject"></lightning-combobox>
+                            </template>                     
+                </template>
+                <template if:true={isIcon}>
+                    <h1 class="headerName">
+                        <lightning-icon icon-name={icon} alternative-text={sObjectAPIName}
+                            size='medium'></lightning-icon> {sObjectLabelName} ({recordCount})
+                    </h1>
+                </template>
+
+            </div>
+            <div class="slds-col slds-size_4-of-12"></div>
+            <div class="slds-col slds-size_4-of-12">
+                <div class="slds-grid" style="margin-top:13px;">
+                    <template if:false={isBtnDisabled}>
+                        <!-- <div class="slds-col slds-size_3-of-12">
+                            <button class="slds-button slds-button_neutral"  onclick={openCreateRecModal}
+                                style="float:right;" title="create new record" >New</button>    
+                        </div> -->
+                        <div class="slds-col slds-size_3-of-12">
+                        </div>
+                        <div class="slds-col slds-size_2-of-12">
+                            <lightning-icon icon-name="utility:refresh" alternative-text="refresh" size="xx-small"
+                                title="refresh the whole configration" onclick={refreshHandler}
+                                style="padding:7px; border:1px solid #000; background:#fff;"></lightning-icon>
+                        </div>
+                        <div class="slds-col slds-size_7-of-12">
+                            <button class="slds-button slds-button_brand" style="float: right;" onclick={clearHandlder}
+                                disabled={isBtnDisabled} title="clear related record">Error log <lightning-icon
+                                    icon-name="utility:preview" alternative-text="preview" size="xx-small"
+                                    title="preview error log"
+                                    style="--sds-c-icon-color-foreground-default:#fff; padding:5px;"></lightning-icon>
+                            </button>
+                        </div>
+
+                        <!-- <div class="slds-col slds-size_2-of-12">
+                            <lightning-icon icon-name="utility:down" alternative-text="filter" size="xx-small"
+                                onclick={handleDorpDown}
+                                style="padding:5px; border:1px solid #000; background:#fff; float:right;"
+                                title="apply filters on table"></lightning-icon>
+                        </div> -->
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slds-grid">
+            <div class="slds-col mainBody">
+                <template if:true={records}>
+                        <div class="recordTable">
+                            <lightning-datatable data={records} columns={columns} key-field="Id" sorted-by={sortBy}
+                                sorted-direction={sortDirection} onsort={doSorting} draft-values={draftValues} 
+                                onsave={handleSave} onrowaction={handleRowAction} hide-checkbox-column="true">
+                            </lightning-datatable>
+                        </div>
+                </template>
+
+            <template if:true={isChildRecord}>
+                <h1 class="headerRelatedName">
+                    Related : 
+                </h1>
+                <template if:true={relatedDataTable} for:each={relatedDataTable} for:item="iterateRelatedData">
+                    <!-- <h1 class="relatedObjectName" key={iterateRelatedData}>
+                        {iterateRelatedData.objectName}
+                    </h1> -->
+
+                    <h1 class="" key={iterateRelatedData} style="margin-top:10px; font-weight: 700; font-size: 1rem;  padding-left: 2.5%; padding-top: 1.5%; background: #f3f3f3; border: 2px solid #d7d2d2; border-radius: 3px;  padding: 1%;">
+                        <lightning-icon icon-name={iterateRelatedData.icon} alternative-text={iterateRelatedData.objectName}
+                            size='medium'></lightning-icon> {iterateRelatedData.objectName} ({iterateRelatedData.count})
+                    </h1>
+                     <template if:true={iterateRelatedData.total}>
+                        <div class="recordTable" key={iterateRelatedData}>
+                            <lightning-datatable data={iterateRelatedData.data} columns={iterateRelatedData.column} key-field="Id" sorted-by={sortBy}
+                                draft-values={draftValuesChildRecord}
+                                onsave={handleChildSave} onrowaction={handleRowAction} hide-checkbox-column="true">
+                            </lightning-datatable>
+                        </div>
+                     </template>                   
+                </template>
+            </template>
+
+                <!-- <template if:true={isChildTable}>
+                    <div class="slds-grid childHeader">
+                        <div class="slds-col slds-size_5-of-12"></div>
+                        <div class="slds-col slds-size_2-of-12">
+                            <div class="slds-grid" style=" border-bottom:4px solid #eeeaea;">
+                                <div class="slds-col slds-size_5-of-12">
+                                    <h1 style="font-size: 1rem; display:inline-block;">
+                                        <b>{objectApiName}</b>
+                                    </h1>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12">
+                                    <span><b>|</b></span>
+                                </div>
+                                <div class="slds-col slds-size_5-of-12">
+                                    <h1 style="font-size: 1rem; display:inline-block;">
+                                        <b>{sObjectAPIName}</b>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_5-of-12"></div>
+
+                    </div>
+
+                    <div class="slds-grid child`    `                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   6Header">
+                        <div class="slds-col slds-size_5-of-12"></div>
+                        <div class="slds-col slds-size_2-of-12">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_5-of-12">
+                                    <h1 style="font-size: 1rem;">
+                                        {parentRecordName}
+                                    </h1>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12">
+                                    <span><b>|</b></span>
+                                </div>
+                                <div class="slds-col slds-size_5-of-12">
+                                    <h1 style="font-size: 1rem;">
+                                        {childRecordName}
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_5-of-12"></div>
+                    </div>
+                    <br>
+                    <h1 style="font-size: 1rem; padding:10px; background:rgb(243, 243, 243); text-align:center;">
+                        <b>{childObjectSelected}</b>
+                    </h1>
+                    <br>
+                    <div class="childRecordTable">
+                        <lightning-datatable data={childrecords} columns={childColumnList} key-field="Id"
+                            sorted-by={sortBy} sorted-direction={sortDirection} onsort={doSorting}
+                            draft-values={draftValuesChildRecord} onsave={handleChildSave} style="overflow-x:hidden;"
+                            hide-checkbox-column="true"> </lightning-datatable>
+                    </div>
+                </template> -->
+                <template if:true={illustractionTrue}>
+                    <c-no-data></c-no-data>
+                </template>
+                
+                <template if:true={error}>
+                    {error}
+                </template>
+
+            </div>
+
+            
+            <!-- <template if:true={isDropDown}>
+                <div class="dropDownDiv">
+                    <div class="slds-grid" style="padding: 5px; font-size:0.8rem; " onclick={handleAsc}>
+                        <template if:true={isASC}>
+                            <lightning-icon icon-name="utility:success" alternative-text="filter" size="x-small"
+                                style="--sds-c-icon-color-foreground-default: blue;"></lightning-icon>
+                        </template>
+                        &nbsp; <h1>Acending</h1>
+                    </div>
+                    <div class="slds-grid" style="padding:5px; font-size:0.8rem; border-bottom:1px solid #d8cdcd; "
+                        onclick={handleDesc}>
+                        <template if:true={isDESC}><lightning-icon icon-name="utility:success" alternative-text="filter"
+                                size="xx-small" style="--sds-c-icon-color-foreground-default: blue;"></lightning-icon>
+                        </template>
+                        &nbsp; <h1>Decending</h1>
+                    </div>
+                    <div class="slds-grid" style="padding:5px; font-size:0.8rem; " onclick={handleCreatedDate}>
+                        <template if:true={isCreatedDate}>
+                            <lightning-icon icon-name="utility:success" alternative-text="filter" size="xx-small"
+                                style="--sds-c-icon-color-foreground-default: blue;"></lightning-icon>
+                        </template>
+                        &nbsp; <h1>CreatedDate</h1>
+                    </div>
+                    <template if:true={isNotAscDesc}>
+                        <div class="slds-grid" style="padding:5px; font-size:0.8rem;">
+                            <lightning-input type="date" label="Created Date"
+                                onchange={dateTimeChangeHandler}></lightning-input>
+                        </div>
+                    </template>
+                    <div class="slds-grid" style="padding: 5px; font-size:0.8rem; border-bottom:1px solid #d8cdcd;"
+                        onclick={handleLastModifedDate}>
+                        <template if:true={isLastModify}>
+                            <lightning-icon icon-name="utility:success" alternative-text="filter" size="xx-small"
+                                style="--sds-c-icon-color-foreground-default: blue;"></lightning-icon>
+                        </template>
+                        &nbsp; <h1>LastModifiedById</h1>
+                    </div>
+                    <div class="slds-grid" style="padding: 5px; font-size:0.8rem; border-bottom:1px solid #d8cdcd; "
+                        onclick={handleChildReletedObject}>
+                        <h1>Child Related Object</h1>
+                    </div>
+                </div>
+            </template> -->
+        </div>
+    </div>
+</template>

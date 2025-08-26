@@ -1,0 +1,125 @@
+<template>
+<lightning-card title="CreateCV" icon-name="custom:custom15" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+<div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">Name :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={name} onchange={changeHandler} placeholder="Please Enter Your Name"></lightning-input>
+</div>
+</div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">Age :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={age} onchange={changeHandler} placeholder="Please Enter Your Age"></lightning-input>
+</div>
+</div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">Email :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={email}  placeholder="Please Enter Your Email"></lightning-input>
+</div>
+</div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">DOB :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={dob} onchange={changeHandler} placeholder="Please Enter Your DOB"></lightning-input>
+</div>
+</div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">Address :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={name} onchange={changeHandler} placeholder="Please Enter Your Address"></lightning-input>
+</div>
+</div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">Objective :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={objective} onchange={changeHandler} placeholder="Please Enter Your Objecctive"></lightning-input>
+</div>
+</div>
+<div class="slds-grid slds-gutters">    
+<div class="slds-col slds-size_2-of-12">
+    <h5 class="slds-text-align_center" style="font-size:15px; margin-top:15px;">Work Experience :</h5>
+</div>
+<div class="slds-col slds-size_10-of-12">
+    <lightning-input value={workEx} onchange={changeHandler} placeholder="Please Enter Your Work Experience"></lightning-input>
+</div>
+</div>
+</div>
+<div style="float:right;">
+    <button class="slds-button slds-button_success" style="float:right; color:#fff; padding:0px 40px; margin-right:10px;" onclick={clearRecord}>Clear</button>
+    <button class="slds-button slds-button_success" style="float:right; color:#fff; padding:0px 40px;" onclick={insertRecord}>Submit</button>
+</div>
+</lightning-card>
+
+<!-- <lightning-card title="Your CV" icon-name="custom:custom14"> -->
+    <div>
+
+<div class="" style="height:110px;background-color:#a8abb2; width:100%;">
+<div style="float:left;"><h2> <b>Name</b> </h2><br><h4 style="color:#fff; font-size:2rem;">Vivek Kumar Saurabh</h4></div> 
+<div style="float:right; border-radius:100px; border:4px solid red; height:110px; width:110px;"> <img src={logo} height="100%" width="100%" style="border-radius:100%;" alt=""></div> 
+</div>  
+<div style="width:100%;">    
+<div class="slds-grid slds-gutters" style="width:100%;"> 
+    <div class="slds-col slds-size_2-of-12" style="background-color: aqua; height:500px; margin-left:9px;">          
+        <div class="slds-grid slds-gutters" style="width:100%;"> 
+          <div  class="slds-col slds-size_4-of-12">
+            Age :
+          </div>
+        <div  class="slds-col slds-size_8-of-12">
+        22 Years
+        </div>
+        </div>
+        <br>
+        <div class="slds-grid slds-gutters"> 
+        <div  class="slds-col slds-size_4-of-12">
+        DOB :
+        </div>
+        <div  class="slds-col slds-size_8-of-12">
+        28 November 2010
+        </div>
+        </div>
+        <br>
+        <div class="slds-grid slds-gutters"> 
+        <div  class="slds-col slds-size_4-of-12">
+        Email :
+        </div>
+        <div  class="slds-col slds-size_8-of-12">
+        vivek@gmail.com
+        </div>
+        </div>
+        <br>
+        <div class="slds-grid slds-gutters">        
+        <div  class="slds-col slds-size_4-of-12">
+        Address :
+        </div>
+        <div  class="slds-col slds-size_8-of-12">
+        Sector 100 , Noida , Uttar Pradesh
+        </div>
+        </div>
+    </div>                  
+    <div class="slds-col slds-size_10-of-12" style="background-color: blanchedalmond; height:500px;">
+        <div class="slds-grid slds-gutters">  
+            <div> <h2>Objective</h2></div>      
+           <br><br>
+            <div><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error enim, odit ullam ut ipsa mollitia harum porro. Possimus nam, ratione impedit debitis non obcaecati? Alias maxime, repellat veritatis vitae ipsam blanditiis aut ex explicabo dolorum? Tempore provident praesentium facilis corrupti aliquid sint numquam officiis, ullam, amet earum quae pariatur quaerat quos obcaecati ducimus reiciendis est non exercitationem impedit possimus? Veniam esse nobis minima illo, at excepturi dolorum, nihil explicabo cum veritatis reiciendis pariatur in mollitia amet necessitatibus eius? Placeat maiores rem amet sapiente ipsam. Exercitationem voluptatibus dignissimos quas, debitis qui obcaecati iure aliquam ipsam harum. Rerum temporibus sit alias. Sed!</p></div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- </lightning-card> -->
+</div>
+</template>

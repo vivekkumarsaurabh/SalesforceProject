@@ -1,0 +1,99 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+        </lightning-spinner>
+    </template>
+    <template if:true={isPreviewModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-transition-show modalView">
+            <div class="slds-modal__container">
+                <lightning-icon class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse iconHover" icon-name="utility:close" alternative-text="preview" size="x-large" style="--sds-c-icon-color-foreground-default:#fff;"  onclick={isclosdModal}></lightning-icon>      
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="overflow: hidden; margin:auto;object-fit: contain;">
+                    <!-- <div style="height: 500px;  width:500px; margin:0px; padding:0px;">
+                        <img src={previewUrl} alt="no Image" height="100%" width="100%" class="img" style="margin:0px; padding:0px; transition-delay:2s;"> 
+                    </div>  -->                                   
+                    <template if:true={isCrousel}>
+                        <div class="slds-is-relative container" style="height: 500px; width: 500px;">
+                            <template for:each={slidesData} for:item="slide">
+                                <a href={slide.link} key={slide.index} class={slide.slideClass} onmouseover={handleMouseOver}
+                                onmouseout={handleMouseOut}>
+                              <!-- <div key={slide.index} class={slide.slideClass} > -->
+                                <img src={slide.image} alt="" height="100%" width="100%"/>   
+                               
+                              <!-- </div> -->
+                                                             
+                            </a>
+                            <!-- <div key={slide.link}>
+                                 {slide.image}
+                            </div> -->
+                           </template> 
+                           <a if:false={hideNavigationButtons} class="prev" onclick={slideBackward}>&#10094;</a>
+                           <a if:false={hideNavigationButtons} class="next" onclick={slideForward}>&#10095;</a>                      
+                      </div>
+                
+                    <div if:false={hideNavigationDots} class="slds-text-align_center slds-p-around_medium">
+                        <template for:each={slidesData} for:item="slide">
+                            <span key={slide.index} class={slide.dotClass} data-id={slide.index} onclick={showSlide}></span>
+                        </template>
+                    </div>
+                </template>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template> 
+<article class="slds-card" title="Mini Gallery">
+    <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__figure">
+                <lightning-icon class="iconHover" icon-name="utility:image" data-id={recordId} alternative-text="preview" size="x-large" style="--sds-c-icon-color-foreground-default:blue;"></lightning-icon>
+            </div>
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title"> Mini Gallery </h2>
+            </div>                             
+        </header>            
+    </div>
+    
+    <div class="slds-grid">
+        <div class="slds-col slds-size_2-of-12" style="background-color: rgb(79, 79, 79); height:700px;">                
+            <img src={avtarUrl} alt="no Image" class="imgAvtar">                
+            <h4 class="heading">Vivek Kumar Saurabh</h4>
+            <lightning-input  type="search" value={searchObjValue} class="seacrhBox" onchange={searchObjHandler} placeholder="Seach Objects"> </lightning-input> 
+            <div class="objBox">
+                <template for:each={sObjectList} for:item="iterateObj">
+                    <p key={iterateObj.label} onclick={objHandler} class="objList" data-id={iterateObj.value}>{iterateObj.label}</p>       
+                </template>
+            </div>
+            <template if:true={isRecordsBox}>
+                <lightning-input  type="search" value={searchRecValue} class="seacrhBox" onchange={searchRecHandler} placeholder="Seach Records"> </lightning-input> 
+                <div class="objBox">
+                    <template for:each={recordList} for:item="iterateRec">
+                        <p key={iterateRec.id} onclick={recHandler} class="objList" data-id={iterateRec.id}>{iterateRec.name}</p>       
+                    </template>
+                </div>
+            </template>
+        </div>
+        <div class="slds-col slds-size_10-of-12" style="background-color: #fae9e9; height:700px;">
+            <template if:true={isGallery}>
+                <div style="margin:auto;">
+                    <div class="slds-grid slds-wrap">                                                       
+                        <template for:each={imageUrl} for:item="iteratUrl">                    
+                            <div  class="slds-col slds-size_4-of-12" key={iteratUrl} style="height: 190px; width: 190px; margin:5px;"> 
+                                <img src={iteratUrl.image} alt="no Image" class="img" onclick={previewModal} data-id={iteratUrl.image}>                        
+                            </div>               
+                        </template>                
+                    </div> 
+                </div>  
+            </template>
+            <template if:true={isIllustractionTrue}>
+                <div class="noData">
+                    <c-no-data></c-no-data>
+                </div>
+                
+            </template>                
+            
+        </div>
+    </div>   
+    
+</article>
+</template>

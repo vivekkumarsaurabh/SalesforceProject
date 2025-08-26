@@ -1,0 +1,25 @@
+*{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+}
+
+.iconHoverView:hover{
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default : green; 
+}
+
+.iconHoverEdit:hover{
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default : blue; 
+}
+
+.iconHoverDel:hover{
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default : red; 
+}
+
+.hide:hover{
+  background-color:red;
+  color: #fff;
+  cursor: pointer;
+}

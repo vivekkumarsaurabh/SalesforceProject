@@ -1,0 +1,263 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="loader">
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="background: none;">
+            </lightning-spinner>
+        </div>
+    </template>
+
+    <div>
+        <template if:true={isChildObjectList}>
+            <div class="header">
+                <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                    SObject Selection
+                </h1>
+            </div>
+        </template>  
+        <div class="mergeContainer"> 
+            <template if:true={isChildObjectList}>
+                <div class="childObjectCombo">
+                    <lightning-combobox name="childObject" label="Select Child Object" value={childObjectSelected}
+                        placeholder="Child Object" options={childObjectList} onchange={handleSelectChildObject}
+                        class="comboChildObject"></lightning-combobox>
+                </div>
+            </template>
+
+            <template if:true={isIllustration}>
+                <div class="header">
+                    <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                        Choose Fields for Merged Record
+                    </h1>
+                </div>
+                <div class="noData" style="padding: 0;">
+                    <c-no-data></c-no-data>
+                </div>
+            </template>
+
+            <template if:true={isOpportunitySelected}>
+                <div class="header">
+                    <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                        Merge the {childObjectSelected} Records
+                    </h1>
+                </div>
+                <div class="selectedCHildObjectRecord">
+                    <lightning-checkbox-group name="Checkbox Group" label={childObjectSelected}
+                        options={opportunityList} value={opportunitySelected}
+                        onchange={handleOpportunity}></lightning-checkbox-group>
+                </div>
+            </template>
+
+            <template if:true={isShowOpportunityValue}>
+                <div class="header">
+                    <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                        Choose Fields for Merge Record
+                    </h1>
+                </div>
+                <div class="tableDesign">
+                    <table style="padding: 5px;">
+                        <thead>
+                            <tr class="tableMainRow">
+                                <th>
+                                    Record Fields
+                                </th>
+                                <th colspan={rowSpan}>
+                                    Records
+                                </th>
+                            </tr>
+                            <tr class="tableRow">
+                                <th>
+                                    Fields
+                                </th>
+                                <template for:each={selectedRecords} for:item="iteratefield">
+                                    <th key={iteratefield}>
+                                        {iteratefield.recordName}
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={fieldsValueWrapper} for:item="iterateItem">
+                                <tr key={iterateItem} class="data">
+                                    <td class={iterateItem.fieldApiName}>
+                                        <template if:true={iterateItem.reqField}>
+                                         <span style="color:red;">*</span> {iterateItem.fieldName}
+                                        </template>
+                                        <template if:false={iterateItem.reqField}>
+                                            {iterateItem.fieldName}
+                                        </template>
+                                     
+                                    </td>
+                                    <template for:each={iterateItem.fieldValues} for:item="iterateValue">
+                                        <td key={iterateValue}>
+                                            <input type="radio" name={iterateItem.fieldApiName} value={iterateValue}
+                                                id={iterateValue} style="margin-right: 5px;" onchange={changeHandler}>
+                                            <label class="slds-radio_button__label" for={iterateValue}>
+                                                <span class="slds-radio_faux">{iterateValue}</span>
+                                            </label>                                          
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>              
+            </template>
+            <template if:true={isFinalRecord}>
+                <div class="header">
+                    <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                        Field Summary Table for Merge Record
+                    </h1>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_6-of-12" style="padding: 5px;">                 
+                         <lightning-input type="text" label="Enter New Record Name" style="width:70%; outline:none;"  pattern="^[a-zA-Z_ ]+$"
+                         class="validateCon" maxlength="100" message-when-pattern-mismatch="Please enter valid name like John Deo"
+                         required onchange={nameHandler}> </lightning-input>
+                    </div>
+                    <div class=" slds-col slds-size_6-of-12 checkboxClass">
+                        <lightning-checkbox-group name="Checkbox Group" options={askingDelete}
+                            value={askingDeletingValues} style="padding:5px;" onchange={handleAsking}></lightning-checkbox-group>
+                    </div>
+                </div>
+                <div class="fieldValue">
+                    <table class="fieldValueTable" style="padding: 5px;">
+                        <thead>                           
+                            <tr class="tableRow">
+                                <th>
+                                    Fields
+                                </th>
+                                <th>
+                                   Values
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={finalMergeRecord} for:item="iterateFinalRecord">
+                                <tr key={iterateFinalRecord} class="data">
+                                    <td>
+                                        {iterateFinalRecord.key}
+                                    </td>
+                                    <td>
+                                        {iterateFinalRecord.value}
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+               
+               
+            </template>
+
+            <template if:true={isMergeChildObject}>
+                <div class="header">
+                    <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                        Merge child Object Records
+                    </h1>
+                </div>
+                <div class="tableDesign">
+                    <table style="padding: 5px;">
+                        <thead>
+                            <tr class="tableMainRow">
+                                <th>
+                                    Objects
+                                </th>
+                                <th colspan={rowSpan}>
+                                    Records
+                                </th>
+                            </tr>
+
+                            <tr class="tableRow">
+                                <th>
+                                    Child Object
+                                </th>
+                                <template for:each={selectedRecords} for:item="iteratefield">
+                                    <th key={iteratefield}>
+                                        {iteratefield.recordName}
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={mergeCHildObjectRecords} for:item="iterateMergeRecord">
+                                <tr key={iterateMergeRecord}>
+                                    <td>
+                                        {iterateMergeRecord.childObjectName}
+                                    </td>
+                                    <template for:each={iterateMergeRecord.recordWrapper}
+                                        for:item="iterateInnerWrapper">
+                                        <td key={iterateInnerWrapper}>
+                                            {iterateInnerWrapper.records}
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:true={isDeleteRecord}>
+                <div class="header">
+                    <h1 style="text-align: center; font-size:1.2rem; font-weight:600;">
+                        Delete {childObjectSelected} Record
+                    </h1>
+                </div>
+                <div class="selectedCHildObjectRecord">
+                    <lightning-checkbox-group name="Checkbox Group" label={DeletedRecord} options={deleteRecordList}
+                        value={deletedRecordSelected} onchange={handleDeleted}></lightning-checkbox-group>
+                </div>
+            </template>
+
+        </div>
+
+        <div class="footer">
+            <template if:true={isIllustration}>                
+                <lightning-button variant="brand" label="Back" title="Back" onclick={handleBack}
+                class="slds-m-left_x-small btn"></lightning-button>
+            </template>
+            <template if:true={isOpportunitySelected}>
+                <lightning-button variant="brand" label="Next" title="Next" onclick={handleContinue}
+                    class="slds-m-left_x-small btn" disabled={isDisableButton}></lightning-button>
+                <lightning-button variant="brand" label="Previous" title="Previous" onclick={handlePrevious}
+                    class="slds-m-left_x-small btn"></lightning-button>
+            </template>
+            <template if:true={isShowOpportunityValue}>
+                    <lightning-button variant="brand" label="Next" title="Next" onclick={handlefinalValueSObject}
+                        class="slds-m-left_x-small btn"></lightning-button>
+                    <lightning-button variant="brand" label="Previous" title="Previous" onclick={handlePrevious}
+                        class="slds-m-left_x-small btn"></lightning-button> 
+            </template>
+
+            <template if:true={isFinalRecord}>                               
+                <template if:true={isFinishButton}>
+                    <lightning-button variant="brand" label="Finish" title="Finish" onclick={handlefinishBtn}
+                        class="slds-m-left_x-small btn"></lightning-button>
+                </template>
+                <template if:false={isFinishButton}>
+                    <lightning-button variant="brand" label="Next" title="Next" onclick={handleFinalRecord}
+                        class="slds-m-left_x-small btn"></lightning-button>
+                    <lightning-button variant="brand" label="Previous" title="Previous" onclick={handlePrevious}
+                        class="slds-m-left_x-small btn"></lightning-button>
+                </template>
+            </template>
+
+            <template if:true={isMergeChildObject}>
+                <template if:true={isFinishButton}>
+                    <lightning-button variant="brand" label="Finish" title="Finish" onclick={handlefinishBtn}
+                        class="slds-m-left_x-small btn"></lightning-button>
+                </template>
+                <template if:false={isFinishButton}>
+                    <lightning-button variant="brand" label="Next" title="Next" onclick={handleNextChildObjectRecord}
+                        class="slds-m-left_x-small btn"></lightning-button>
+                </template>
+
+            </template>
+            
+            <template if:true={isDeleteRecord}>
+                <lightning-button variant="brand" label="Confirm" title="Confirm"
+                    onclick={handleDeletedNext} class="slds-m-left_x-small btn"></lightning-button>
+            </template>
+        </div>
+    </div>
+</template>

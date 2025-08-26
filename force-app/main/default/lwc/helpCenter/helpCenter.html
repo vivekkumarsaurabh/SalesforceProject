@@ -1,0 +1,113 @@
+<template>
+
+<div style="height:50%; width:80%; margin:auto;">
+    <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_6-of-12" style="margin: auto;">
+            <h1 style="font-size: 1.2rem;">
+                Help center
+            </h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio aut fugit rem tempora itaque
+                adipisci autem dolore blanditiis totam.
+            </p>
+        </div>
+        <div class="slds-col slds-size_6-of-12">
+
+            <!-- 
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"> -->
+
+
+            <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00D5j00000BbOMC"
+                method="POST">
+
+                <input type=hidden name="orgid" value="00D5j00000BbOMC">
+                <input type=hidden name="retURL"
+                    value="https://algocirruspvtltd-6d-dev-ed.develop.my.site.com/HelpCenter/s">
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="name">Contact Name</label></div>
+                    <div class="slds-col slds-size_9-of-12"><input id="name" maxlength="80" name="name" size="20"
+                            type="text" /></div>
+                </div>
+
+
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="email">Email</label></div>
+                    <div class="slds-col slds-size_9-of-12"> <input id="email" maxlength="80" name="email" size="20"
+                            type="text" /></div>
+                </div>
+
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="phone">Phone</label></div>
+                    <div class="slds-col slds-size_9-of-12"><input id="phone" maxlength="40" name="phone" size="20"
+                            type="text" /></div>
+                </div>
+
+
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="subject">Subject</label></div>
+                    <div class="slds-col slds-size_9-of-12"><input id="subject" maxlength="80" name="subject" size="20"
+                            type="text" /></div>
+                </div>
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="status">Status</label></div>
+                    <div class="slds-col slds-size_9-of-12"> <select id="status" name="status">
+                            <option value="">--None--</option>
+                            <option value="New">New</option>
+                            <option value="Working">Working</option>
+                            <option value="Escalated">Escalated</option>
+                            <option value="Closed">Closed</option>
+                        </select></div>
+                </div>
+
+
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="priority">Priority</label></div>
+                    <div class="slds-col slds-size_9-of-12"> <select id="priority" name="priority">
+                            <option value="">--None--</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select></div>
+                </div>
+
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="reason">Case Reason</label></div>
+                    <div class="slds-col slds-size_9-of-12"> <select id="reason" name="reason">
+                            <option value="">--None--</option>
+                            <option value="Installation">Installation</option>
+                            <option value="Equipment Complexity">Equipment Complexity</option>
+                            <option value="Performance">Performance</option>
+                            <option value="Breakdown">Breakdown</option>
+                            <option value="Equipment Design">Equipment Design</option>
+                            <option value="Feedback">Feedback</option>
+                            <option value="Other">Other</option>
+                        </select></div>
+                </div>
+
+
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_3-of-12"> <label for="description">Description</label></div>
+                    <div class="slds-col slds-size_9-of-12"> <textarea name="description" cols="50" rows="6"></textarea></div>
+                </div>
+
+
+                <input type="hidden" id="external" name="external" value="1" /><br>
+                <button class="slds-button slds-button_brand" type="submit" style="padding:4px 70px;"  name="submit">Submit</button>
+
+                <!-- <input class="btn" type="submit" name="submit"> -->
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+</template>

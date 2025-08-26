@@ -1,0 +1,14 @@
+<template>
+    <div class="mainDiv" style="height:100%">
+        <div class="header"> 
+         <h1 class="headerName">
+             <span><lightning-icon icon-name={icon} alternative-text='account' size='small'></lightning-icon></span>  {objLabelName} History
+         </h1> 
+        </div>
+      <tempalete if:true={records}>            
+     <lightning-datatable 
+         data={records} columns={columns} key-field="Id"   hide-checkbox-column="false" style="width:100%;">                
+     </lightning-datatable> 
+     </tempalete> 
+ </div>
+</template>

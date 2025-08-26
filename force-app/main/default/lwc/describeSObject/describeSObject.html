@@ -1,0 +1,48 @@
+<template>    
+        <lightning-card> 
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                </lightning-spinner>
+            </template>
+                        
+           
+                <div class="slds-var-m-around_medium">                 
+                    <lightning-combobox  value={value} options={detailsObject} onchange={handleObject}></lightning-combobox>                      
+                </div>
+           
+            <template if:true={isRecordType}> 
+                <div class="slds-var-m-around_medium">            
+                    <lightning-combobox  value={value} options={detailRecordType} onchange={handleRecordType}></lightning-combobox>                      
+                </div>  
+            </template>  
+            <template if:true={isLayout}> 
+                <div class="slds-var-m-around_medium">            
+                    <lightning-combobox  value={value} options={detailsLayout} onchange={handleLayout}></lightning-combobox>                      
+                </div>             
+            </template> 
+        </lightning-card>
+        <br>
+        <br>    
+        <lightning-accordion allow-multiple-sections-open active-section-name={activeSections} >
+            <template if:true={ispageLayoutFields} for:each={layoutInformation} for:item="iterateSection">            
+                <lightning-accordion-section name={iterateSection.sectionName} key={iterateSection} class="sec" label={iterateSection.sectionName}>               
+                    <div class="slds-grid slds-gutters box" style="margin-bottom:10px">
+                        <template for:each={iterateSection.columns} for:item="iterateCol">    
+                            <div class="slds-col slds-size_5-of-12" key={iterateCol}>                          
+                                <template for:each={iterateCol.fields} for:item="iterateField">
+                                    <h4 key={iterateField} style="margin-left:15px; padding-left:0px;">   <template if:true={iterateField.req}>
+                                        <span style="color:red; padding-right:3px; ">*</span>                               
+                                    </template>{iterateField.name}</h4>
+                                </template>
+                            </div> 
+                        </template>
+                    </div> 
+                 
+                </lightning-accordion-section>                                 
+            </template>    
+            <br> 
+            <br>    
+        </lightning-accordion>
+        
+    
+</template>

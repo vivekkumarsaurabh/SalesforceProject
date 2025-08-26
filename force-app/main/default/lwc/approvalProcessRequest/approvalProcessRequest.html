@@ -1,0 +1,38 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="loader">
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large"
+                style="background: none; top:100%;">
+            </lightning-spinner>
+        </div>
+    </template>
+    <div class="mainDiv" style="height:100%">
+        <div class="header">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_4-of-12">
+                    <h1 class="headerName">
+                        <span><lightning-icon icon-name="custom:custom84" alternative-text='Approval Request Icon'
+                                size='medium'></lightning-icon></span>
+                        &nbsp;
+                        Items to Approve
+                    </h1>
+                </div>
+                <div class="slds-col slds-size_4-of-12"></div>
+                <div class="slds-col slds-size_4-of-12">
+                    <button class="slds-button slds-button_neutral" onclick={rejectHandler} style=" float: right; margin: 10px;" disabled={isBtnDisabled}
+                    title="Approve All Request">{rejectLabel}</button>
+                    <button class="slds-button  slds-button_brand" onclick={approveHandler} style=" float: right; margin: 10px;" disabled={isBtnDisabled}
+                    title="Approve All Request">{approveLabel}</button>                   
+                </div>
+            </div>     
+        </div>
+        <template if:true={data}>
+            <lightning-datatable data={data} columns={columns} sorted-by={sortBy} sorted-direction={sortDirection}
+                onsort={doSorting} key-field="Id" onrowselection={getSelectedName}>
+            </lightning-datatable>
+        </template>
+        <template if:false={data}>
+            <c-no-data></c-no-data>
+        </template>
+    </div>
+</template>

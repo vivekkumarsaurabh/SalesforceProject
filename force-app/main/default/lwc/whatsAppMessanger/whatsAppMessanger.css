@@ -1,0 +1,156 @@
+body::-webkit-scrollbar{
+display: none;
+}
+
+.user{
+    height: 60px;
+    background-color:#fff;
+    color:#000;
+    border-bottom:1px solid #000;
+}
+
+.user:hover{
+    cursor: pointer;
+}
+
+.chatMsg{
+   background: url("https://i.ibb.co/3s1f9Jq/default-wallpaper.png") repeat;
+   height: 45vh;
+   overflow-y: auto;
+   overflow-x: hidden;  
+}
+
+.chatMsg::-webkit-scrollbar {
+    display: none;
+}
+
+
+.send{
+    background: url("https://i.ibb.co/3s1f9Jq/default-wallpaper.png") repeat;
+   height: 6vh;
+   overflow: hidden;
+}
+
+.message {
+    color: #000;
+    clear: both;
+    line-height: 18px;
+    font-size: 15px;
+    padding: 8px;
+    position: relative;
+    margin: 8px 0;
+    max-width: 85%;
+    word-wrap: break-word;
+}
+
+.message:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.message.received {
+    background: #fff;
+    border-radius: 0px 5px 5px 5px;
+    float: left;
+    margin-left: 9px;
+}
+
+.message.received .metadata {
+    padding: 0 0 0 16px;
+}
+
+
+.message.received:after {
+    border-width: 0px 10px 10px 0;
+    border-color: transparent #fff transparent transparent;
+    top: 0;
+    left: -10px;
+}
+
+.message.sent {
+    background: #e1ffc7;
+    border-radius: 5px 0px 5px 5px;
+    float: right;
+    margin-right: 10px;
+}
+
+.message.sent:after {
+    border-width: 0px 0 10px 10px;
+    border-color: transparent transparent transparent #e1ffc7;
+    top: 0;
+    right: -10px;
+}
+
+.msgDate{
+    text-align: center;
+    background-color: #dae8f5;
+    color: #000;
+    width: max-content;
+    padding: 1px;
+    left: 40%;
+    position: relative;
+    line-height: 23px;
+    border-radius: 15px;
+    clear: both;
+}
+
+.msgTime{
+    bottom: -4px;
+    position: relative;
+    font-size: small;
+    color: gray;
+  
+}
+
+.userList{
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 5px;
+}
+
+.userList::-webkit-scrollbar {
+    display: none;
+}
+
+.deliveredMsg{
+    --sds-c-icon-color-foreground-default:gray; 
+    position: absolute; 
+    float: right;
+    right: 2px;
+    display: flex; 
+    bottom: 5px;
+}
+
+.sentMsg{
+    position:relative;
+    float:right; 
+    top: 3px;
+   --sds-c-icon-color-foreground-default:gray;
+}
+
+.readMsg{
+    --sds-c-icon-color-foreground-default:rgb(79 216 243); 
+    position: absolute; 
+    float: right;
+    right: 2px;
+    display: flex; 
+    bottom: 5px;
+}
+
+.hoverNewContact{
+    padding: 3%;
+}
+
+.hoverNewContact:hover{
+cursor: pointer;
+background-color: rgb(79 216 243);
+padding: 5%;
+color:#fff;
+}
+
+.iconHoverSend:hover{
+    cursor: pointer;
+}

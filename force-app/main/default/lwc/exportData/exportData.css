@@ -1,0 +1,16 @@
+.checkboxDiv{
+    width: 500px;    
+    padding: 1%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+
+.checkboxClass:hover{
+    cursor: pointer;
+   
+}
+
+.checkboxDiv::-webkit-scrollbar {
+    display: none; 
+}

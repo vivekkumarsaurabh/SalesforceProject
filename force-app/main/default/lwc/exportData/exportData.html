@@ -1,0 +1,53 @@
+<template>  
+
+        <!-- <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">                    
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Export Data</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                   
+
+                </div>               
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={cancelModal} title="Cancel">Cancel</button>
+                </footer>
+            </div>
+        </section>  -->
+
+        <div class="slds-grid" style="padding: 1%; width:500px;">
+            <div class="slds-col slds-size_3-of-12">
+                <h1 style="margin-top: 20%;">Select Object</h1>    
+            </div>
+            <div class="slds-col slds-size_9-of-12">                            
+                <lightning-combobox value={getcomboBoxValue} placeholder="Select Export Object" style="padding:0% 2%;"
+                    options={parentsObjectList} onchange={sObjectSelectHandler}></lightning-combobox>
+            </div>
+          
+        </div>
+        <template if:true={parentsObject}>
+            <h1>
+                choose your fields
+            </h1>
+            <div class="checkboxDiv">  
+                <lightning-checkbox-group name="Checkbox Group"  options={columnHeader}  class="checkboxClass" value={getAllSelectedList} onchange={fieldSelecthandler}></lightning-checkbox-group>
+            </div>
+            <div class="slds-grid" style="padding: 1%; width:500px;">
+                <div class="slds-col slds-size_4-of-12">
+                    <template if:false={isBtn}>
+                        <button class="slds-button slds-button_neutral" onclick={getAllFieldSelect}  title="select field" >Select All</button>  
+                    </template>
+                    <template if:true={isBtn}>
+                        <button class="slds-button slds-button_neutral" onclick={getAllFieldDeselect}  title="select field" >Deselect All</button>  
+                    </template>
+                </div>
+                <div class="slds-col slds-size_4-of-12"></div>
+                <div class="slds-col slds-size_4-of-12">
+                    <button class="slds-button slds-button_brand" onclick={getAllDataHandler} title="Cancel" disabled={isDisable}>Download Csv</button>
+                </div>
+    
+            </div>
+        </template>
+       
+
+</template>

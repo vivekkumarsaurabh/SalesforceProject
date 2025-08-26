@@ -1,0 +1,132 @@
+@font-face {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+    src:url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+}
+
+*{
+    font-family: "Roboto Condensed", sans-serif;    
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+table{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  
+}
+.checkboxClass .slds-form-element__legend .slds-form-element__control{
+    display: -webkit-box;
+    display: flex !important; 
+}
+
+.checkboxClass{
+display: flex;
+justify-content: center;
+padding: 5px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tbody tr:hover {background-color: #ddd;}
+
+.header {
+    padding-top: 2vh;
+    border-top-right-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+    height: 55px;
+    border-bottom: 2px solid #c9c9c9;
+}
+
+.mergeContainer {
+    position: relative;
+    max-height: 66vh;
+    overflow: hidden;
+}
+
+.tableDesign {
+    padding: 20px;
+}
+
+.fieldValue{
+    padding: 20px;
+    justify-content: center;
+    display: flex;
+}
+
+.childObjectCombo {
+    height: 50vh;
+    margin: 20px;
+}
+
+.comboChildObject {
+    padding-top: 20px;
+    width: 80%;
+    margin: auto;
+    font-size: 0.8rem;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.selectedCHildObjectRecord {
+    height: 25vh;
+    margin: 10px 50px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+
+}
+
+.checkBoxAsk .horizontal-checkbox-group{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.loader {
+    height: 18vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableRow {
+    background-color: #d9fcf8;
+
+}
+.fieldValueTable{
+    width:70%;
+}
+
+.tableRow th {
+    text-align: center;
+}
+
+.tableMainRow {
+    background: #3498db;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.tableMainRow th {
+    text-align: center;
+}
+
+.footer {
+    padding: 10px;
+    background-color: rgb(240, 240, 240);
+    height: 50px;
+}
+
+.footer .btn {
+    font-size: 0.8rem;
+    float: right;
+    padding: 0px 10px;
+}
