@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#66C7A8</headerColor>
+        <logo>pngwingcom</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <description>This is an app for reporting multiple reports present in the system.</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Report On Reports</label>
+    <navType>Standard</navType>
+    <tabs>ReportOnReports</tabs>
+    <tabs>Title__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>ReportsOnReport_UtilityBar</utilityBar>
+</CustomApplication>

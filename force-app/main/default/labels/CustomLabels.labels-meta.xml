@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>CronExpression</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CronExpression</shortDescription>
+        <value>0 58 23 * * ?</value>
+    </labels>
+    <labels>
+        <fullName>CustomIcon</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CustomIcon</shortDescription>
+        <value>custom:custom62</value>
+    </labels>
+    <labels>
+        <fullName>Error_Msg</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error Msg</shortDescription>
+        <value>This is not done</value>
+    </labels>
+    <labels>
+        <fullName>LastModify</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LastModify</shortDescription>
+        <value>LastModifiedById</value>
+    </labels>
+    <labels>
+        <fullName>MyOrg</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MyOrg</shortDescription>
+        <value>https://algocirruspvtltd-6d-dev-ed.develop.lightning.force.com/lightning/setup/SetupOneHome/home</value>
+    </labels>
+    <labels>
+        <fullName>Number_Label</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Number Label</shortDescription>
+        <value>12345678</value>
+    </labels>
+    <labels>
+        <fullName>ObjectHistoryEvent</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ObjectHistoryEvent</shortDescription>
+        <value>/event/ObjectHistory__e</value>
+    </labels>
+    <labels>
+        <fullName>Proflie</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Proflie</shortDescription>
+        <value>System Admin</value>
+    </labels>
+    <labels>
+        <fullName>QuoteTemplateId</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>QuoteTemplateId</shortDescription>
+        <value>3D0EHJ4000000Gmn7</value>
+    </labels>
+    <labels>
+        <fullName>StandardIcon</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StandardIcon</shortDescription>
+        <value>standard:</value>
+    </labels>
+    <labels>
+        <fullName>Time_Tracking_error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time Tracking error</shortDescription>
+        <value>On this date hour limit is more than 24</value>
+    </labels>
+    <labels>
+        <fullName>UserLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>UserLabel</shortDescription>
+        <value>userLink</value>
+    </labels>
+    <labels>
+        <fullName>WHATSAPPSECRET</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WHATSAPPSECRET</shortDescription>
+        <value>EAAPqTIZAzMlkBO8selsLmMpoCwdhWZAcs6ERrxCG4GnmnOO5d2QVHZBBwPGIbxh3ZAG8nstP3kA8JzHAv208grssZB72jdW2jklikntMfWVTZCwwSIjGHCMAaDxoKEsZAI4NlAxg8W9aX1EOtAMUc5LDmXGQjxyoiiZCmVLPC1Dieo3dMOwfQj39qfvCSTdhxMdiwZB7xCjv3B4F1csZCQeIkiRUSuEsMZD</value>
+    </labels>
+    <labels>
+        <fullName>manualShareGroupId</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>manualShareGroupId</shortDescription>
+        <value>00GJ4000000F28YMAS</value>
+    </labels>
+    <labels>
+        <fullName>nonSetupObject</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>nonSetupObject</shortDescription>
+        <value>Permission Set,permission set,queue,Group,Groups,profile,Permission set group,role,team</value>
+    </labels>
+    <labels>
+        <fullName>sObject_Printable_View_Label</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>sObject Printable View Label</shortDescription>
+        <value>Knowledge__kav</value>
+    </labels>
+    <labels>
+        <fullName>tabName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>tabName</shortDescription>
+        <value>ObjectHistoryTracking</value>
+    </labels>
+</CustomLabels>
