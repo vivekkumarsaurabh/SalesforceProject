@@ -1,0 +1,10 @@
+<apex:page standardStylesheets="true" showHeader="false" standardController="Account" recordSetVar="Accounts">
+<apex:includeLightning />    
+<div id="LwcId" />
+<script>
+        $Lightning.use("c:TESE", function() {
+        $Lightning.createComponent("c:reportsOfReport",{recordId : '{!$CurrentPage.parameters.id}'},"LwcId", function(cmp) {
+        });
+    });
+</script>
+</apex:page>

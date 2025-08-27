@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_a_reminder_to_the_renewal_manager_to_confirm_whether_the_client_wants_an_e</fullName>
+        <description>Email a reminder to the renewal manager to confirm whether the client wants an extension</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.kumar.saurabh@algocirrus.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/My_Email_Template</template>
+    </alerts>
+    <rules>
+        <fullName>Follow Up Before a Contract Expires</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Contract.Status</field>
+            <operation>equals</operation>
+            <value>Activated</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <offsetFromField>Contract.EndDate</offsetFromField>
+            <timeLength>-20</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>vivek.saurabh@algocirrus.com</email>
+    <name>New Queue</name>
+    <queueMembers>
+        <users>
+            <user>integration@00d5j00000bbomcea3.com</user>
+            <user>vivekkumarsaurabh59@gmail.com</user>
+            <user>vivek.210@gmail.com12345</user>
+            <user>vivek.kumar.saurabh@algocirrus.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>NewRoutingSKill</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>AHJ__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+</Queue>

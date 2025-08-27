@@ -1,0 +1,18 @@
+<apex:page controller="HistoryTrackingVFPageController" >
+    <apex:includeLightning />
+    <div id="auraContainer" />
+    <script>
+        $Lightning.use("c:myApp", function() {
+            $Lightning.createComponent(
+                "c:historyTracking",
+                 { recordId: "{!recordId}" },
+                 { objectName: "{!objectName}"},
+                {},
+                "auraContainer",
+                function(cmp) {
+                    console.log('Aura component created successfully');
+                }
+            );
+        });
+    </script>
+</apex:page>

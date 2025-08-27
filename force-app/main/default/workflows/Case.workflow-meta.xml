@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_a_feedback_request_to_the_case_contact</fullName>
+        <description>Email a feedback request to the case contact1</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.kumar.saurabh@algocirrus.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/My_Email_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_a_feedback_request_to_the_case_contact4</fullName>
+        <description>Email a feedback request to the case contact4</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.kumar.saurabh@algocirrus.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/My_Email_Template</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Request</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approve Request</literalValue>
+        <name>Approval Request</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ChangePriorityToHigh</fullName>
+        <field>Priority</field>
+        <literalValue>High</literalValue>
+        <name>Changes the case priority to high.</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pending_Request</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending Request</literalValue>
+        <name>Pending Request</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reject_Request</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Reject Reques</literalValue>
+        <name>Reject Request</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reject_Requests</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Reject Request</literalValue>
+        <name>Reject Request</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>When a Platinum Contract Case Closes</fullName>
+        <actions>
+            <name>Email_a_feedback_request_to_the_case_contact4</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Priority</field>
+            <operation>equals</operation>
+            <value>High</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_a_feedback_request_to_the_case_contact</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Case.ClosedDate</offsetFromField>
+            <timeLength>7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

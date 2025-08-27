@@ -1,0 +1,38 @@
+<apex:page standardController="Opportunity" recordSetVar="opportunities" tabStyle="Opportunity" extensions="OpportunityAccessController">
+   <apex:slds />
+    <apex:form >         
+    <apex:actionFunction name="validateUserProfile" action="{!validate}" oncomplete="handleResponse('{!validateProfileValue}')" rerender="form"/>
+    <apex:actionFunction name="backPage" action="{!backtoPage}" rerender="form"/>
+    <apex:actionFunction name="res" action="handleResponse('{!validateProfileValue}')" rerender="form"/>
+
+     <script type='text/javascript'>
+         window.onload = function() {             
+            validateUserProfile();
+        };
+        
+        function handleResponse(result) {
+            if (result === 'false') {
+                showToast();
+                backPage();
+            }
+        }  
+       
+         function showToast() {
+            sforce.one.showToast({
+                "title": "Attenzione",
+                "message": "You have no access for this button",
+                "type": "warning"
+            });
+           }
+
+    </script>
+        
+        <apex:pageBlock title="Edit Stage and Close Date" mode="edit">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="check" action="{!checkHandler}"/>
+                <apex:commandButton value="Cancel" action="{!cancelHandler}"/>
+            </apex:pageBlockButtons>               
+        </apex:pageBlock>
+    </apex:form>
+    </apex:page>

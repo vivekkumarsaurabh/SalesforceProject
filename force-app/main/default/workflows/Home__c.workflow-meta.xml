@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approved_Status</fullName>
+        <description>Approved Status</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.210@gmail.com12345</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vivekkumarsaurabh59@gmail.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Discount_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_After_Approved</fullName>
+        <description>Email After Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Discount_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_After_Reject</fullName>
+        <description>Email After Reject</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Discount_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert</fullName>
+        <description>Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.210@gmail.com12345</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vivekkumarsaurabh59@gmail.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Discount_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>NOT_Approved</fullName>
+        <description>NOT Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.210@gmail.com12345</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vivekkumarsaurabh59@gmail.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Discount_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Alert</fullName>
+        <description>New Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.210@gmail.com12345</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vivekkumarsaurabh59@gmail.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Approve_Opportunity_Discount</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Alert1</fullName>
+        <description>New Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>vivek.210@gmail.com12345</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vivekkumarsaurabh59@gmail.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Discount_Approved</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Status_Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Approval Status Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Approval Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Status_to_Not_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Not Approved</literalValue>
+        <name>Approval Status to Not Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Field_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Field Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Field_Not_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Not Approved</literalValue>
+        <name>Update Field Not Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>
