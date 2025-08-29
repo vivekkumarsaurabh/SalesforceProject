@@ -7,5 +7,5 @@ public without sharing  class A{
         public B(){
             method();   
         }
-    }
+    } 
 }
